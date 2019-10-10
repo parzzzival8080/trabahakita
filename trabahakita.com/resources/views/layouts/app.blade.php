@@ -10,7 +10,42 @@
  
 <body>
  
-        <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">TRABAHAKITA</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+              <a class="nav-link" href="/">HOME<span class="sr-only">(current)</span></a>
+              @if(auth()->check())
+              <li class="nav-item">
+                <a class="nav-link" href="/post">Posts</a>
+            </li>
+              <li class="nav-item">
+                <a class="nav-link font-weight-bold" href="/employee/profile">Hi {{ auth()->user()->name }}</a>
+            </li>
+           
+            <li class="nav-item">
+                <a class="nav-link" href="/logout">Log Out</a>
+            </li>
+              @else
+            
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/login">LOGIN</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">SIGNUP</a>
+          </li>
+          @endif
+          </ul>
+         
+        </div>
+      </nav>
+        {{-- <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
                         data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                         aria-label="Toggle navigation">
@@ -40,7 +75,7 @@
                         @endif
                     </ul>
                 </div>
-            </nav>
+            </nav> --}}
  
 <div class="container">
     @yield('content')

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Profile;
 use Illuminate\Support\Facades\Auth;
 
 class SessionController extends Controller
@@ -45,15 +46,20 @@ class SessionController extends Controller
                 'message' => 'The email or password is incorrect, please try again'
             ]);
         }
-        
         if(Auth::user()->type == 'admin')
         {
             return redirect()->to('/');
         }
         elseif (Auth::user()->type == 'employee')
         {
-            return 'it works';
+            
+            return redirect()->to('/employee/dashboard');
         }
+        elseif(Auth::user()->type == 'company')
+        {
+            return redirect()->to('/post');
+        }
+        
        
        
         

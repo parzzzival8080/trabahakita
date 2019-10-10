@@ -15,7 +15,6 @@
             <label for="password">Password:</label>
             <input type="password" class="form-control" id="password" name="password">
         </div>
- 
         <div class="form-group">
             <button style="cursor:pointer" type="submit" class="btn btn-primary">Login</button>
         </div>

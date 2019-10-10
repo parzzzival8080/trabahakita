@@ -21,8 +21,19 @@
         </div>
 
         <div class="form-group">
-                <label for="type">Type</label>
-                <input type="text" class="form-control" id="type" name="type">
+            <label for="password_confirmation">Password Confirmation:</label>
+            <input type="password" class="form-control" id="password_confirmation"
+                   name="password_confirmation">
+        </div>
+
+        <div class="form-group">
+            <input type="radio" name="type" value="employee" checked>
+            <label for="type">Employee</label>
+               
+            </div>
+            <div class="form-group">
+                <input type="radio" name="type" value="company">
+                <label for="type">Company</label>
             </div>
  
         <div class="form-group">

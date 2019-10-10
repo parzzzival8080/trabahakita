@@ -4,6 +4,6 @@
         POSTS
         </h1>
     <div class="container">
-       
+        
     </div>
 @endsection

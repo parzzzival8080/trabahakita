@@ -5,11 +5,8 @@
         </h1>
 
    
-       
-       
         @if (count($post) > 0)
         @foreach ($post as $posts)
-        @if($posts->company_id == auth()->user()->id)
         <div class="container" style="margin-top:20px;">
         <div class="card">
             <div class="container">
@@ -28,13 +25,8 @@
             </div>
         </div>
     </div>
-    @else
-    <h1>You have no posts</h1>
+        @endforeach
      @endif
-     @endforeach
-    @endif
-    
-     
    
 
 @endsection

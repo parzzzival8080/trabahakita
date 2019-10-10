@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Profile;
+use DB;
 
 class RegisterController extends Controller
 {
@@ -25,8 +27,16 @@ class RegisterController extends Controller
     public function create()
     {
         //
-        return view('register.register');
-    }
+        if (auth()->check())
+        {
+            return redirect()->to('/');
+        }
+        else
+        {
+            return view('register.register');
+        }
+        }
+        
     /**
      * Store a newly created resource in storage.
      *
@@ -40,22 +50,33 @@ class RegisterController extends Controller
         [
             'name' => 'required',
             'email' => 'required|email',
-            'password' => 'required',
+            'password' => 'required|confirmed',
             'type' => 'required',
         ]);
 
-        $user = User::create(request(['name', 'email', 'password','type']));
+     
+
+        $user = User::create(request(['name', 'email', 'password','type','skill','']));
+       
 
         auth()->login($user);
-        
+
+       $profile = New Profile;
+       $profile->id = $user->id;
+       $profile->name = $user->name;
+       $profile->type = $user->type;
+        $profile->save();
+      
        if ($user->type == 'admin')
        {
         return redirect()->to('/');
        }
-       else
+       elseif  ($user->type == 'employee' || $user->type == 'company')
        {
-           return 'it works';
+           $profile_view = Profile::find($user->id);
+           return redirect()->to('/employee/profile');
        }
+    
        
      
            
@@ -92,9 +113,10 @@ class RegisterController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update()
     {
         //
+
     }
 
     /**
@@ -106,5 +128,7 @@ class RegisterController extends Controller
     public function destroy($id)
     {
         //
+
+
     }
 }
