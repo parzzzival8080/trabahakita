@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
 
-class EmployeeController extends Controller
+class RegisterController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +14,7 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        return view('employee');
+        //
     }
 
     /**
@@ -24,8 +25,8 @@ class EmployeeController extends Controller
     public function create()
     {
         //
+        return view('register.register');
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -35,6 +36,31 @@ class EmployeeController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate(request(),
+        [
+            'name' => 'required',
+            'email' => 'required|email',
+            'password' => 'required',
+            'type' => 'required',
+        ]);
+
+        $user = User::create(request(['name', 'email', 'password','type']));
+
+        auth()->login($user);
+        
+       if ($user->type == 'admin')
+       {
+        return redirect()->to('/');
+       }
+       else
+       {
+           return 'it works';
+       }
+       
+     
+           
+       
+       
     }
 
     /**

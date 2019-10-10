@@ -1,20 +1,32 @@
 @extends('layouts.app')
 @section('content')
-<h3>Posts</h3>
-@if(count($posts) > 1)
-    @foreach($posts as $post)
-    <div class="card">
-            <h5>
-                    <a href="/posts/{{$post->id}}"> {{$post->title}}</a>
-                    <div>
+<h1>
+        POSTS
+        </h1>
 
-                        {{$post->body}}
+   
+        @if (count($post) > 0)
+        @foreach ($post as $posts)
+        <div class="container" style="margin-top:20px;">
+        <div class="card">
+            <div class="container">
+
+                <h3>Job Title:{{$posts->Title}}</h3>
+                <h3>Job Description:</h3>
+                <h5>
+                    
+                    {{$posts->description}}
+                </h5>
+                <div class="form-group row">
+                    <div class="offset-sm-3 col-sm-9">
+                        <button class="btn btn-primary">Check it Out</button>
                     </div>
-                    </h5>
-                <h6>{{$post->created_at}}</h6>
+                </div>
+            </div>
+        </div>
     </div>
-    @endforeach
-@else
-    <h1>There are no posts</h1>
-@endif
+        @endforeach
+     @endif
+   
+
 @endsection

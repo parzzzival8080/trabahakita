@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
+use Illuminate\Support\Facades\Auth;
 
-class AskController extends Controller
+class SessionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +15,7 @@ class AskController extends Controller
      */
     public function index()
     {
-        return view('auth.ask');
+        //
     }
 
     /**
@@ -24,6 +26,7 @@ class AskController extends Controller
     public function create()
     {
         //
+        return view('register.login');
     }
 
     /**
@@ -35,6 +38,27 @@ class AskController extends Controller
     public function store(Request $request)
     {
         //
+
+        
+        if (auth()->attempt(request(['email', 'password'])) == false) {
+            return back()->withErrors([
+                'message' => 'The email or password is incorrect, please try again'
+            ]);
+        }
+        
+        if(Auth::user()->type == 'admin')
+        {
+            return redirect()->to('/');
+        }
+        elseif (Auth::user()->type == 'employee')
+        {
+            return 'it works';
+        }
+       
+       
+        
+      
+
     }
 
     /**
@@ -77,8 +101,10 @@ class AskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy()
     {
         //
+        auth()->logout();    
+        return redirect()->to('/login');
     }
 }

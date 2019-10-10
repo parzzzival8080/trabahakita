@@ -1,14 +1,9 @@
 @extends('layouts.app')
 @section('content')
-<h5>
+    <h1>
+        POSTS
+        </h1>
+    <div class="container">
        
-            {{$indi_post->title}}
-        <div>
-
-                {{$indi_post->body}}
-            </div>
-        </h5>
-    <h6>{{$indi_post->created_at}}</h6>
-    
-
+    </div>
 @endsection

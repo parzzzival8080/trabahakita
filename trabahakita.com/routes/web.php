@@ -11,14 +11,20 @@
 |
 */
 
+
+
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
+Route::get('/post', 'PostController@index');
+Route::get('post/create', 'PostController@create');
+Route::post('/post', 'PostController@store');
 
-Auth::routes();
+Route::get('/register', 'RegisterController@create');
+Route::post('register','RegisterController@store');
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::resource('posts', 'PostController');
-Route::resource('/ask', 'AskController');
-Route::resource('/employee', 'EmployeeController');
+Route::get('/login', 'SessionController@create');
+Route::post('/login', 'SessionController@store');
+Route::get('/logout', 'SessionController@destroy');
+
 
