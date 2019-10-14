@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Profile;
 use DB;
 use App\User;
+use App\Post;
 
 class ProfileController extends Controller
 {
@@ -48,7 +49,10 @@ class ProfileController extends Controller
             $profile->description = request('desc');
             $profile->status_update = '1';
             $profile->save();
-    
+
+           
+
+           
             return redirect()->to('/employee/dashboard');
         }
        
@@ -75,7 +79,23 @@ class ProfileController extends Controller
             $profile->status_update = '1';
             $profile->save();
     
+
             $profiles = Profile::find(auth()->user()->id);
+            $user = User::find(auth()->user()->id);
+            $user->name = $profiles->name;
+            $user->save();
+    
+           foreach($profiles as $prof)
+           {
+               if ($prof->id == auth()->user()->id)
+               {
+                $user = User::find(auth()->user()->id);
+                $post = find($prof->company_id);
+                $post->name = $prof->name;
+                $post->save();
+               }
+           }
+            
     
             return redirect()->to('/employee/profile')->with('profile', $profiles);
         }
@@ -92,6 +112,23 @@ class ProfileController extends Controller
             $profile->save();
 
             $profiles = Profile::find(auth()->user()->id);
+            $user = User::find(auth()->user()->id);
+            $user->name = $profiles->name;
+            $user->save();
+    
+            $posts = Post::all();
+           foreach($posts as $post)
+           {
+               if ($post->company_id == auth()->user()->id)
+               {
+                
+                
+                $post = Post::find($post->company_id);
+                $post->company_name = auth()->user()->name;
+                $post->save();
+               }
+           }
+            
     
             return redirect()->to('/employee/profile')->with('profile', $profiles);
         }

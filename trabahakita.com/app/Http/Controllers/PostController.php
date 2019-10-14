@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Post;
+use App\Profile;
+use App\Comments;
 
 class PostController extends Controller
 {
@@ -16,7 +18,7 @@ class PostController extends Controller
             if (auth()->user()->type == 'employee')
             {
                 $post = Post::all();
-                return view('employee.index')->with('post' , $post);
+                return view('posts.index')->with('post' , $post);
             }
             elseif (auth()->user()->type == 'company')
             {
@@ -52,13 +54,15 @@ class PostController extends Controller
         {
             if (auth()->user()->type == 'company')
             {
+                $profile = Profile::find(auth()->user()->id);
                 $posts = new Post;
+                $posts->company_name = $profile->name;
                 $posts->title = request('title');
                 $posts->company_id = auth()->user()->id;
                 $posts->description = request('description');
                 $posts->save();
                 $post = Post::all();
-                return view('posts.index')->with('post', $post);
+                return redirect()->to('/post')->with('post', $post);
             }
             elseif (auth()->user()->type == 'employee')
             {
@@ -72,6 +76,8 @@ class PostController extends Controller
     {
 
         $post=Post::find($id);
-        return view('posts.show')->with('post', $post);
+        $comments = Comments::all();
+        return view('posts.show')->with(['post' => $post, 'comments' => $comments]);
+        
     }
 }

@@ -17,10 +17,13 @@ Route::get('/', function () {
     return view('home');
 });
 // Post
+
 Route::get('/post', 'PostController@index');
 Route::get('/employee/dashboard', 'PostController@index');
 Route::get('post/create', 'PostController@create');
 Route::post('/post', 'PostController@store');
+Route::resource('/post/show', 'PostController');
+ 
 
 // Register
 Route::get('/register', 'RegisterController@create');
@@ -36,6 +39,9 @@ Route::get('/employee/profile', 'ProfileController@index');
 Route::post('/employee/profile','profileController@store');
 Route::post('/employee/profile/update','profileController@update');
 Route::get('/employee/profile','profileController@show');
+
+//Comment
+Route::post('/post/comment', 'CommentsController@store');
 
 
 
