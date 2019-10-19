@@ -1,58 +1,19 @@
-@extends('layouts.app')
- 
-@section('content')
- 
-    <h2>Register</h2>
-    <form method="POST" action="/register">
-        {{ csrf_field() }}
-        <div class="form-group">
-            <label for="name">Name:</label>
-            <input type="text" class="form-control" id="name" name="name">
-        </div>
- 
-        <div class="form-group">
-            <label for="email">Email:</label>
-            <input type="email" class="form-control" id="email" name="email">
-        </div>
- 
-        <div class="form-group">
-            <label for="password">Password:</label>
-            <input type="password" class="form-control" id="password" name="password">
-        </div>
+@extends ('layouts.app')
 
-        <div class="form-group">
-            <label for="password_confirmation">Password Confirmation:</label>
-            <input type="password" class="form-control" id="password_confirmation"
-                   name="password_confirmation">
-        </div>
-
-        <div class="form-group">
-            <input type="radio" name="type" value="employee" checked>
-            <label for="type">Employee</label>
-               
-            </div>
-            <div class="form-group">
-                <input type="radio" name="type" value="company">
-                <label for="type">Company</label>
-            </div>
+@section ('content')
+    <div class="container">
+        <div class="row">
             <div class="col-md-8 col-sm-12">
                 <div id="map" style="height: 70vh; width: auto">
                     <!-- Google Map Goes Here -->
                 </div>        
             </div>
-            <div class="form-group">
-            <input name="lng" id ="lng" value="0">
-            <input name="lat" id="lat" value="0">
-            </div>
-
- 
-        <div class="form-group">
-            <button style="cursor:pointer" type="submit" class="btn btn-primary">Submit</button>
         </div>
-       
-    </form>
- 
-    <script type="text/javascript">
+        <input name="lat" id="lat" value="0">
+        <input name="lng" id="lng" value="0">
+    </div>
+
+<script type="text/javascript">
         function initMap() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(
@@ -110,4 +71,3 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAwG2FvuLOl_rGjp4LHR6XSeLIG_ZjjJ0M&callback=initMap" type="text/javascript"></script>
 
 
-@endsection

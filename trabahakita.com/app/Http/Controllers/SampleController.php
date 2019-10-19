@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Sample;
 use App\User;
 use App\Profile;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
-class SessionController extends Controller
+class SampleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +16,8 @@ class SessionController extends Controller
      */
     public function index()
     {
-        //
+        $profile = Profile::findOrFail(auth()->user()->id);
+        return view('sample')->with('profile', $profile);
     }
 
     /**
@@ -27,7 +28,6 @@ class SessionController extends Controller
     public function create()
     {
         //
-        return view('register.login');
     }
 
     /**
@@ -39,41 +39,15 @@ class SessionController extends Controller
     public function store(Request $request)
     {
         //
-
-        
-        if (auth()->attempt(request(['email', 'password'])) == false) {
-            return back()->withErrors([
-                'message' => 'The email or password is incorrect, please try again'
-            ]);
-        }
-        if(Auth::->type == 'admin')
-        {
-            return redirect()->to('/');
-        }
-        elseif (Auth::user()->type == 'employee')
-        {
-            
-            return redirect()->to('/employee/dashboard');
-        }
-        elseif(Auth::user()->type == 'company')
-        {
-            return redirect()->to('/post');
-        }
-        
-       
-       
-        
-      
-
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Sample  $sample
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Sample $sample)
     {
         //
     }
@@ -81,10 +55,10 @@ class SessionController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Sample  $sample
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Sample $sample)
     {
         //
     }
@@ -93,10 +67,10 @@ class SessionController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Sample  $sample
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Sample $sample)
     {
         //
     }
@@ -104,13 +78,11 @@ class SessionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Sample  $sample
      * @return \Illuminate\Http\Response
      */
-    public function destroy()
+    public function destroy(Sample $sample)
     {
         //
-        auth()->logout();    
-        return redirect()->to('/login');
     }
 }

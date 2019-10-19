@@ -70,20 +70,88 @@
                                placeholder="ADDRESS" >{{$profile->adress}}</textarea>
                     </div>
                 </div>
-                
+                @if (auth()->user()->type == 'company')
+                <input type="text" name="lat" value="{{auth()->profile()->lat}}">
+                <input type="text" name="lng" value="0">
+
+                <div class="col-md-8 col-sm-12">
+                    <div id="map" style="height: 70vh; width: auto">
+                        <!-- Google Map Goes Here -->
+                    </div>        
+                </div>
+
+                @endif
                  
                 <div class="form-group row">
                     <div class="offset-sm-3 col-sm-9">
                         <button type="submit" class="btn btn-primary">Save</button>
                     </div>
                 </div>
-                
             </form>
-            @endif
+            @endif            
               
               
-  
-    
-  
+<script type="text/javascript">
+        function initMap() {
+
+            var map = new google.maps.Map(
+                document.getElementById('map'), {
+                zoom: 18, // GOOGLE MAP ZOOM LEVEL
+                scrollwheel: false,
+                center: { // GOOGLE MAP CENTER 
+                    lat: result.coords.latitude, // GEOLOCATION RESULT LATITUDE
+                    lng: result.coords.longitude // GEOLOCATION RESULT LONGITUDE
+                }
+        });
+
+                    // GOOGLE MAP MARKER
+            var marker = new google.maps.Marker({
+                position: { // GOOGLE MAP MARKER POSITION
+                    lat: result.coords.latitude, // GEOLOCATION RESULT LATITUDE
+                    lng: result.coords.longitude // GEOLOCATION RESULT LONGITUDE
+                },
+                map: map,
+                draggable: true // GOOGLE MAP WHERE THE MARKER IS TO BE ADDED
+            });
+
+            //Initial entry
+            $('#lat').val(marker.getPosition().lat());
+            $('#lng').val(marker.getPosition().lng());
+        }
+
+            // if (navigator.geolocation) {
+            //     navigator.geolocation.getCurrentPosition(
+            //         function (result) {
+            //             // IF GEOLOCATION IS SUCCESSFULL
+
+            //             // GOOGLE MAP
+            //             var map = new google.maps.Map(
+            //                 document.getElementById('map'), {
+            //                     zoom: 18, // GOOGLE MAP ZOOM LEVEL
+            //                     scrollwheel: false,
+            //                     center: { // GOOGLE MAP CENTER 
+            //                         lat: result.coords.latitude, // GEOLOCATION RESULT LATITUDE
+            //                         lng: result.coords.longitude // GEOLOCATION RESULT LONGITUDE
+            //                     }
+            //             });
+                            
+            //             // GOOGLE MAP MARKER
+            //             var marker = new google.maps.Marker({
+            //                 position: { // GOOGLE MAP MARKER POSITION
+            //                     lat: result.coords.latitude, // GEOLOCATION RESULT LATITUDE
+            //                     lng: result.coords.longitude // GEOLOCATION RESULT LONGITUDE
+            //                 },
+            //                 map: map,
+            //                 draggable: true // GOOGLE MAP WHERE THE MARKER IS TO BE ADDED
+            //             });
+
+            //             //Initial entry
+            //             $('#lat').val(marker.getPosition().lat());
+            //             $('#lng').val(marker.getPosition().lng());
+
+
+
+
+</script>  
  
 @endsection

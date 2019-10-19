@@ -19,6 +19,8 @@ class CreateProfilesTable extends Migration
             $table->string('type');
             $table->string('course')->nullable();
             $table->string('skill')->nullable();
+            $table->double('lat')->nullable();
+            $table->double('lng')->nullable();
             $table->string('description')->nullable();
             $table->string('status_update')->nullable();
             $table->string('adress')->nullable();

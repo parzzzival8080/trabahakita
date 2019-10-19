@@ -31,6 +31,10 @@
             <li class="nav-item">
                 <a class="nav-link" href="/logout">Log Out</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/maps">Map that leads to you</a>
+            </li>
+            
               @else
             
         </li>

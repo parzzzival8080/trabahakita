@@ -43,5 +43,8 @@ Route::get('/employee/profile','profileController@show');
 //Comment
 Route::post('/post/comment', 'CommentsController@store');
 
+//Map
+Route::get('/maps','SampleController@index');
+
 
 

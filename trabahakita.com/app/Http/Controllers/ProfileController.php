@@ -10,6 +10,7 @@ use App\Post;
 
 class ProfileController extends Controller
 {
+
     //
     public function index()
     {
