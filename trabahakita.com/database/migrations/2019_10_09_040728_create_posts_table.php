@@ -18,6 +18,8 @@ class CreatePostsTable extends Migration
             $table->string('company_id');
             $table->string('company_name');
             $table->string('Title');
+            $table->string('job_type');
+            $table->string('salary');
             $table->string('description');
             $table->timestamps();
         });

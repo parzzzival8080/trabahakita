@@ -63,7 +63,6 @@ class RegisterController extends Controller
 
        $profile = New Profile;
        $profile->id = $user->id;
-       $profile->name = $user->name;
        $profile->type = $user->type;
         $profile->save();
       

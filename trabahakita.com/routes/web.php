@@ -34,11 +34,16 @@ Route::get('/login', 'SessionController@create');
 Route::post('/login', 'SessionController@store');
 Route::get('/logout', 'SessionController@destroy');
 
-// Profile
+// Profile Employee
 Route::get('/employee/profile', 'ProfileController@index');
 Route::post('/employee/profile','profileController@store');
 Route::post('/employee/profile/update','profileController@update');
-Route::get('/employee/profile','profileController@show');
+Route::get('/employee/profile','profileController@showme');
+Route::resource('/profile','profileController');
+Route::get('/mez', 'profilecontroller@downloadme');
+
+//Profile Company
+Route::resource('/company/profile', 'CompanyController');
 
 //Comment
 Route::post('/post/comment', 'CommentsController@store');

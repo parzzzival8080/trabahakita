@@ -3,7 +3,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Games</title>
+    <title>TRABAHAKITA
+           
+    </title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="/css/sticky-footer.css" rel="stylesheet">
 </head>
@@ -22,7 +24,8 @@
               <a class="nav-link" href="/">HOME<span class="sr-only">(current)</span></a>
               @if(auth()->check())
               <li class="nav-item">
-                <a class="nav-link" href="/post">Posts</a>
+              <a class="nav-link" href="/post">Posts </a>
+              {{-- <span class="badge badge-primary badge-pill">{{$post->count()}}</span> --}}
             </li>
               <li class="nav-item">
                 <a class="nav-link font-weight-bold" href="/employee/profile">Hi {{ auth()->user()->name }}</a>

@@ -56,8 +56,10 @@ class PostController extends Controller
             {
                 $profile = Profile::find(auth()->user()->id);
                 $posts = new Post;
-                $posts->company_name = $profile->name;
+                $posts->company_name = $profile->company_name;
                 $posts->title = request('title');
+                $posts->job_type = request('type');
+                $posts->salary = request('salary');
                 $posts->company_id = auth()->user()->id;
                 $posts->description = request('description');
                 $posts->save();

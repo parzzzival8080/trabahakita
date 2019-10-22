@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Comments;
 use Illuminate\Http\Request;
 use App\Post;
+use App\Profile;
 
-class CommentsController extends Controller
+class CompanyController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,6 +16,10 @@ class CommentsController extends Controller
     public function index()
     {
         //
+        if (auth()->check())
+        {
+          return redirect()->to('/post');
+        }
     }
 
     /**
@@ -36,46 +40,33 @@ class CommentsController extends Controller
      */
     public function store(Request $request)
     {
-        
-        $this->validate(request(),
-        [
-            'comment' => 'required',
-        ]);
-
-       
-        $comment = new Comments;
-        $comment->post_id = request('post_id');
-        $comment->company_id = request('company_id');
-        $comment->user_id = auth()->user()->id;
-        $comment->name = auth()->user()->name;
-        $comment->comment_desc = request('comment');
-        $comment->save();
-        $comments = Comments::all();
-        $post = Post::find(request('post_id'));
-        return view('posts.show')->with(['comments' => $comments,'post' => $post]);
-
-        
-        
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Comments  $comments
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Comments $comments)
+    public function show($id)
     {
         //
+        $profile = Profile::find($id);
+        
+        $post = Post::all();
+        // return view('company')->with('post', $post);
+      return view('company')->with(['profile' => $profile, 'post' => $post]);
+   
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Comments  $comments
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Comments $comments)
+    public function edit($id)
     {
         //
     }
@@ -84,10 +75,10 @@ class CommentsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Comments  $comments
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Comments $comments)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -95,11 +86,13 @@ class CommentsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Comments  $comments
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Comments $comments)
+    public function destroy($id)
     {
         //
     }
+
+   
 }

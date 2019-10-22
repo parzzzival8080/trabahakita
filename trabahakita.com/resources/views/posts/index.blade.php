@@ -11,6 +11,8 @@
         <div class="container" style="margin-top:20px;">
         <div class="card">
             <div class="container">
+            <h1><a href="/company/profile/{{$posts->company_id}}">{{$posts->company_name}}</a></h1>
+            
                 <h3>Job Title:{{$posts->Title}}</h3>
                 <h3>Job Description:</h3>
                 <h5>
