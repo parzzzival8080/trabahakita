@@ -52,6 +52,8 @@
                     </div>
                 </div>
                 </form>
+
+                
         </div>
     </div>
     @if(count($errors))
