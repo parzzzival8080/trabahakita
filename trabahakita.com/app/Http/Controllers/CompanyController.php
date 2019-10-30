@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\User;
+use App\Post;
 use App\Profile;
-use DB;
 
-class RegisterController extends Controller
+class CompanyController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,6 +16,10 @@ class RegisterController extends Controller
     public function index()
     {
         //
+        if (auth()->check())
+        {
+          return redirect()->to('/post');
+        }
     }
 
     /**
@@ -27,16 +30,8 @@ class RegisterController extends Controller
     public function create()
     {
         //
-        if (auth()->check())
-        {
-            return redirect()->to('/');
-        }
-        else
-        {
-            return view('register.register');
-        }
-        }
-        
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -46,45 +41,6 @@ class RegisterController extends Controller
     public function store(Request $request)
     {
         //
-        $this->validate(request(),
-        [
-            'name' => 'required',
-            'email' => 'required|email',
-            'password' => 'required|confirmed',
-            'type' => 'required',
-            'lat' => 'nullable',
-            'lng' => 'nullable'
-        ]);
-
-     
-
-        $user = User::create(request(['name', 'email', 'password','type','skill','']));
-       
-
-        auth()->login($user);
-
-       $profile = New Profile;
-       $profile->id = $user->id;
-       $profile->type = $user->type;
-       $profile->lat = $request->lat;
-       $profile->lng = $request->lng;
-        $profile->save();
-      
-       if ($user->type == 'admin')
-       {
-        return redirect()->to('/');
-       }
-       elseif  ($user->type == 'employee' || $user->type == 'company')
-       {
-           $profile_view = Profile::find($user->id);
-           return redirect()->to('/employee/profile');
-       }
-    
-       
-     
-           
-       
-       
     }
 
     /**
@@ -96,6 +52,12 @@ class RegisterController extends Controller
     public function show($id)
     {
         //
+        $profile = Profile::find($id);
+        
+        $post = Post::all();
+        // return view('company')->with('post', $post);
+      return view('company')->with(['profile' => $profile, 'post' => $post]);
+   
     }
 
     /**
@@ -116,10 +78,9 @@ class RegisterController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update()
+    public function update(Request $request, $id)
     {
         //
-
     }
 
     /**
@@ -131,7 +92,7 @@ class RegisterController extends Controller
     public function destroy($id)
     {
         //
-
-
     }
+
+   
 }

@@ -14,16 +14,25 @@ class CreateProfilesTable extends Migration
     public function up()
     {
         Schema::create('profiles', function (Blueprint $table) {
-            $table->string('id');
-            $table->string('name');
-            $table->string('type');
-            $table->string('course')->nullable();
-            $table->string('skill')->nullable();
-            $table->double('lat')->nullable();
-            $table->double('lng')->nullable();
-            $table->string('description')->nullable();
+            $table->string('id')->nullable();
+            $table->string('last_name')->nullable();
+            $table->string('first_name')->nullable();
+            $table->string('middle_name')->nullable();
+            $table->string('company_name')->nullable();
+            $table->string('title')->nullable();
+            $table->string('type')->nullable();
+            $table->string('school')->nullable();
+            $table->string('from_year')->nullable();
+            $table->string('to_year')->nullable();
+            $table->string('degree')->nullable();
+            $table->string('area')->nullable();
+            $table->string('description')->nullable(); 
             $table->string('status_update')->nullable();
             $table->string('adress')->nullable();
+            $table->string('company_rep')->nullable();
+            $table->string('number')->nullable();
+            $table->string('image')->nullable();
+            $table->string('email')->nullable();
             $table->timestamps();
         });
     }

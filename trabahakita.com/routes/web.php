@@ -23,6 +23,7 @@ Route::get('/employee/dashboard', 'PostController@index');
 Route::get('post/create', 'PostController@create');
 Route::post('/post', 'PostController@store');
 Route::resource('/post/show', 'PostController');
+Route::post('/post/pdf', 'profilecontroller@pdf');
  
 
 // Register
@@ -34,17 +35,44 @@ Route::get('/login', 'SessionController@create');
 Route::post('/login', 'SessionController@store');
 Route::get('/logout', 'SessionController@destroy');
 
-// Profile
+// Profile Employee
 Route::get('/employee/profile', 'ProfileController@index');
 Route::post('/employee/profile','profileController@store');
 Route::post('/employee/profile/update','profileController@update');
-Route::get('/employee/profile','profileController@show');
+Route::get('/employee/profile','profileController@showme');
+Route::resource('/profile','profileController');
+
+
+//Profile Company
+Route::resource('/company/profile', 'CompanyController');
 
 //Comment
 Route::post('/post/comment', 'CommentsController@store');
 
-//Map
-Route::get('/maps','SampleController@index');
+// Educational Attainment and Skills and experience
+Route::post('/profile/education', 'EducationController@store');
+Route::post('/profile/education/update','EducationController@updateme');
+
+Route::post('/profile/skill', 'SkillsController@store');
+Route::post('/profile/skill/update', 'SkillsController@update');
+
+Route::post('/profile/experience', 'ExperienceController@store');
+Route::post('/profile/experience/update', 'ExperienceController@store');
+
+//appointment
+Route::Post('/setAppointment', 'AppointmentController@store');
+Route::Post('/setAppointment/accept', 'AppointmentController@store');
+
+
+//show pdf
+Route::post('/post/pdf', 'profilecontroller@pdf');
+
+// Notification
+Route::get('/Notification', 'NotificationController@index');
+Route::resource('/Notification/show', 'NotificationController');
+
+
+
 
 
 

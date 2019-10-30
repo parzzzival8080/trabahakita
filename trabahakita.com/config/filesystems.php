@@ -63,7 +63,20 @@ return [
             'bucket' => env('AWS_BUCKET'),
             'url' => env('AWS_URL'),
         ],
-
+        'ftp' => [
+            'driver'   => 'ftp',
+            'host'     => 'ftp.filezilla.com',
+            'username' => 'jaezarbello',
+            'password' => 'dreamers_8080',
+        
+            // Optional FTP Settings...
+            // 'port'     => 21,
+            // 'root'     => '',
+            // 'passive'  => true,
+            // 'ssl'      => true,
+            // 'timeout'  => 30,
+        ],
+    
     ],
 
 ];

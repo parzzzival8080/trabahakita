@@ -6,11 +6,17 @@
     <div class="container">
     <div class="card">
         <div class="container">
-        <h1>{{$post->company_name}}</h1>
-        </div>
-        <div class="container">
-                <h3>{{$post->Title}}</h3>
-                <h3>{{$post->description}}</h3>
+
+        <h2>{{$post->company_name}}</h2>
+        <br>
+        <h4>Job Position:{{$post->Title}}</h4>
+        <h4>Job Type:    {{$post->job_type}}</h4>
+        <h4>Salary:    {{$post->salary}}</h4>
+        <h4>Description</h4>
+        <h5>
+                {{$post->description}}
+            </h5>
+            
 
         </div>
         <div class="card">
@@ -23,7 +29,9 @@
                             @if (count($comments) > 0)
                                 @foreach($comments as $com)
                                     @if($com->post_id == $post->id)
-                    <h5>{{$com->comment_desc}}</h5>
+                                    <h3>{{$com->name}}</h3>
+                                    <h5>{{$com->comment_desc}}</h5>
+                                    <button class="btn btn-primary"><a href="/profile/{{$com->user_id}}" style="color:white">Visit</a></button>
                                     @endif
                                 @endforeach
                             @endif
@@ -45,7 +53,7 @@
                                             </div>
                                 </div>
                                 <div class="container">
-                                        <button class="btn btn-primary" type="submit">Comment</button>
+                                        <button class="btn btn-primary" type="submit">Apply</button>
                                    </div>
                                 
                             </form>
@@ -53,7 +61,9 @@
                                     @if (count($comments) > 0)
                                         @foreach($comments as $com)
                                             @if($com->post_id == $post->id)
+                            <h3>{{$com->name}}</h3>
                             <h5>{{$com->comment_desc}}</h5>
+
                                             @endif
                                         @endforeach
                                     @endif

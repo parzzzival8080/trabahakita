@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Comments;
-use Illuminate\Http\Request;
-use App\Post;
+use App\Notification;
 
-class CommentsController extends Controller
+use Illuminate\Http\Request;
+
+class NotificationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,6 +16,10 @@ class CommentsController extends Controller
     public function index()
     {
         //
+        $notification = Notification::all();
+        return view('notification.notification')->with('notification', $notification);
+      
+        
     }
 
     /**
@@ -36,46 +40,33 @@ class CommentsController extends Controller
      */
     public function store(Request $request)
     {
-        
-        $this->validate(request(),
-        [
-            'comment' => 'required',
-        ]);
-
-       
-        $comment = new Comments;
-        $comment->post_id = request('post_id');
-        $comment->company_id = request('company_id');
-        $comment->user_id = auth()->user()->id;
-        $comment->name = auth()->user()->name;
-        $comment->comment_desc = request('comment');
-        $comment->save();
-        $comments = Comments::all();
-        $post = Post::find(request('post_id'));
-        return view('posts.show')->with(['comments' => $comments,'post' => $post]);
-
-        
-        
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Comments  $comments
+     * @param  \App\Notification  $notification
      * @return \Illuminate\Http\Response
      */
-    public function show(Comments $comments)
+   
+
+    public function show($id)
     {
-        //
+
+        $notification = Notification::find($id);
+        $notification->message_status = '1';
+        $notification->save();
+        return view('notification.show')->with('notification', $notification);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Comments  $comments
+     * @param  \App\Notification  $notification
      * @return \Illuminate\Http\Response
      */
-    public function edit(Comments $comments)
+    public function edit(Notification $notification)
     {
         //
     }
@@ -84,22 +75,24 @@ class CommentsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Comments  $comments
+     * @param  \App\Notification  $notification
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Comments $comments)
+    public function update()
     {
-        //
+
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Comments  $comments
+     * @param  \App\Notification  $notification
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Comments $comments)
+    public function destroy(Notification $notification)
     {
         //
     }
+
+   
 }
