@@ -46,7 +46,7 @@ class SessionController extends Controller
                 'message' => 'The email or password is incorrect, please try again'
             ]);
         }
-        if(Auth::->type == 'admin')
+        if(Auth::user()->type == 'admin')
         {
             return redirect()->to('/');
         }

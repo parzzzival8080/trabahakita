@@ -38,13 +38,17 @@
                         </div>
 
                         <div class="form-group row">
-                            
-                                    <div class="col">
-                                            <label for="addid">Address</label>
-                                            <input type="text" name="address" class="form-control" id="addid" placeholder="Permanent Address" value="{{$profile->adress}}" required>
-                                          </div>
-                           
+                            <div class="col">
+                                <label for="addid">Address</label>
+                                <input type="text" name="address" class="form-control" id="searchmap" placeholder="Permanent Address" value="{{$profile->adress}}" required>
+                            </div>
+                            <input type="hidden" name="lat" id="lat">
+                            <input type="hidden" name="lng" id="lng">
                         </div>
+                        <div class="card">
+                                <div id="map" style="height: 400px"></div>
+                            </div>
+
                         <div class="form-group row">
                                 <label for="numid" class="col-sm-3 col-form-label">Number</label>
                                 <div class="col-sm-9">
@@ -554,10 +558,16 @@
                 <div class="form-group row">
                     <label for="address" class="col-sm-3 col-form-label">ADDRESS</label>
                     <div class="col-sm-9">
-                        <textarea name="address" type="text" class="form-control" id="address" rows="2"
+                        <textarea name="address" type="text" class="form-control" id="searchmap" rows="2"
                                placeholder="ADDRESS" >{{$profile->adress}}</textarea>
                     </div>
                 </div>   
+                <input type="hidden" name="lat" id="lat">
+                <input type="hidden" name="lng" id="lng">
+                    <div class="card">
+                        <div id="map" style="height: 400px"></div>
+                    </div>
+
                 <div class="form-group row">
                     <div class="offset-sm-3 col-sm-9">
                         <button type="submit" class="btn btn-primary">Save</button>
@@ -566,4 +576,55 @@
             </form>
         
             @endif
+
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAwG2FvuLOl_rGjp4LHR6XSeLIG_ZjjJ0M&callback=initMap&libraries=places"></script>
+<script>
+ var foo = {!! json_encode($profile->toArray())!!}
+ console.log(foo.lat)
+    function initMap() {
+        
+        var myLatlng = new google.maps.LatLng(foo.lat, foo.lng);
+        var mapOptions = {
+            zoom: 18,
+            center: myLatlng,
+            scrollwheel: false
+        }
+        var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+        var marker = new google.maps.Marker({
+            position: myLatlng,
+            map: map,
+            draggable: true
+        });
+
+        var searchBox = new google.maps.places.SearchBox(document.getElementById('searchmap'));
+
+        google.maps.event.addListener(searchBox, 'places_changed', function () {
+
+            var places = searchBox.getPlaces();
+            var bounds = new google.maps.LatLngBounds();
+            var i, place;
+
+            for (i = 0; place = places[i]; i++) {
+                bounds.extend(place.geometry.location);
+                marker.setPosition(place.geometry.location);
+
+            }
+
+            map.fitBounds(bounds);
+            map.setZoom(18);
+
+        });
+
+        google.maps.event.addListener(marker, 'position_changed', function () {
+
+            var lat = marker.getPosition().lat();
+            var lng = marker.getPosition().lng();
+
+            $('#lat').val(lat);
+            $('#lng').val(lng);
+        });
+    }
+</script>
+
 @endsection

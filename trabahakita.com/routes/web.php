@@ -71,6 +71,9 @@ Route::post('/post/pdf', 'profilecontroller@pdf');
 Route::get('/Notification', 'NotificationController@index');
 Route::resource('/Notification/show', 'NotificationController');
 
+//Sample getting nearest companies
+Route::get('/maps', 'SampleController@index');
+
 
 
 
