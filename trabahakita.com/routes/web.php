@@ -13,11 +13,12 @@
 
 
 
-Route::get('/', function () {
-    return view('home');
-});
+// Route::get('/post', function () {
+//     return view('home');
+// });
 // Post
 
+Route::get('/', 'HomeController@index');
 Route::get('/post', 'PostController@index');
 Route::get('/employee/dashboard', 'PostController@index');
 Route::get('post/create', 'PostController@create');

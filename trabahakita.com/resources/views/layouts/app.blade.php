@@ -25,20 +25,24 @@
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
           <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item active">
-              <a class="nav-link" href="/">HOME<span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="/post">HOME<span class="sr-only">(current)</span></a>
               @if(auth()->check())
               <li class="nav-item">
               <a class="nav-link" href="/post">Posts </a>
               {{-- <span class="badge badge-primary badge-pill">{{$post->count()}}</span> --}}
             </li>
+            @if($notifcount->count() == 0)
+            <a class="nav-link" href="/Notification">Notification</a>
+            @else
             <li class="nav-item">
-                    <a class="nav-link" href="/Notification">Notification</a>
-                    {{-- <span class="badge badge-primary badge-pill">{{$post->count()}}</span> --}}
-                  </li>
+            <a class="nav-link" href="/Notification">Notification<span class="badge badge-info badge-pill">{{$notifcount->count()}}</span></a>
+            </li>
+            @endif
               <li class="nav-item">
                 <a class="nav-link font-weight-bold" href="/employee/profile">Hi {{ auth()->user()->name }}</a>
             </li>
-           
+          
+         
             <li class="nav-item">
                 <a class="nav-link" href="/logout">Log Out</a>
             </li>

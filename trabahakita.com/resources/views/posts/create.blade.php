@@ -27,7 +27,13 @@
                                           </select>
                             </div>
                         </div>
-                   
+                        <div class="form-group row">
+                                <label for="person" class="col-sm-3 col-form-label">Number of Person</label>
+                                <div class="col-sm-9">
+                                    <input name="person" type="text" class="form-control" id="person"
+                                           placeholder="Input Number" required>
+                                </div>
+                        </div>
                    
                     <div class="form-group row">
                             <label for="salary" class="col-sm-3 col-form-label">Tentative Salary</label>
@@ -37,7 +43,7 @@
                             </div>
                     </div>
                     <div class="form-group row">
-                            <label for="desc" class="col-sm-3 col-form-label">DESCRIPTION OF YOURSELF</label>
+                            <label for="desc" class="col-sm-3 col-form-label">DESCRIPTION</label>
                             <div class="col-sm-9">
                                 <textarea name="description" type="text" class="form-control" id="desc" rows="5"
                                        placeholder="DESCRIPTION" ></textarea>
