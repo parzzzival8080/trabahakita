@@ -6,9 +6,30 @@ use Illuminate\Http\Request;
 use App\Post;
 use App\Profile;
 use App\Comments;
+use App\Notification;
+use DB;
 
 class PostController extends Controller
 {
+
+    function counted()
+    {
+        $notification = Notification::all();
+        $num = 0;
+        $num2 = 0;
+        foreach ($notification as $notif)
+        {
+            if($notif->type == 'employee')
+            {
+                if($notif->user_id == auth()->user()->id)
+                {
+                   $num2 = $num + 1; 
+                }
+            }
+          
+        }
+        return $num2;
+    }
     //
     public function index()
     {
@@ -17,13 +38,18 @@ class PostController extends Controller
 
             if (auth()->user()->type == 'employee')
             {
-                $post = Post::all();
-                return view('posts.index')->with('post' , $post);
+            $post = Post::all();
+            $notification = Notification::where(['user_id' => auth()->user()->id, 'type' => 'employee' ,'message_status' => '0'])->get();
+            return view('posts.index')->with(['post' => $post, 'notifcount' => $notification]);
+               
+               
             }
             elseif (auth()->user()->type == 'company')
             {
                 $post = Post::all();
-                return view('posts.index')->with('post' , $post);
+                $notification = Notification::where(['company_id' => auth()->user()->id, 'type' => 'company', 'message_status' => '0'])->get();
+                return view('posts.index')->with(['post' => $post, 'notifcount' => $notification]);
+               
             }
         }
         else 
@@ -42,7 +68,8 @@ class PostController extends Controller
             }
             elseif (auth()->user()->type == 'company')
             {
-                return view('posts.create');
+                $notification = Notification::where(['company_id' => auth()->user()->id, 'type' => 'company', 'message_status' => '0'])->get();
+                return view('posts.create')->with('notifcount' , $notification);
             }
         }
        

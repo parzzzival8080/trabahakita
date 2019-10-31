@@ -53,7 +53,7 @@ class AppointmentController extends Controller
             
             $notification = new Notification;
             $notification->company_id = auth()->user()->id;
-            $notification->notif_id = $appointment->id;
+            $notification->app_id = $appointment->id;
             $notification->user_id = request('id');
             $notification->subject = 'Set an Interview';
             $notification->name = auth()->user()->name;

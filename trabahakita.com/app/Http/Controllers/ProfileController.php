@@ -12,6 +12,7 @@ use App;
 use App\Education;
 use App\Skills;
 use App\Experience;
+use App\Notification;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -23,7 +24,17 @@ class ProfileController extends Controller
         
         if (auth()->check())
         {
-            return view('profile');
+            if (auth()->user()->type == 'employee')
+            {
+                $notifcount = Notification::where(['user_id' => auth()->user()->id, 'type' => 'company', 'message_status' => '0']);
+                return view('profile')->with('notifcount', $notifcount);
+            }
+            elseif(auth()->user()->type == 'company')
+            {
+                $notifcount = Notification::where(['company_id' => auth()->user()->id, 'type' => 'employee' , 'message_status' => '0']);
+                return view('profile')->with('notifcount', $notifcount);    
+            }
+          
         }
         else
         {
@@ -86,8 +97,18 @@ class ProfileController extends Controller
         $education = Education::all();
         $skills = Skills::all();
         $experience = Experience::all();
+
+        if(auth()->user()->type == 'employee')
+        {
+            $notifcount = Notification::where(['user_id' => auth()->user()->id, 'type' => 'company', 'message_status' => '0']);
+            return view('profile')->with(['profile' => $profile, 'education' => $education, 'skills' => $skills,'experience' => $experience, 'notifcount' => $notifcount]);
+        }
+        elseif(auth()->user()->type == 'company')
+        {
+            $notifcount = Notification::where(['company_id' => auth()->user()->id, 'type' => 'employee', 'message_status' => '0']);
+            return view('profile')->with(['profile' => $profile, 'education' => $education, 'skills' => $skills,'experience' => $experience, 'notifcount' => $notifcount]);
+        }
        
-        return view('profile')->with(['profile' => $profile, 'education' => $education, 'skills' => $skills,'experience' => $experience]);
     }
 
     public function update()
@@ -168,12 +189,14 @@ class ProfileController extends Controller
     {
     if (auth()->user()->type == 'employee')
     {
-        return redirect()->to('/');
+        
+        return redirect()->to('/employee/profile');
     }
     else
     {
         $profile = Profile::find($id);
-        return view('employee')->with('profile', $profile);
+        $notifcount = Notification::where(['user_id' => auth()->user()->id, 'type' => 'employee']);
+        return view('employee')->with(['profile' => $profile, 'notifcount' => $notifcount]);
     }
       
     }
