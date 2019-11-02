@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Sample;
 use App\User;
 use App\Profile;
+use App\Notification;
 use Illuminate\Http\Request;
 
 class SampleController extends Controller
@@ -16,8 +17,61 @@ class SampleController extends Controller
      */
     public function index()
     {
-        $profile = Profile::findOrFail(auth()->user()->id);
-        return view('sample')->with('profile', $profile);
+        if(auth()->check())
+        {
+            if(auth()->user()->type == 'employee')
+            {
+                $notifcount = Notification::where(['user_id' => auth()->user()->id, 'type' => 'employee', 'message_status' => '0']);
+
+                $user_detail = Profile::where('id', auth()->user()->id)->select('lat', 'lng')->get();
+
+                foreach($user_detail as $user)
+
+                $company = Profile::where('type', '=', 'company')->get();
+                    
+                $locations = [];
+
+                foreach($company as $comp)
+                {
+                    $info =  [
+                        "id" => $comp->id,
+                        "distance" => $this->calculateDistance($user->lat, $comp->lat, $user->lng, $comp->lng),
+                        "name" => $comp->company_name,
+                        "lat" => $comp->lat,
+                        "lng" => $comp->lng
+                    ];
+        
+                    array_push($locations, $info);
+                }
+
+                for ($x = 0; $x < count($locations); $x++)
+                {
+                    for ($y = 0; $y < count($locations) - 1; $y++ )
+                    {
+                        if($locations[$y]['distance'] > $locations[$y+1]['distance'])
+                        {
+                            $temp = $locations[$y+1];
+                            $locations[$y+1] = $locations[$y];
+                            $locations[$y] = $temp;
+                        }
+                    }
+                }
+        
+                $locations = collect($locations);
+        
+                return view('sample')->with(['notifcount' => $notifcount, 'locations' => $locations, 'user' => $user]);   
+            }
+
+            else{
+                $notifcount = Notification::where(['company_id' => auth()->user()->id, 'type' => 'company', 'message_status' => '0']);
+            return view('home')->with( 'notifcount', $notifcount);  
+            }
+        }
+        else
+        {
+            redirect()->to('/login');
+        }
+        
     }
 
     /**
@@ -84,5 +138,21 @@ class SampleController extends Controller
     public function destroy(Sample $sample)
     {
         //
+    }
+
+    private function calculateDistance($u_lat, $c_lat, $u_lng, $c_lng)
+    {
+        $R = 6371000; //Radius of the Earth
+
+        $lat_1 = $u_lat * M_PI / 180; //User
+        $lat_2 = $c_lat * M_PI / 180; //Mechanic
+
+        $d_lat = ($u_lat - $c_lat) * M_PI / 180;
+        $d_lng = ($u_lng - $c_lng) * M_PI / 180;
+
+        $a = pow(sin($d_lat / 2), 2) + cos($u_lat) * cos($c_lat) * pow(sin($d_lng / 2), 2);
+        $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
+
+        return $R * $c; //Distance
     }
 }
