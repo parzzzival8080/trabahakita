@@ -34,9 +34,7 @@
                 justify-content: center;
             }
 
-            .position-ref {
-                position: relative;
-            }
+            
 
             .top-right {
                 position: absolute;

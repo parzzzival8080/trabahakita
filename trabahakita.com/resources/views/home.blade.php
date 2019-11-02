@@ -15,6 +15,8 @@
     </div>  
    
 </div>
+@else    
+<h1 style="font-family:san-serif;font-weight:300;font-size:3em">TRABAHAKITA.COM</h1>
 @endif
 
 @endsection
