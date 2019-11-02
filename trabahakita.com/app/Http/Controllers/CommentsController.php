@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Comments;
 use Illuminate\Http\Request;
 use App\Post;
+use App\Notification;
 
 class CommentsController extends Controller
 {
@@ -52,7 +53,8 @@ class CommentsController extends Controller
         $comment->save();
         $comments = Comments::all();
         $post = Post::find(request('post_id'));
-        return view('posts.show')->with(['comments' => $comments,'post' => $post]);
+        $notifcount = Notification::where(['user_id' => auth()->user()->id, 'type' => 'employee', 'message_status' => '0']);
+        return view('posts.show')->with(['comments' => $comments,'post' => $post, 'notifcount' => $notifcount]);
 
         
         
