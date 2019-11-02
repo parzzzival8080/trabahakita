@@ -25,7 +25,7 @@ class HomeController extends Controller
         }
         else
         {
-            redirect()->to('/');
+            return view('home');
         }
     }
 }

@@ -20,13 +20,13 @@ Route::get('/', function () {
     }
     else
     {
-        return view('home');
+        return redirect()->to('/home');
     }
    
 });
 
 
-// Route::get('/', 'HomeController@index');
+Route::get('/home', 'HomeController@index');
 Route::get('/post', 'PostController@index');
 Route::get('/employee/dashboard', 'PostController@index');
 Route::get('post/create', 'PostController@create');
