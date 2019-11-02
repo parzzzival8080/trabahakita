@@ -14,7 +14,15 @@
 
 
 Route::get('/', function () {
-    return view('home');
+    if(auth()->check())
+    {
+        return view('home');
+    }
+    else
+    {
+        return view('home');
+    }
+   
 });
 
 
