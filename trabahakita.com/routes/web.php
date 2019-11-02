@@ -13,12 +13,12 @@
 
 
 
-// Route::get('/post', function () {
-//     return view('home');
-// });
-// Post
+Route::get('/', function () {
+    return view('home');
+});
 
-Route::get('/', 'HomeController@index');
+
+// Route::get('/', 'HomeController@index');
 Route::get('/post', 'PostController@index');
 Route::get('/employee/dashboard', 'PostController@index');
 Route::get('post/create', 'PostController@create');
@@ -67,6 +67,7 @@ Route::Post('/setAppointment/accept', 'AppointmentController@store');
 
 //show pdf
 Route::post('/post/pdf', 'profilecontroller@pdf');
+Route::post('/Download/pdf/application', 'notificationcontroller@pdf');
 
 // Notification
 Route::get('/Notification', 'NotificationController@index');

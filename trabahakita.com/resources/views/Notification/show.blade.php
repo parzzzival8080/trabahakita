@@ -17,7 +17,12 @@
             @elseif($appointment->appointment_status == '1')
             <div class="row">
                 <div class="col">
-                        <button class="btn btn-info">Download Interview Form</button>
+                <form action="/Download/pdf/application" method="post" enctype="multipart/form-data">
+                    {{ csrf_field() }}
+                    <input type="text" name="app_id" value="{{$notification->app_id}}" hidden>
+                    <button class="btn btn-info">Download Interview Form</button>
+                </form>
+               
                 </div>
                 <div class="col">
                         <form action="/setAppointment/accept" method="POST" enctype="multipart/form-data">

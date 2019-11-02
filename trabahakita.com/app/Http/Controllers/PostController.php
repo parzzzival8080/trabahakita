@@ -106,7 +106,8 @@ class PostController extends Controller
 
         $post=Post::find($id);
         $comments = Comments::all();
-        return view('posts.show')->with(['post' => $post, 'comments' => $comments]);
+        $notification = Notification::where(['company_id' => auth()->user()->id, 'type' => 'company', 'message_status' => '0'])->get();
+        return view('posts.show')->with(['post' => $post, 'comments' => $comments, 'notifcount' => $notification]);
         
     }
 }
