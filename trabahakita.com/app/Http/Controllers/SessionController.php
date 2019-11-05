@@ -50,7 +50,7 @@ class SessionController extends Controller
         $profile = Profile::find(Auth::user()->id);
         if(Auth::user()->type == 'admin')
         {
-            return redirect()->to('/');
+            return redirect()->to('/admin/home');
         }
         elseif (Auth::user()->type == 'employee')
         {

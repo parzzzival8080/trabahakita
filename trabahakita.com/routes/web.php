@@ -25,7 +25,11 @@ Route::get('/', function () {
    
 });
 
+// Admin
 
+Route::get('/admin/home', 'admincontroller@index');
+
+// user
 Route::get('/home', 'HomeController@index');
 Route::get('/post', 'PostController@index');
 Route::get('/employee/dashboard', 'PostController@index');
