@@ -99,8 +99,7 @@
                                                             <h6 class="card-subtitle mb-2 text-muted">Content</h6>
                                                                 <div class="card-text">
                                                                     <h5>{{$com->comment_desc}}</h5>
-                                                                </div> 
-                                                           
+                                                                </div>  
                                                 </div>
                                             </div>
                                         </div>
