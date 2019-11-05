@@ -16,7 +16,7 @@
 Route::get('/', function () {
     if(auth()->check())
     {
-        return view('home');
+        return redirect()->to('/home');
     }
     else
     {

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Notification;
 use App\Appointment;
+use App\Profile;
 use App;
 
 use Illuminate\Http\Request;
@@ -18,17 +19,31 @@ class NotificationController extends Controller
     public function index()
     {
         //
-        if(auth()->user()->type == 'employee')
+        
+        if (auth()->check())
         {
-            $notifcount = Notification::where(['user_id' => auth()->user()->id, 'type' => 'employee', 'message_status' => '0']);
-            $notification = Notification::all();
-            return view('notification.notification')->with(['notification' => $notification, 'notifcount' => $notifcount]);    
+            $profile = Profile::find(auth()->user()->id);
+            if($profile->status_update == '' || $profile->status_update == '0')
+            {
+                return redirect()->to('employee/profile');
+            }
+
+            elseif($profile->status_update == '1')
+            {
+                if(auth()->user()->type == 'employee')
+                {
+                    $notifcount = Notification::where(['user_id' => auth()->user()->id, 'type' => 'employee', 'message_status' => '0']);
+                    $notification = Notification::all();
+                    return view('notification.notification')->with(['notification' => $notification, 'notifcount' => $notifcount]);    
+                }
+                else{
+                    $notifcount = Notification::where(['company_id' => auth()->user()->id, 'type' => 'company', 'message_status' => '0']);
+                    $notification = Notification::all();
+                    return view('notification.notification')->with(['notification' => $notification, 'notifcount' => $notifcount]);  
+                }
+            }
         }
-        else{
-            $notifcount = Notification::where(['company_id' => auth()->user()->id, 'type' => 'company', 'message_status' => '0']);
-            $notification = Notification::all();
-            return view('notification.notification')->with(['notification' => $notification, 'notifcount' => $notifcount]);  
-        }
+        
      
         
     }
