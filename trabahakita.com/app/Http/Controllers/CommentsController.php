@@ -38,23 +38,18 @@ class CommentsController extends Controller
     public function store(Request $request)
     {
         
-        $this->validate(request(),
-        [
-            'comment' => 'required',
-        ]);
-
-       
         $comment = new Comments;
         $comment->post_id = request('post_id');
         $comment->company_id = request('company_id');
         $comment->user_id = auth()->user()->id;
         $comment->name = auth()->user()->name;
-        $comment->comment_desc = request('comment');
         $comment->save();
-        $comments = Comments::all();
         $post = Post::find(request('post_id'));
-        $notifcount = Notification::where(['user_id' => auth()->user()->id, 'type' => 'employee', 'message_status' => '0']);
-        return view('posts.show')->with(['comments' => $comments,'post' => $post, 'notifcount' => $notifcount]);
+
+        $comments = Comments::where(['user_id' => auth()->user()->id, 'post_id' => request('post_id')])->get();
+       
+        $notification = Notification::where(['company_id' => auth()->user()->id, 'type' => 'company', 'message_status' => '0'])->get();
+        return view('posts.show')->with(['post' => $post, 'comments' => $comments, 'notifcount' => $notification]);
 
         
         

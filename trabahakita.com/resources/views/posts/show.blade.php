@@ -22,7 +22,7 @@
         </div>
         </div>
     </div>
-    </div>   
+     
                     @if(auth()->user()->type == 'company')
                     <div class="container" style="margin-top:10px;">
                             <h3>Comments</h3>
@@ -30,31 +30,52 @@
                             @if (count($comments) > 0)
                                 @foreach($comments as $com)
                                     @if($com->post_id == $post->id)
-                                    <div class="container">
                                         <div class="card" style=" margin-top:5px;">
                                             <div class="card-body">
                                                     <div class="card-title">      
                                                             <h3>{{$com->name}}</h3>          
                                                         </div>
-                                                        <h6 class="card-subtitle mb-2 text-muted">Content</h6>
-                                                            <div class="card-text">
-                                                                <h5>{{$com->comment_desc}}</h5>
-                                                            </div> 
+                                                        <h6 class="card-subtitle mb-2 text-muted">Actions</h6>
                                                         <div class="card-footer">
-                                                            <button class="btn btn-info"><a href="/profile/{{$com->user_id}}" style="color:white">View Profile</a></button>
+                                                            <div class="row">
+                                                                <div class="col-sm">
+                                                                        <form action="/post/pdf" method="POST" enctype="multipart/form-data">
+                                                                            {{ csrf_field() }}
+                                                                        <input type="text" name="id" value="{{$com->user_id}}" hidden>
+                                                                        <button class="btn btn-info"><a href="/profile/{{$com->user_id}}" style="color:white">View Profile</a></button>
+                                                                        <button type="submit" class="btn btn-secondary">Download Resume</button>
+                                                                </div>
+                                                            </div>
+                                                            </form>
                                                         </div>
                                             </div>
                                         </div>
-                                    </div>
+                                   
                                     @endif
                                 @endforeach
+                               
                             @endif
+
                     
-                    @elseif(auth()->user()->type == 'employee')
-                    <form method="post" action="/post/comment">
+                    @elseif(auth()->user()->type == 'employee')   
+                        @if(count($comments) > 0)
+                        @foreach($comments as $com)
+                            <div class="card" style=" margin-top:5px;">
+                                    <div class="card-body">
+                                            <div class="card-title">      
+                                                    <h3>{{$com->name}}</h3>          
+                                                </div>
+                                                <h6 class="card-subtitle mb-2 text-muted">Actions</h6>
+                                                <div class="card-footer">
+                                                        <button class="btn btn-danger" type="submit">Decline Application</button>
+                                                    </div>
+                                    </div>
+                                </div> 
+                                @endforeach
+                          @else
+                            <form method="post" action="/post/comment">
                                 {{ csrf_field() }}
-                                <div class="container" style="margin-top:5px;">
-                                    <div class="card">
+                                    <div class="card" style="margin-top:5px;">
                                         <div class="card-body">
                                             <div class="card-title">
                                                    <p>
@@ -68,48 +89,21 @@
                                                                         value="{{$post->id}}">
                                                                         <input hidden name="company_id" type="text" class="form-control" id="company_id"
                                                                         value="{{$post->company_id}}">
-                                                                        <label for="commentid" class="col-sm-3 col-form-label"></label> 
-                                                                            <input name="comment" type="text" class="form-control" id="commentid"
-                                                                        placeholder="message here...">
                                                             </div>
                                                         </div>
                                                 </div>
                                                             <div class="card-footer">
                                                             <button class="btn btn-primary" type="submit">Apply</button>
-                                                        </div>
-                                               
-                                          
-                                        </div>
-                                    </div>
-                                        
+                                                        </div> 
+                                    </div>        
                                 </div>
-                               
-                                
                             </form>
                            
-                                    @if (count($comments) > 0)
-                                    @foreach($comments as $com)
-                                        @if($com->post_id == $post->id)
-                                        <div class="container">
-                                            <div class="card" style=" margin-top:5px;">
-                                                <div class="card-body">
-                                                        <div class="card-title">      
-                                                                <h3>{{$com->name}}</h3>          
-                                                            </div>
-                                                            <h6 class="card-subtitle mb-2 text-muted">Content</h6>
-                                                                <div class="card-text">
-                                                                    <h5>{{$com->comment_desc}}</h5>
-                                                                </div>  
-                                                </div>
-                                            </div>
-                                        </div>
-                                        @endif
-                                    @endforeach
-                                @endif
-    
+                          
+@endif
                            
-                            @endif
-                       
+                           
+                       @endif
       
    
    

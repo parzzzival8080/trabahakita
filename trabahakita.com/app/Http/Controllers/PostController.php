@@ -93,6 +93,7 @@ class PostController extends Controller
                 $posts->company_name = $profile->company_name;
                 $posts->title = request('title');
                 $posts->job_type = request('type');
+                $posts->job_type = request('field');
                 $posts->salary = request('salary');
                 $posts->company_id = auth()->user()->id;
                 $posts->description = request('description');
@@ -112,10 +113,23 @@ class PostController extends Controller
     {
         if(auth()->check())
         {
-            $post=Post::find($id);
-            $comments = Comments::all();
-            $notification = Notification::where(['company_id' => auth()->user()->id, 'type' => 'company', 'message_status' => '0'])->get();
-            return view('posts.show')->with(['post' => $post, 'comments' => $comments, 'notifcount' => $notification]);
+            if(auth()->user()->type == 'company')
+            {
+                $post=Post::find($id);
+                $comments = Comments::all();
+                $notification = Notification::where(['company_id' => auth()->user()->id, 'type' => 'company', 'message_status' => '0'])->get();
+                return view('posts.show')->with(['post' => $post, 'comments' => $comments, 'notifcount' => $notification]);
+            }
+            elseif(auth()->user()->type == 'employee')
+            {
+                $post=Post::find($id);
+                $comments = Comments::where(['user_id' => auth()->user()->id, 'post_id' => $id])->get();
+            
+                $notification = Notification::where(['company_id' => auth()->user()->id, 'type' => 'company', 'message_status' => '0'])->get();
+                return view('posts.show')->with(['post' => $post, 'comments' => $comments, 'notifcount' => $notification]);
+
+            }
+           
         }
         else
         {
