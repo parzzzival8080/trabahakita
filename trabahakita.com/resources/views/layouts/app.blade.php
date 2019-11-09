@@ -25,8 +25,9 @@
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
           <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
             <li class="nav-item active">
-              <a class="nav-link" href="/">HOME<span class="sr-only">(current)</span></a>
+            
               @if(auth()->check())
+              <a class="nav-link" href="/">HOME<span class="sr-only">(current)</span></a>
               <li class="nav-item">
               <a class="nav-link" href="/post">Posts </a>
               {{-- <span class="badge badge-primary badge-pill">{{$post->count()}}</span> --}}
@@ -50,10 +51,11 @@
             
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/login">LOGIN</a>
+                <a class="nav-link" href="/register">SIGNUP</a>
+         
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/register">SIGNUP</a>
+                <a class="nav-link" href="/login">LOGIN</a>
           </li>
           @endif
           </ul>

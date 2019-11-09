@@ -76,6 +76,8 @@ Route::post('/profile/experience/update', 'ExperienceController@store');
 Route::Post('/setAppointment', 'AppointmentController@store');
 Route::Post('/setAppointment/accept', 'AppointmentController@store');
 
+Route::Post('/Appointment/hire', 'HireController@store');
+
 
 //show pdf
 Route::post('/post/pdf', 'profilecontroller@pdf');
@@ -84,6 +86,8 @@ Route::post('/Download/pdf/application', 'notificationcontroller@pdf');
 // Notification
 Route::get('/Notification', 'NotificationController@index');
 Route::resource('/Notification/show', 'NotificationController');
+
+
 
 
 

@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Notification;
 use App\Profile;
+use App\Comments;
 use App\Post;
+use App\Hire;
 
 
 class HomeController extends Controller
@@ -50,8 +52,11 @@ class HomeController extends Controller
                                                         'posts' => $post]);    
             }
             else{
+                $comments = Comments::all();
+                $hire = Hire::where(['company_id' => auth()->user()->id])->get();
+               $post = Post::where(['company_id' => auth()->user()->id])->orderBy('id', 'desc')->get();
                 $notifcount = Notification::where(['company_id' => auth()->user()->id, 'type' => 'company', 'message_status' => '0']);
-                return view('home')->with( 'notifcount', $notifcount);  
+                return view('home')->with(['notifcount' => $notifcount, 'post' => $post, 'comments' => $comments, 'hires' => $hire]);  
             }
             }
             

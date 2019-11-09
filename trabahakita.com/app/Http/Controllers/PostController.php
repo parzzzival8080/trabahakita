@@ -93,7 +93,7 @@ class PostController extends Controller
                 $posts->company_name = $profile->company_name;
                 $posts->title = request('title');
                 $posts->job_type = request('type');
-                $posts->job_type = request('field');
+                $posts->job_field = request('field');
                 $posts->salary = request('salary');
                 $posts->company_id = auth()->user()->id;
                 $posts->description = request('description');

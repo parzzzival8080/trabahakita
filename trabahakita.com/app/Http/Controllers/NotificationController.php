@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Notification;
 use App\Appointment;
 use App\Profile;
+use App\Education;
+use App\Skills;
+use App\Experience;
 use App;
 
 use Illuminate\Http\Request;
@@ -32,9 +35,13 @@ class NotificationController extends Controller
             {
                 if(auth()->user()->type == 'employee')
                 {
+                    $profile = Profile::find(auth()->user()->id);
                     $notifcount = Notification::where(['user_id' => auth()->user()->id, 'type' => 'employee', 'message_status' => '0']);
-                    $notification = Notification::all();
-                    return view('notification.notification')->with(['notification' => $notification, 'notifcount' => $notifcount]);    
+                    $notification = Notification::where(['user_id' => auth()->user()->id])->orderBy('created_at', 'desc')->get();
+                    $education  = Education::where(['user_id' => auth()->user()->id])->get();
+                    $Experience  = Experience::where(['user_id' => auth()->user()->id])->get();
+                    $Skills  = Skills::where(['user_id' => auth()->user()->id])->get();
+                    return view('notification.notification')->with(['notification' => $notification, 'notifcount' => $notifcount, 'profile' => $profile, 'education' => $education, 'experience' => $Experience, 'skills' => $Skills]);    
                 }
                 else{
                     $notifcount = Notification::where(['company_id' => auth()->user()->id, 'type' => 'company', 'message_status' => '0']);

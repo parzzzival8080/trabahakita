@@ -44,17 +44,28 @@
                                                                         <input type="text" name="id" value="{{$com->user_id}}" hidden>
                                                                         <button class="btn btn-info"><a href="/profile/{{$com->user_id}}" style="color:white">View Profile</a></button>
                                                                         <button type="submit" class="btn btn-secondary">Download Resume</button>
+                                                                    </form>
+                                                                       
                                                                 </div>
+                                                               
                                                             </div>
-                                                            </form>
+                                                            
                                                         </div>
                                             </div>
-                                        </div>
-                                   
+                                        </div> 
                                     @endif
+                                  
+                                   
+      
                                 @endforeach
+                              
                                
+                  
+                                                                               
+     
+      
                             @endif
+                            
 
                     
                     @elseif(auth()->user()->type == 'employee')   
@@ -104,7 +115,8 @@
                            
                            
                        @endif
-      
+                        
+                      
    
    
     
