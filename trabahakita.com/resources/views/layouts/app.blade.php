@@ -32,6 +32,9 @@
               <a class="nav-link" href="/post">Posts </a>
               {{-- <span class="badge badge-primary badge-pill">{{$post->count()}}</span> --}}
             </li>
+            @if(auth()->user()->type == 'employee')
+            <a class="nav-link" href="/seeker/profile">Profile</a>
+            @endif
             @if($notifcount->count() == 0)
             <a class="nav-link" href="/Notification">Notification</a>
             @else
@@ -39,14 +42,18 @@
             <a class="nav-link" href="/Notification">Notification<span class="badge badge-info badge-pill">{{$notifcount->count()}}</span></a>
             </li>
             @endif
-              <li class="nav-item">
-                <a class="nav-link font-weight-bold" href="/employee/profile">Hi {{ auth()->user()->name }}</a>
-            </li>
-          
+             
+          <li class="nav-item dropdown">     
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+         {{auth()->user()->name}}
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/employee/profile">Edit Profile</a>
+          <a class="dropdown-item" href="/logout">Logout</a>
+        
+      </li>
          
-            <li class="nav-item">
-                <a class="nav-link" href="/logout">Log Out</a>
-            </li>
+           
               @else
             
         </li>

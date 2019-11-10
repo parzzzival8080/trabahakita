@@ -9,6 +9,7 @@ use App\Education;
 use App\Skills;
 use App\Experience;
 use App;
+use App\Comments;
 
 use Illuminate\Http\Request;
 
@@ -41,18 +42,51 @@ class NotificationController extends Controller
                     $education  = Education::where(['user_id' => auth()->user()->id])->get();
                     $Experience  = Experience::where(['user_id' => auth()->user()->id])->get();
                     $Skills  = Skills::where(['user_id' => auth()->user()->id])->get();
-                    return view('notification.notification')->with(['notification' => $notification, 'notifcount' => $notifcount, 'profile' => $profile, 'education' => $education, 'experience' => $Experience, 'skills' => $Skills]);    
+                    $comments = Comments::where(['user_id' => auth()->user()->id])->get();
+                    return view('notification.notification')->with(['notification' => $notification, 'notifcount' => $notifcount, 'profile' => $profile, 'education' => $education, 'experience' => $Experience, 'skills' => $Skills,$notifcount, 'comments' => $comments]);    
                 }
                 else{
                     $notifcount = Notification::where(['company_id' => auth()->user()->id, 'type' => 'company', 'message_status' => '0']);
                     $notification = Notification::all();
-                    return view('notification.notification')->with(['notification' => $notification, 'notifcount' => $notifcount]);  
+                    $comments = Comments::where(['user_id' => auth()->user()->id])->get();
+                    return view('notification.notification')->with(['notification' => $notification, 'notifcount' => $notifcount, 'comments' => $comments]);  
                 }
             }
         }
         
      
         
+    }
+
+    public function index2()
+    {
+        if (auth()->check())
+        {
+            $profile = Profile::find(auth()->user()->id);
+            if($profile->status_update == '' || $profile->status_update == '0')
+            {
+                return redirect()->to('employee/profile');
+            }
+
+            elseif($profile->status_update == '1')
+            {
+                if(auth()->user()->type == 'employee')
+                {
+                    $profile = Profile::find(auth()->user()->id);
+                    $notifcount = Notification::where(['user_id' => auth()->user()->id, 'type' => 'employee', 'message_status' => '0']);
+                    $notification = Notification::where(['user_id' => auth()->user()->id])->orderBy('created_at', 'desc')->get();
+                    $education  = Education::where(['user_id' => auth()->user()->id])->get();
+                    $Experience  = Experience::where(['user_id' => auth()->user()->id])->get();
+                    $Skills  = Skills::where(['user_id' => auth()->user()->id])->get();
+                    return view('seekerprofile')->with(['notification' => $notification, 'notifcount' => $notifcount, 'profile' => $profile, 'education' => $education, 'experience' => $Experience, 'skills' => $Skills]);    
+                }
+                else{
+                    $notifcount = Notification::where(['company_id' => auth()->user()->id, 'type' => 'company', 'message_status' => '0']);
+                    $notification = Notification::where(['company_id' => auth()->user()->id]);
+                    return view('')->with(['notification' => $notification, 'notifcount' => $notifcount]);  
+                }
+            }
+        }
     }
 
     /**

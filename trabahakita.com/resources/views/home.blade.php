@@ -46,7 +46,7 @@
                             <div class="card-body">
                                 <div class="card-text">
                                         <center>
-                                                <button class="btn btn-success">{{$post_field_1->count()}} Job Postings</button> 
+                                                <button class="btn btn-success">{{$post_field_2->count()}} Job Postings</button> 
                                                  </center>
                                 </div>
                             </div>
@@ -60,7 +60,7 @@
                             <div class="card-body">
                                 <div class="card-text">
                                         <center>
-                                                <button class="btn btn-success">{{$post_field_1->count()}} Job Postings</button> 
+                                                <button class="btn btn-success">{{$post_field_3->count()}} Job Postings</button> 
                                                  </center>
                                 </div>
                             </div>
@@ -77,7 +77,7 @@
                         <div class="card-body">
                             <div class="card-text">
                                     <center>
-                                            <button class="btn btn-success">{{$post_field_1->count()}} Job Postings</button> 
+                                            <button class="btn btn-success">{{$post_field_4->count()}} Job Postings</button> 
                                              </center>
                             </div>
                         </div>
@@ -91,7 +91,7 @@
                                 <div class="card-body">
                                     <div class="card-text">
                                             <center>
-                                                    <button class="btn btn-success">{{$post_field_1->count()}} Job Postings</button> 
+                                                    <button class="btn btn-success">{{$post_field_5->count()}} Job Postings</button> 
                                                      </center>
                                     </div>
                                 </div>
@@ -105,7 +105,7 @@
                                 <div class="card-body">
                                     <div class="card-text">
                                             <center>
-                                                    <button class="btn btn-success">{{$post_field_1->count()}} Job Postings</button> 
+                                                    <button class="btn btn-success">{{$post_field_6->count()}} Job Postings</button> 
                                                      </center>
                                     </div>
                                 </div>
@@ -122,7 +122,7 @@
                             <div class="card-body">
                                 <div class="card-text">
                                         <center>
-                                                <button class="btn btn-success">{{$post_field_1->count()}} Job Postings</button> 
+                                                <button class="btn btn-success">{{$post_field_7->count()}} Job Postings</button> 
                                                  </center>
                                 </div>
                             </div>
@@ -136,7 +136,7 @@
                                     <div class="card-body">
                                         <div class="card-text">
                                                 <center>
-                                                        <button class="btn btn-success">{{$post_field_1->count()}} Job Postings</button> 
+                                                        <button class="btn btn-success">{{$post_field_8->count()}} Job Postings</button> 
                                                          </center>
                                         </div>
                                     </div>
@@ -150,7 +150,7 @@
                                     <div class="card-body">
                                         <div class="card-text">
                                                 <center>
-                                                        <button class="btn btn-success">{{$post_field_1->count()}} Job Postings</button> 
+                                                        <button class="btn btn-success">{{$post_field_9->count()}} Job Postings</button> 
                                                          </center>
                                         </div>
                                     </div>
@@ -167,7 +167,7 @@
                                 <div class="card-body">
                                     <div class="card-text">
                                             <center>
-                                                    <button class="btn btn-success">{{$post_field_1->count()}} Job Postings</button> 
+                                                    <button class="btn btn-success">{{$post_field_10->count()}} Job Postings</button> 
                                                      </center>
                                     </div>
                                 </div>

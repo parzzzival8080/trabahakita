@@ -88,6 +88,8 @@ Route::get('/Notification', 'NotificationController@index');
 Route::resource('/Notification/show', 'NotificationController');
 
 
+Route::get('/seeker/profile', 'NotificationController@index2');
+
 
 
 

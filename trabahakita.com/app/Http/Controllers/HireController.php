@@ -30,8 +30,10 @@ class HireController extends Controller
         $notification->app_id = $hire->id;
         $notification->user_id = request('id');
         $notification->name = request('name');
-        $notification->subject = 'hire';
+        $notification->subject = auth()->user()->name.'Wants to hire you!';
         $notification->type ='employee';
+        $notification->from ='company';
+        $notification->to = auth()->user()->name;
         $notification->message = request('message');
         $notification->save();
 

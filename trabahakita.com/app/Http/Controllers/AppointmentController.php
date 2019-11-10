@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Appointment;
 use App\Notification;
+use App\Comments;
 use Illuminate\Http\Request;
 
 class AppointmentController extends Controller
@@ -66,21 +67,25 @@ class AppointmentController extends Controller
         elseif (auth()->user()->type == 'employee')
         {
 
-            $appointment = Appointment::find(request('notif_id'));
-            $appointment->appointment_status = '1';
-            $appointment->save();
+            $comments = Comments::find(request('comment_id'));
+            $comments->hired_status = '2';
+            $comments->save();
 
             $notification = new Notification;
             $notification->user_id = auth()->user()->id;
             $notification->company_id = request('company_id');
-            $notification->app_id = $appointment->id;
-            $notification->subject = 'Interview Accepted';
+            $notification->app_id = request('comment_id');
+            $notification->subject = 'Offer Accepted';
             $notification->type = 'company';
+            $notification->from = 'employee';
             $notification->name = auth()->user()->name;
+            $notification->to = request('name');
             $notification->message = request('message');
             $notification->save();
 
-            return redirect()->to('/post');  
+          
+
+            return redirect()->to('/Notification');  
         }
       
      }
