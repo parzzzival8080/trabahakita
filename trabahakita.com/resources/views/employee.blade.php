@@ -21,19 +21,29 @@
                                 About:{{$profile->description}}
                             </h5>
                         
+                         <div class="row">
+                             <div class="col-sm">
+                                <form action="/post/pdf" method="POST" enctype="multipart/form-data">
+                                    {{ csrf_field() }}
+                                <input type="text" name="id" value="{{$profile->id}}" hidden>
+                                    <button type="submit" class="btn btn-primary">Download Resume</button>
+                                   
+                                </form>
+                             </div>
+
+                             <div class="col-sm">
+                                <button class="btn btn-info" data-toggle="modal" data-target="#modalAppointment">Set Appointment</button>
+                                <button class="btn btn-success" data-toggle="modal" data-target="#modalHire">Hire</button>
+                             </div>
+                         </div>
+                           
                          
-                            <form action="/post/pdf" method="POST" enctype="multipart/form-data">
-                                {{ csrf_field() }}
-                            <input type="text" name="id" value="{{$profile->id}}" hidden>
-                                <button type="submit" class="btn btn-primary">Download Resume</button>
-                               
-                            </form>
-                            <button class="btn btn-info" data-toggle="modal" data-target="#modalAppointment">Set Appointment</button>
+                         
                             
                             <!-- Button trigger modal -->
 
       
-      <!-- Modal -->
+      <!-- Modal for appointment -->
       <div class="modal fade" id="modalAppointment" tabindex="-1" role="dialog" aria-labelledby="modalapplabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
@@ -82,6 +92,42 @@
                         </div>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Save changes</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+             
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal for Hiring-->
+      <div class="modal fade" id="modalHire" tabindex="-1" role="dialog" aria-labelledby="modalapplabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modalapplabel">Hire this guy?</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <form action="/Appointment/hire" method="post" enctype="multipart/form-data">
+                        {{ csrf_field() }}
+                              <div class="container">
+                                    <div class="form-group row">
+                                    <input type="text" name="id" value="{{$profile->id}}"  hidden>
+                                    <input type="text" name="name"  value="{{$profile->first_name}} {{$profile->last_name}}"  hidden>
+                                </div>  
+                               
+                                    <div class="form-group row">
+                                        <label for="tyear">Message</label>
+                                        <textarea type="text" name="message" class="form-control" id="mesid" placeholder=" " rows="3" required></textarea>
+                                    </div> 
+                        </div>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                       
+                        <button type="submit" class="btn btn-primary">Hire</button>
                 </form>
             </div>
             <div class="modal-footer">

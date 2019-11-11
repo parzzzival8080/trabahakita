@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCommentsTable extends Migration
+class CreateHiresTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,15 @@ class CreateCommentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('comments', function (Blueprint $table) {
+        Schema::create('hires', function (Blueprint $table) {
             $table->increments('id');
             $table->string('company_id');
-            $table->string('post_id');
+            $table->string('company_name');
             $table->string('user_id');
-            $table->string('name');
-            $table->string('title');
-            $table->string('contact_fb');
-            $table->string('contact_twitter');
-            $table->string('contact_email');
-            $table->string('message');
-            $table->string('hired_status')->default('0');
+            $table->string('user_name');
+            $table->string('post_id');
+            $table->string('message_status');
+            $table->string('position');
             $table->timestamps();
         });
     }
@@ -36,6 +33,6 @@ class CreateCommentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('comments');
+        Schema::dropIfExists('hires');
     }
 }

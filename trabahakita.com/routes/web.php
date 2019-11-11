@@ -13,12 +13,24 @@
 
 
 
-// Route::get('/post', function () {
-//     return view('home');
-// });
-// Post
+Route::get('/', function () {
+    if(auth()->check())
+    {
+        return redirect()->to('/home');
+    }
+    else
+    {
+        return redirect()->to('/home');
+    }
+   
+});
 
-Route::get('/', 'HomeController@index');
+// Admin
+
+Route::get('/admin/home', 'admincontroller@index');
+
+// user
+Route::get('/home', 'HomeController@index');
 Route::get('/post', 'PostController@index');
 Route::get('/employee/dashboard', 'PostController@index');
 Route::get('post/create', 'PostController@create');
@@ -38,6 +50,8 @@ Route::get('/logout', 'SessionController@destroy');
 
 // Profile Employee
 Route::get('/employee/profile', 'ProfileController@index');
+Route::get('/company/profiles', 'ProfileController@index2');
+Route::get('/seeker/profiles', 'ProfileController@index2');
 Route::post('/employee/profile','profileController@store');
 Route::post('/employee/profile/update','profileController@update');
 Route::get('/employee/profile','profileController@showme');
@@ -64,9 +78,12 @@ Route::post('/profile/experience/update', 'ExperienceController@store');
 Route::Post('/setAppointment', 'AppointmentController@store');
 Route::Post('/setAppointment/accept', 'AppointmentController@store');
 
+Route::Post('/Appointment/hire', 'HireController@store');
+
 
 //show pdf
 Route::post('/post/pdf', 'profilecontroller@pdf');
+Route::post('/Download/pdf/application', 'notificationcontroller@pdf');
 
 // Notification
 Route::get('/Notification', 'NotificationController@index');
@@ -74,6 +91,10 @@ Route::resource('/Notification/show', 'NotificationController');
 
 //Sample getting nearest companies
 Route::get('/maps', 'SampleController@index');
+
+
+Route::get('/seeker/profile', 'NotificationController@index2');
+
 
 
 

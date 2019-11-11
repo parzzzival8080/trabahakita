@@ -46,18 +46,33 @@ class SessionController extends Controller
                 'message' => 'The email or password is incorrect, please try again'
             ]);
         }
+
+        $profile = Profile::find(Auth::user()->id);
         if(Auth::user()->type == 'admin')
         {
-            return redirect()->to('/');
+            return redirect()->to('/admin/home');
         }
         elseif (Auth::user()->type == 'employee')
         {
-            
-            return redirect()->to('/employee/dashboard');
+            if($profile->status_update == '1')
+            {
+                return redirect()->to('/post');
+            }
+            elseif($profile->status_update == '0' || $profile->status_update == '')
+            {
+                return redirect()->to('/employee/profile');
+            }
         }
         elseif(Auth::user()->type == 'company')
         {
-            return redirect()->to('/post');
+            if($profile->status_update == '1')
+            {
+                return redirect()->to('/post');
+            }
+            elseif($profile->status_update == '0')
+            {
+                return redirect()->to('/employee/profile');
+            }
         }
         
        

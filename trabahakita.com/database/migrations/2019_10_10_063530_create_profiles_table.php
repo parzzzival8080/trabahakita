@@ -30,11 +30,14 @@ class CreateProfilesTable extends Migration
             $table->string('area')->nullable();
             $table->string('description')->nullable(); 
             $table->string('status_update')->nullable();
+            $table->string('approval_status')->default('0');
+            $table->string('hire_status')->default('0');
             $table->string('adress')->nullable();
             $table->string('company_rep')->nullable();
             $table->string('number')->nullable();
             $table->string('image')->nullable();
             $table->string('email')->nullable();
+           
             $table->timestamps();
         });
     }

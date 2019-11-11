@@ -4,6 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Notification;
 use App\Appointment;
+use App\Profile;
+use App\Education;
+use App\Skills;
+use App\Experience;
+use App\Hire;
+use App;
+use App\Comments;
 
 use Illuminate\Http\Request;
 
@@ -17,19 +24,73 @@ class NotificationController extends Controller
     public function index()
     {
         //
-        if(auth()->user()->type == 'employee')
+        
+        if (auth()->check())
         {
-            $notifcount = Notification::where(['user_id' => auth()->user()->id, 'type' => 'employee', 'message_status' => '0']);
-            $notification = Notification::all();
-            return view('notification.notification')->with(['notification' => $notification, 'notifcount' => $notifcount]);    
+            $profile = Profile::find(auth()->user()->id);
+            if($profile->status_update == '' || $profile->status_update == '0')
+            {
+                return redirect()->to('employee/profile');
+            }
+
+            elseif($profile->status_update == '1')
+            {
+                if(auth()->user()->type == 'employee')
+                {
+                    $profile = Profile::find(auth()->user()->id);
+                    $notifcount = Notification::where(['user_id' => auth()->user()->id, 'type' => 'employee', 'message_status' => '0']);
+                    $notification = Notification::where(['user_id' => auth()->user()->id])->orderBy('created_at', 'desc')->get();
+                    $education  = Education::where(['user_id' => auth()->user()->id])->get();
+                    $Experience  = Experience::where(['user_id' => auth()->user()->id])->get();
+                    $Skills  = Skills::where(['user_id' => auth()->user()->id])->get();
+                    $comments = Comments::where(['user_id' => auth()->user()->id])->get();
+                   
+                    return view('notification.notification')->with(['notification' => $notification, 'notifcount' => $notifcount, 'profile' => $profile, 'education' => $education, 'experience' => $Experience, 'skills' => $Skills,$notifcount, 'comments' => $comments]);    
+                }
+                else{
+                    $notifcount = Notification::where(['company_id' => auth()->user()->id, 'type' => 'company', 'message_status' => '0']);
+                    $notification = Notification::all();
+                    $comments = Comments::where(['user_id' => auth()->user()->id])->get();
+                  
+                    return view('notification.notification')->with(['notification' => $notification, 'notifcount' => $notifcount, 'comments' => $comments]);  
+                }
+            }
         }
-        else{
-            $notifcount = Notification::where(['company_id' => auth()->user()->id, 'type' => 'company', 'message_status' => '0']);
-            $notification = Notification::all();
-            return view('notification.notification')->with(['notification' => $notification, 'notifcount' => $notifcount]);  
-        }
+        
      
         
+    }
+
+    public function index2()
+    {
+        if (auth()->check())
+        {
+            $profile = Profile::find(auth()->user()->id);
+            if($profile->status_update == '' || $profile->status_update == '0')
+            {
+                return redirect()->to('employee/profile');
+            }
+
+            elseif($profile->status_update == '1')
+            {
+                if(auth()->user()->type == 'employee')
+                {
+                    $profile = Profile::find(auth()->user()->id);
+                    $notifcount = Notification::where(['user_id' => auth()->user()->id, 'type' => 'employee', 'message_status' => '0']);
+                    $notification = Notification::where(['user_id' => auth()->user()->id])->orderBy('created_at', 'desc')->get();
+                    $education  = Education::where(['user_id' => auth()->user()->id])->get();
+                    $Experience  = Experience::where(['user_id' => auth()->user()->id])->get();
+                    $Skills  = Skills::where(['user_id' => auth()->user()->id])->get();
+                    $hire = Hire::where(['user_id' => auth()->user()->id])->orderBy('created_at','desc')->get();
+                    return view('seekerprofile')->with(['notification' => $notification, 'hire' => $hire, 'notifcount' => $notifcount, 'profile' => $profile, 'education' => $education, 'experience' => $Experience, 'skills' => $Skills]);    
+                }
+                else{
+                    $notifcount = Notification::where(['company_id' => auth()->user()->id, 'type' => 'company', 'message_status' => '0']);
+                    $notification = Notification::where(['company_id' => auth()->user()->id]);
+                    return view('')->with(['notification' => $notification, 'notifcount' => $notifcount]);  
+                }
+            }
+        }
     }
 
     /**
@@ -79,6 +140,30 @@ class NotificationController extends Controller
         }
        
     }
+
+    public function pdf()
+    {
+        $appointment = Appointment::find(request('app_id'));
+        $pdf = App::make('dompdf.wrapper');
+        $pdf->loadhtml(
+            '<p>Dear '.$appointment->user_name.'</p><br>'.
+            '<p>Thank you for applying for the position of'. $appointment->user_name .'in our company. '.
+            'We would like to invite you for an interview in our office this coming '.$appointment->date.
+            ' at '.$appointment->time.'.</p><br>'.
+            '<p>Sincerely yours,</p>'.
+            '<p>'.$appointment->user_name.'</p>'.
+            '_____________________________'.
+            '<p>'.$appointment->user_name.'</p>'.
+            '<p>Contact Person</p>'.
+            '<p>'.$appointment->company_name.'</p>'.
+            '<p>address</p>'.
+            '<p>number</p>'.
+            '<p>email</p>'
+        );
+        return $pdf->stream();
+    }
+
+
 
     /**
      * Show the form for editing the specified resource.

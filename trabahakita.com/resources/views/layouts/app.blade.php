@@ -16,21 +16,28 @@
  
 <body>
  
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="#">TRABAHAKITA</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
       
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
             <li class="nav-item active">
-              <a class="nav-link" href="/post">HOME<span class="sr-only">(current)</span></a>
+            
               @if(auth()->check())
+              <a class="nav-link" href="/">HOME<span class="sr-only">(current)</span></a>
               <li class="nav-item">
-              <a class="nav-link" href="/post">Posts </a>
+              <a class="nav-link" href="/post">Posts</a>
               {{-- <span class="badge badge-primary badge-pill">{{$post->count()}}</span> --}}
             </li>
+            @if(auth()->user()->type == 'company')
+            <a class="nav-link" href="/company/profiles">Seeker Profiles</a>
+            @elseif(auth()->user()->type == 'employee')
+            <a class="nav-link" href="/company/profiles">Company Profiles</a>
+            <a class="nav-link" href="/seeker/profile">My Profile</a>
+            @endif
             @if($notifcount->count() == 0)
             <a class="nav-link" href="/Notification">Notification</a>
             @else
@@ -38,26 +45,27 @@
             <a class="nav-link" href="/Notification">Notification<span class="badge badge-info badge-pill">{{$notifcount->count()}}</span></a>
             </li>
             @endif
-              <li class="nav-item">
-                <a class="nav-link font-weight-bold" href="/employee/profile">Hi {{ auth()->user()->name }}</a>
-            </li>
-          
+             
+          <li class="nav-item dropdown">     
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+         {{auth()->user()->name}}
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/employee/profile">Edit Profile</a>
+          <a class="dropdown-item" href="/logout">Logout</a>
+        
+      </li>
          
-            <li class="nav-item">
-                <a class="nav-link" href="/logout">Log Out</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/maps">Map that leads to you</a>
-            </li>
-            
+           
               @else
             
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/login">LOGIN</a>
+                <a class="nav-link" href="/register">SIGNUP</a>
+         
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/register">SIGNUP</a>
+                <a class="nav-link" href="/login">LOGIN</a>
           </li>
           @endif
           </ul>

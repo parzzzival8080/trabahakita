@@ -38,11 +38,18 @@ class PostController extends Controller
 
             if (auth()->user()->type == 'employee')
             {
-            $post = Post::all();
-            $notification = Notification::where(['user_id' => auth()->user()->id, 'type' => 'employee' ,'message_status' => '0'])->get();
-            return view('posts.index')->with(['post' => $post, 'notifcount' => $notification]);
-               
-               
+            $profile = Profile::find(auth()->user()->id);
+            if ($profile->status_update == '1')
+            {
+                $post = Post::all();
+                $notification = Notification::where(['user_id' => auth()->user()->id, 'type' => 'employee' ,'message_status' => '0'])->get();
+                return view('posts.index')->with(['post' => $post, 'notifcount' => $notification]);
+            }
+            elseif ($profile->status_update == '0' || $profile->status_update == '')
+            {
+                return redirect()->to('/employee/profile');
+            }
+   
             }
             elseif (auth()->user()->type == 'company')
             {
@@ -86,6 +93,7 @@ class PostController extends Controller
                 $posts->company_name = $profile->company_name;
                 $posts->title = request('title');
                 $posts->job_type = request('type');
+                $posts->job_field = request('field');
                 $posts->salary = request('salary');
                 $posts->company_id = auth()->user()->id;
                 $posts->description = request('description');
@@ -103,10 +111,31 @@ class PostController extends Controller
 
     public function show($id)
     {
+        if(auth()->check())
+        {
+            if(auth()->user()->type == 'company')
+            {
+                $post=Post::find($id);
+                $comments = Comments::all();
+                $notification = Notification::where(['company_id' => auth()->user()->id, 'type' => 'company', 'message_status' => '0'])->get();
+                return view('posts.show')->with(['post' => $post, 'comments' => $comments, 'notifcount' => $notification]);
+            }
+            elseif(auth()->user()->type == 'employee')
+            {
+                $post=Post::find($id);
+                $comments = Comments::where(['user_id' => auth()->user()->id, 'post_id' => $id])->get();
+            
+                $notification = Notification::where(['company_id' => auth()->user()->id, 'type' => 'company', 'message_status' => '0'])->get();
+                return view('posts.show')->with(['post' => $post, 'comments' => $comments, 'notifcount' => $notification]);
 
-        $post=Post::find($id);
-        $comments = Comments::all();
-        return view('posts.show')->with(['post' => $post, 'comments' => $comments]);
+            }
+           
+        }
+        else
+        {
+           return redirect()->to('/home');
+        }
+     
         
     }
 }

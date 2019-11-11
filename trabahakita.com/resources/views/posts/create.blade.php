@@ -28,6 +28,19 @@
                             </div>
                         </div>
                         <div class="form-group row">
+                                <label for="empid" class="col-sm-3 col-form-label">Job Field</label>
+                                <div class="col-sm-9">
+                                        <select class="custom-select mr-sm-2" id="field" name="field">
+                                                <option   selected>Choose...</option>
+                                                <option value="Education">Education</option>
+                                                <option value="Engineering and Computer">Engineering and Computer</option>
+                                                <option value="Law and Public Policy">Law and Public Policy</option>
+                                                <option value="Business">Business</option>
+                                                <option value="Environment">Environment</option>
+                                              </select>
+                                </div>
+                            </div>
+                        <div class="form-group row">
                                 <label for="person" class="col-sm-3 col-form-label">Number of Person</label>
                                 <div class="col-sm-9">
                                     <input name="person" type="text" class="form-control" id="person"
@@ -61,7 +74,7 @@
 
                 
         </div>
-    </div>
+
     @if(count($errors))
     <div class="form-group">
         <div class="alert alert-danger">
