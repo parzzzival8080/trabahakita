@@ -13,6 +13,7 @@ use App\Education;
 use App\Skills;
 use App\Experience;
 use App\Notification;
+use App\Hire;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -40,6 +41,30 @@ class ProfileController extends Controller
         {
             return redirect()->to('/login');
         }
+    }
+
+    public function index2()
+    {
+        if(auth()->check())
+        {
+            if(auth()->user()->type == 'employee')
+            {
+                $profile = Profile::where(['type' => 'company'])->get();
+                $notifcount = Notification::where(['user_id' => auth()->user()->id, 'type' => 'employee']);
+                $post = Post::all();
+                return view('company.profiles')->with(['profile' => $profile, 'notifcount' => $notifcount, 'post' => $post]);
+            }
+
+            elseif(auth()->user()->type == 'company')
+            {
+                $profile = Profile::where(['type' => 'employee'])->orderBy('id', 'desc')->get();
+                $notifcount = Notification::where(['user_id' => auth()->user()->id, 'type' => 'employee']);
+                $post = Post::orderBy('id', 'DESC')->get();
+                $hires = Hire::all();
+                return view('employee.profiles')->with(['profile' => $profile, 'notifcount' => $notifcount, 'post' => $post]);
+            }
+        }
+       
     }
 
     public function store(Request $request)

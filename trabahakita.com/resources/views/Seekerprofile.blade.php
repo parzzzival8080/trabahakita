@@ -174,10 +174,37 @@
         <div class="card">
                 <div class="card-header" style="background:#88AAFF; color:white">
                         <h1>Employment History</h1>
+                        
                     </div>
             <div class="card-body">
                
-            </div>
+                        @if(count($hire) > 0)
+                        <div class="row">
+                                <div class="col">
+                                        Employer
+                                    </div>
+                                    <div class="col">
+                                           Position
+                                    </div>
+                                    
+                        </div>
+                        @foreach($hire as $hires)
+                        <div class="row" style="margin-top:5px">
+                                <div class="col">
+                                        {{$hires->company_name}}
+                                    </div>
+                                    <div class="col">
+                                            {{$hires->position}}
+                                    </div>
+                                    
+                        </div>
+                      
+                           
+                        @endforeach
+                        @endif
+                </div>
+               
+            
         </div>
        
     </div>

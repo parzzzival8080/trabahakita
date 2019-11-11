@@ -29,11 +29,14 @@
               @if(auth()->check())
               <a class="nav-link" href="/">HOME<span class="sr-only">(current)</span></a>
               <li class="nav-item">
-              <a class="nav-link" href="/post">Posts </a>
+              <a class="nav-link" href="/post">Posts</a>
               {{-- <span class="badge badge-primary badge-pill">{{$post->count()}}</span> --}}
             </li>
-            @if(auth()->user()->type == 'employee')
-            <a class="nav-link" href="/seeker/profile">Profile</a>
+            @if(auth()->user()->type == 'company')
+            <a class="nav-link" href="/company/profiles">Seeker Profiles</a>
+            @elseif(auth()->user()->type == 'employee')
+            <a class="nav-link" href="/company/profiles">Company Profiles</a>
+            <a class="nav-link" href="/seeker/profile">My Profile</a>
             @endif
             @if($notifcount->count() == 0)
             <a class="nav-link" href="/Notification">Notification</a>

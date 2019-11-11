@@ -183,8 +183,6 @@
 @elseif(auth()->user()->type == 'company')
     
 
-   
-
 
     <div class="row" style="margin-top:10px">
             <div class="col-3">
@@ -196,6 +194,7 @@
               <a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-post{{$posts->id}}" role="tab" aria-controls="v-pills-home" aria-selected="true">{{$posts->Title}}</a>
                 @endif
                 @endforeach
+                @endif
               </div>
             </div>
             <div class="col-9">
@@ -333,6 +332,15 @@
                                         <div class="card-title">      
                                                 <h3>{{$com->name}}</h3>          
                                             </div>
+                                          
+                                            <div class="card-text">
+                                                       
+                                                                        <h5>{{$com->message}}</h5>
+                                                                      <h5>Contacts</h5>
+                                            <h6>Facebook:{{$com->contact_fb}}</h6>
+                                            <h6>Viber:{{$com->contact_twitter}}</h6>
+                                            <h6>Email:{{$com->contact_email}}</h6>
+                                            </div>
                                             <h6 class="card-subtitle mb-2 text-muted">Actions</h6>
                                             <div class="card-footer">
                                                 <div class="row">
@@ -442,7 +450,7 @@
 
 
 
-   @endif
+  
 
 
 @else 

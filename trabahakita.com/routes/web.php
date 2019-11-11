@@ -50,6 +50,8 @@ Route::get('/logout', 'SessionController@destroy');
 
 // Profile Employee
 Route::get('/employee/profile', 'ProfileController@index');
+Route::get('/company/profiles', 'ProfileController@index2');
+Route::get('/seeker/profiles', 'ProfileController@index2');
 Route::post('/employee/profile','profileController@store');
 Route::post('/employee/profile/update','profileController@update');
 Route::get('/employee/profile','profileController@showme');

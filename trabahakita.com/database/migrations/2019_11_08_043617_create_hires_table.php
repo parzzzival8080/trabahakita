@@ -21,6 +21,7 @@ class CreateHiresTable extends Migration
             $table->string('user_name');
             $table->string('post_id');
             $table->string('message_status');
+            $table->string('position');
             $table->timestamps();
         });
     }

@@ -8,6 +8,7 @@ use App\Profile;
 use App\Education;
 use App\Skills;
 use App\Experience;
+use App\Hire;
 use App;
 use App\Comments;
 
@@ -43,12 +44,14 @@ class NotificationController extends Controller
                     $Experience  = Experience::where(['user_id' => auth()->user()->id])->get();
                     $Skills  = Skills::where(['user_id' => auth()->user()->id])->get();
                     $comments = Comments::where(['user_id' => auth()->user()->id])->get();
+                   
                     return view('notification.notification')->with(['notification' => $notification, 'notifcount' => $notifcount, 'profile' => $profile, 'education' => $education, 'experience' => $Experience, 'skills' => $Skills,$notifcount, 'comments' => $comments]);    
                 }
                 else{
                     $notifcount = Notification::where(['company_id' => auth()->user()->id, 'type' => 'company', 'message_status' => '0']);
                     $notification = Notification::all();
                     $comments = Comments::where(['user_id' => auth()->user()->id])->get();
+                  
                     return view('notification.notification')->with(['notification' => $notification, 'notifcount' => $notifcount, 'comments' => $comments]);  
                 }
             }
@@ -78,7 +81,8 @@ class NotificationController extends Controller
                     $education  = Education::where(['user_id' => auth()->user()->id])->get();
                     $Experience  = Experience::where(['user_id' => auth()->user()->id])->get();
                     $Skills  = Skills::where(['user_id' => auth()->user()->id])->get();
-                    return view('seekerprofile')->with(['notification' => $notification, 'notifcount' => $notifcount, 'profile' => $profile, 'education' => $education, 'experience' => $Experience, 'skills' => $Skills]);    
+                    $hire = Hire::where(['user_id' => auth()->user()->id])->orderBy('created_at','desc')->get();
+                    return view('seekerprofile')->with(['notification' => $notification, 'hire' => $hire, 'notifcount' => $notifcount, 'profile' => $profile, 'education' => $education, 'experience' => $Experience, 'skills' => $Skills]);    
                 }
                 else{
                     $notifcount = Notification::where(['company_id' => auth()->user()->id, 'type' => 'company', 'message_status' => '0']);

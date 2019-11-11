@@ -43,6 +43,10 @@ class CommentsController extends Controller
         $comment->company_id = request('company_id');
         $comment->user_id = auth()->user()->id;
         $comment->name = auth()->user()->name;
+        $comment->message = request('message');
+        $comment->contact_fb = request('fb');
+        $comment->contact_twitter = request('viber');
+        $comment->contact_email = request('email');
         $comment->save();
         $post = Post::find(request('post_id'));
 

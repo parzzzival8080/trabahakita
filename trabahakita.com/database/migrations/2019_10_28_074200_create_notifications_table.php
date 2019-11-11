@@ -25,6 +25,8 @@ class CreateNotificationsTable extends Migration
             $table->string('date')->nullable();
             $table->string('time')->nullable();
             $table->string('message_status')->default('0');
+            $table->string('from')->nullable();
+            $table->string('to')->nullable();
             $table->timestamps();
         });
     }
