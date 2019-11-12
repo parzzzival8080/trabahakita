@@ -96,6 +96,7 @@ class PostController extends Controller
                 $posts->job_field = request('field');
                 $posts->salary = request('salary');
                 $posts->company_id = auth()->user()->id;
+                $posts->employee_num = request('per_num');
                 $posts->description = request('description');
                 $posts->save();
                 $post = Post::all();

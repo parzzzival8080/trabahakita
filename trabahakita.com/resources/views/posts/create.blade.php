@@ -43,7 +43,7 @@
                         <div class="form-group row">
                                 <label for="person" class="col-sm-3 col-form-label">Number of Person</label>
                                 <div class="col-sm-9">
-                                    <input name="person" type="text" class="form-control" id="person"
+                                    <input name="per_num" type="text" class="form-control" id="person"
                                            placeholder="Input Number" required>
                                 </div>
                         </div>
