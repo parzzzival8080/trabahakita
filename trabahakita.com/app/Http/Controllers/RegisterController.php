@@ -52,6 +52,8 @@ class RegisterController extends Controller
             'email' => 'required|email',
             'password' => 'required|confirmed',
             'type' => 'required',
+            'lat' => 'nullable',
+            'lng' => 'nullable'
         ]);
 
      
@@ -64,6 +66,8 @@ class RegisterController extends Controller
        $profile = New Profile;
        $profile->id = $user->id;
        $profile->type = $user->type;
+       $profile->lat = $request->lat;
+       $profile->lng = $request->lng;
         $profile->save();
       
        if ($user->type == 'admin')

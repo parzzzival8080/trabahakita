@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
+
     //
     public function index()
     {
@@ -115,6 +116,7 @@ class ProfileController extends Controller
        
     }
 
+
     public function showme()
     {
        
@@ -148,6 +150,8 @@ class ProfileController extends Controller
             $profile->middle_name = request('middlename');
             $profile->title = request('title');
             $profile->adress = request('address');
+            $profile->lat = request('lat');
+            $profile->lng = request('lng');
             $profile->school = request('school');
             $profile->degree = request('degree');
             $profile->number = request('number'); 
@@ -189,6 +193,8 @@ class ProfileController extends Controller
             $profile->email = request('email'); 
             $profile->image = request()->file('image')->store('public/images');
             $profile->description = request('desc');
+            $profile->lat = request('lat');
+            $profile->lng = request('lng');
             $profile->status_update = '1';
             $profile->save();
 

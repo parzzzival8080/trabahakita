@@ -92,6 +92,9 @@ Route::post('/Download/pdf/application', 'notificationcontroller@pdf');
 Route::get('/Notification', 'NotificationController@index');
 Route::resource('/Notification/show', 'NotificationController');
 
+//Sample getting nearest companies
+Route::get('/maps', 'SampleController@index');
+
 
 Route::get('/seeker/profile', 'NotificationController@index2');
 
