@@ -3,72 +3,80 @@
 
         @if(auth()->user()->type == 'employee')
         @if (count($post) > 0)
-        <div class="card">
-                <div class="card-header"><h1>POSTS</h1></div>
-                <div class="card-body">
-                    <div class="card-text">
-        @foreach ($post as $posts)
-                    <div class="card" style="margin-top:10px">
-                            <div class="card-body">
-                                <div class="card-title">
-                                        <h1>Job Title:{{$posts->Title}}</h1>
+        <div class="container" style="padding:30px">
+                <h2>POSTS</h2>
+                @foreach ($post as $posts)
+                            <div class="card" style="margin-top:10px">
+                                    <div class="card-body">
+                                      <div class="card-header">
+                                            <h3>{{$posts->Title}}</h3>
+                                            <h6 class="card-subtitle mb-2 text-muted"><a href="/company/profile/{{$posts->company_id}}" class="text-muted">{{$posts->company_name}}</a></h6>
+                                      </div>
+                                       <div class="card-text" style="margin:10px">
+                                        <h6 class="text-muted">Type:{{$posts->job_type}}</h6>
+                                        <h6 class="text-muted">Field:{{$posts->job_field}}</h6>
+                                        <h6 class="text-muted">Needed:{{$posts->employee_num}}</h6>
+                                        <h6 class="text-muted">Date Posted:{{$posts->created_at->toDateString()}}</h6>
+                                        </div>
+                                        <div class="card-footer">
+                                                <h3>Description:</h3>
+                                                <h6>
+                                                    {{$posts->description}}
+                                                </h6>
+                                                <button class="btn btn-primary"><a href="/post/show/{{$posts->id}}" style="color:white">Check it Out</a></button>
+                                        </div>
+                                    </div>  
                                 </div>
-                                <h6 class="card-subtitle mb-2 text-muted"><a href="/company/profile/{{$posts->company_id}}" style="color:black">{{$posts->company_name}}</a></h6>
-                                <div class="card-text">
-                
-                                </div>
-                                <div class="card-footer">
-                                        <h3>Job Description:</h3>
-                                        <h5>
-                                            {{$posts->description}}
-                                        </h5>
-                                        <button class="btn btn-primary"><a href="/post/show/{{$posts->id}}" style="color:white">Check it Out</a></button>
-                                </div>
-                            </div>  
-                        </div>
-                        @endforeach
-               </div>
-           </div>
-       </div>
+                                @endforeach
+        </div>
+       
+            
    
     @else
     <h1>there are no posts</h1>
     @endif
         @else
-        <div class="card">
-                <div class="card-header"><h1>POSTS<button style="margin-left:5px" class="btn btn-primary"><a href="/post/create" style="color:white">Create One</a></button></div>
-                <div class="card-body">
-        
-                </h1>
-        @if (count($post) > 0)
-       
-        @foreach ($post as $posts)
-        @if($posts->company_id == auth()->user()->id)
-      
-      
-        <div class="container" style="margin-top:20px;">
-        <div class="card">
-            <div class="container">
-
-                <h3>Job Title:{{$posts->Title}}</h3>
-                <h3>Job Description:</h3>
-                <h5>
-                    
-                    {{$posts->description}}
-                </h5>
-                <div class="form-group row">
-                    <div class="offset-sm-3 col-sm-9">
-                        <button class="btn btn-primary"><a href="/post/show/{{$posts->id}}" style="color:white">View</a></button>
-                    </div>
-                </div>
-            </div>
+        <div class="container" style="padding-top:30px; padding-bottom:10px">
+                <h2>Your Company's Post</h2>
         </div>
       
-    </div>
+        @if (count($post_company) > 0)
+       
+        @foreach ($post_company as $posts)
+        @if($posts->company_id == auth()->user()->id)
+      
+        <div class="card" style="margin-top:10px">
+                <div class="card-body">
+                  <div class="card-header">
+                        <h3>{{$posts->Title}}</h3>
+                        <h6 class="card-subtitle mb-2 text-muted"><a href="/company/profile/{{$posts->company_id}}" class="text-muted">{{$posts->company_name}}</a></h6>
+                  </div>
+                   <div class="card-text" style="margin:10px">
+                    <h6 class="text-muted">Type:{{$posts->job_type}}</h6>
+                    <h6 class="text-muted">Field:{{$posts->job_field}}</h6>
+                    <h6 class="text-muted">Needed:{{$posts->employee_num}}</h6>
+                    <h6 class="text-muted">Date Posted:{{$posts->created_at->toDateString()}}</h6>
+                    </div>
+                    <div class="card-footer">
+                            <h3>Description:</h3>
+                            <h6>
+                                {{$posts->description}}
+                            </h6>
+                            <button class="btn btn-primary"><a href="/post/show/{{$posts->id}}" style="color:white">Open</a></button>
+                    </div>
+                </div>  
+            </div>
+           
+        
+       
     @endif
     @endforeach
-    @else
-    <h1>You have no posts</h1>
+   @else
+   <div class="container">
+        <h4>You have no posts yet. Want to <a href="/post/create">create</a> one?</h4>
+   </div>
+  
+    
    
     
     @endif

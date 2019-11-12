@@ -53,9 +53,9 @@ class PostController extends Controller
             }
             elseif (auth()->user()->type == 'company')
             {
-                $post = Post::all();
+                $post = Post::where(['company_id' => auth()->user()->id] )->get();
                 $notification = Notification::where(['company_id' => auth()->user()->id, 'type' => 'company', 'message_status' => '0'])->get();
-                return view('posts.index')->with(['post' => $post, 'notifcount' => $notification]);
+                return view('posts.index')->with(['post_company' => $post, 'notifcount' => $notification]);
                
             }
         }
@@ -133,7 +133,7 @@ class PostController extends Controller
         }
         else
         {
-           return redirect()->to('/home');
+           return redirect()->to('/login');
         }
      
         

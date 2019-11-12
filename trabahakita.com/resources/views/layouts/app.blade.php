@@ -36,7 +36,7 @@
             <a class="nav-link" href="/company/profiles">Seeker Profiles</a>
             @elseif(auth()->user()->type == 'employee')
             <a class="nav-link" href="/company/profiles">Company Profiles</a>
-            <a class="nav-link" href="/seeker/profile">My Profile</a>
+            
             @endif
             @if($notifcount->count() == 0)
             <a class="nav-link" href="/Notification">Notification</a>
@@ -51,6 +51,9 @@
          {{auth()->user()->name}}
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            @if(auth()->user()->type == 'employee')
+            <a class="dropdown-item" href="/seeker/profile">My Profile</a>
+            @endif
           <a class="dropdown-item" href="/employee/profile">Edit Profile</a>
           <a class="dropdown-item" href="/logout">Logout</a>
         

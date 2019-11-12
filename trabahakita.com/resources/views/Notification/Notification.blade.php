@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')   
-<div class="card">
-    <div class="card-header">Messages</div>
+<div class="card" style="margin-top:20px;">
+    <div class="card-header"><h2>Messages</h2></div>
     <div class="card-body">
         <div class="card-text">
             @if(auth()->user()->type == 'employee')
@@ -28,6 +28,26 @@
                                             {{$notif->message}}
                                         </div>
                                         <div class="card-footer">
+                                            @if($notif->message_type == '0')
+                                            @if($notif->message_status == '0')
+                                            <form action="/Appointment/hire" method="POST" enctype="multipart/form-data">
+                                                {{ csrf_field() }}
+                                                <input type="text " name="name" id="name" value="{{$notif->name}}" hidden>
+                                                <input type="text " name="company_id" id="company_id" value="{{$notif->company_id}}" hidden>
+                                                <input type="text " name="type" id="type" value="message" hidden>
+                                            <input type="text " name="app_id" id="app_id" value="{{$notif->app_id}}" hidden>
+                                            <input type="text " name="notif_id" id="app_id" value="{{$notif->id}}" hidden>
+                                                <textarea class="form-control" name="message" id="message" cols="30" rows="5" placeholder="Your Message"></textarea>
+                                              
+                                                <button class="btn btn-warning" style="margin-top:10px" style="color:white">Reply</button> 
+                                               
+                                                
+                                                </form>
+                                                @elseif($notif->message_status == '1')
+                                                <span class="badge badge-pill badge-warning">Replied</span>
+                                                @endif
+                                            @else
+                                           
                                             @if(count($comments) > 0)
                                             @foreach($comments as $com)
                                             @if($com->company_id == $notif->company_id && $com->user_id == auth()->user()->id && $com->hired_status == '1')
@@ -52,6 +72,7 @@
                                             @endif
                                           
                                             @endforeach
+                                            @endif
                                             @endif
                                         </div>
                                     </div>
@@ -106,6 +127,8 @@
                                     @foreach($notification as $notif)
                                     @if($notif->type == 'company')
                                     @if($notif->from == 'employee')
+                                    @if($notif->to == auth()->user()->name)
+                                   
                                         <div class="card" style="margin-top:10px">
                                         <div class="card-header">FROM:{{$notif->name}}</div>
                                         <div class="card-body">
@@ -114,34 +137,11 @@
                                                 {{$notif->message}}
                                             </div>
                                             <div class="card-footer">
-                                                @if(count($comments) > 0)
-                                                @foreach($comments as $com)
-                                                @if($com->company_id == $notif->company_id && $com->user_id == auth()->user()->id && $com->hired_status == '1')
-                                              
-                                                        <form action="/setAppointment/accept" method="POST" enctype="multipart/form-data">
-                                                            {{ csrf_field() }}
-                                                            <input type="text " name="name" id="name" value="{{$notif->name}}" hidden>
-                                                            <input type="text " name="company_id" id="company_id" value="{{$com->company_id}}" hidden>
-                                                            <input type="text " name="comment_id" id="comment_id" value="{{$com->id}}" hidden>
-                                                            <textarea class="form-control" name="message" id="message" cols="30" rows="5" placeholder="Your Message"></textarea>
-                                                          
-                                                                    <button class="btn btn-success" style="margin-top:10px">Accept</button> 
-                                                           
-                                                            
-                                                            </form>
-                                                
                                                
-                                                    
-                                               
-                                                @elseif($com->company_id == $notif->company_id && $com->user_id == auth()->user()->id && $com->hired_status == '2')
-                                                <button class="btn btn-success" disabled>Hired</button> 
-                                                @endif
-                                              
-                                                @endforeach
-                                                @endif
                                             </div>
                                         </div>
                                         </div>
+                                        @endif
                                         @endif
                                         @endif
                                     @endforeach
@@ -154,6 +154,7 @@
                                       
                                         @if($notif->type == 'employee')
                                         @if($notif->from == 'company')
+                                        @if($notif->company_id == auth()->user()->id)
                                             <div class="card" style="margin-top:10px">
                                             <div class="card-header">To:{{$notif->to}}</div>
                                             <div class="card-body">
@@ -166,6 +167,7 @@
                                                 </div>
                                             </div>
                                             </div>
+                                            @endif
                                             @endif
                                             @endif
                                         @endforeach

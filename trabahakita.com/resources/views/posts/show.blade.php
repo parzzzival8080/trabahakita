@@ -2,30 +2,32 @@
 @section('content')
    
     <div class="card" style="margin-top:5px">
-       <div class="card-body">
-           <div class="card-title">
-                <h2>{{$post->company_name}}</h2>
-           </div>
        
-       <div class="container">
-            <h6 class="card-subtitle mb-2 text-muted">Job Position:{{$post->Title}}</h6>
-       </div>
-       <div class="container">
-            <div class="card-text">
-                    <h4>Job Type:{{$post->job_type}}</h4>
-                    <h4>Salary:  {{$post->salary}}</h4>
-                   
-               </div>
-       </div> 
-        <div class="card-footer">
-                <h4>Description</h4>
+            <div class="card-body">
+                    <div class="card-header">
+                          <h3>{{$post->Title}}</h3>
+                          <h6 class="card-subtitle mb-2 text-muted"><a href="/company/profile/{{$post->company_id}}" class="text-muted">{{$post->company_name}}</a></h6>
+                    </div>
+                     <div class="card-text" style="margin:10px">
+                      <h6 class="text-muted">Type:{{$post->job_type}}</h6>
+                      <h6 class="text-muted">Field:{{$post->job_field}}</h6>
+                      <h6 class="text-muted">Needed:{{$post->employee_num}}</h6>
+                      <h6 class="text-muted">Date Posted:{{$post->created_at->toDateString()}}</h6>
+                      </div>
+                      <div class="card-footer">
+                              <h3>Job Description:</h3>
+                              <h6>
+                                  {{$post->description}}
+                              </h6>
+                              
+                      </div>
+                  </div>  
         </div>
-        </div>
-    </div>
+   
      
                     @if(auth()->user()->type == 'company')
                     <div class="container" style="margin-top:10px;">
-                            <h3>Comments</h3>
+                            <h3>Applicants</h3>
                     </div>
                             @if (count($comments) > 0)
                                 @foreach($comments as $com)
