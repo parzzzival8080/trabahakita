@@ -102,6 +102,8 @@ class ProfileController extends Controller
             $profile->adress = request('adress');
             $profile->school = request('school');
             $profile->degree = request('degree');
+            $profile->lat = request('lat');
+            $profile->lng = request('lng');
             $profile->from_year = request('from-year');
             $profile->to_year = request('to-year');
             $profile->area = request('expertise');

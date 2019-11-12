@@ -12,17 +12,17 @@
                 </div>
                 <div class="card-body">
                     <div class="card-text">
-                        <h5>
-                                ADDRESS:{{$profiles->adress}}    
-                        </h5>
-                        <h5>
+                        <h5 class="text-muted" >
+                                Address:{{$profiles->adress}}    
+                        </h5 class="text-muted">
+                        <h5 class="text-muted">
                                 Email:{{$profiles->email}}
-                        </h5>
+                        </h5 class="text-muted">
                        
-                       <h5>
+                       <h5 class="text-muted">
                             Representative:{{$profiles->company_rep}}
-                       </h5>
-                       <h5>
+                       </h5 class="text-muted">
+                       <h5 class="text-muted">
                             Posts:
                             @if(count($post) > 0 )
                                @php
@@ -30,16 +30,15 @@
                                     echo $count->count();
                                @endphp
                                 @endif
-                       </h5>
+                       </h5 class="text-muted">
                        
                        
                        
                     </div>
                     <div class="card-footer">
-                        <button class="btn btn-info">Visit</button>
+                    <button class="btn btn-info"><a href="/company/profile/{{$profiles->id}}" style="color:white">Visit</a> </button>
                     </div>
-                    
-
+                
                 </div>
                 
             </div>

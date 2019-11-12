@@ -3,14 +3,15 @@
  
   
             @if($profile->type == 'employee')
-            <h2>Customize Your Profile</h2>
+
+            <h2 style="margin-top:10px;margin-bottom:10px">Customize Your Profile</h2>
             <form method="post" action="/employee/profile/update" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <div class="card">
                     <div class="container">
                             <div class="form-group row">
                                 <div class="container">
-                                    <h3>PERSONAL INFORMATION</h3>
+                                    <h3>Personal Information</h3>
                                 </div>
                                 <div class="container"> 
                                         <div class="d-flex justify-content-center"> 
@@ -49,9 +50,9 @@
                                 <div id="map" style="height: 400px"></div>
                             </div>
 
-                        <div class="form-group row">
-                                <label for="numid" class="col-sm-3 col-form-label">Number</label>
-                                <div class="col-sm-9">
+                        <div class="form-group row" style="margin-top:5px">
+                                <label for="numid" class="col-sm-3 col-form-label">Your Phone Number</label>
+                                <div class="col-sm-3">
                                 <input name="number" type="text" class="form-control" id="numid" placeholder="Number" value="{{$profile->number}}">
                                 </div>
                         </div>
@@ -211,21 +212,21 @@
                     </div>
                     
                 </div>
-               <div class="form-group row">
-                   <div class="container">
-                       <div class="offset-sm-3 col-sm-9">
-                           <button type="submit" class="btn btn-primary">Save</button>
-                       </div>
-                   </div>
+                <div class="card-footer">
+                        <div class="d-flex justify-content-end">
+                         <button type="submit" class="btn btn-success">Save</button>
+                        </div>
+                                  
                 </div>
+               
                 </div>
               
                 
             </form>
-            <form action="/post/pdf" method="POST" enctype="multipart/form-data">
+            {{-- <form action="/post/pdf" method="POST" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <button type="submit" class="btn btn-primary">Generate Resume</button>
-            </form>
+            </form> --}}
 
           
   
@@ -512,68 +513,75 @@
            
             @else
             <h2>Customize Your Profile</h2>
-            <form method="post" action="/employee/profile/update" enctype="multipart/form-data">
-                {{ csrf_field() }}
-                <div class="container"> 
-                        <div class="d-flex justify-content-center"> 
-                        <img class="card-img-top" src="{{ Storage::url($profile->image)  }}" alt="Card image cap">
-                        </div>
-                        <div class="form-group">
-                                <label for="fileid">Picture</label>
-                                <input type="file" name="image" class="form-control-file" id="fileid" accept=""  required>
-                              </div>
-                </div>
-                <div class="form-group row">
-                    <label for="nameid" class="col-sm-3 col-form-label">COMPANY NAME</label>
-                    <div class="col-sm-9">
-                    <input name="company_name" type="text" class="form-control" id="nameid" placeholder="Company Name" value="{{$profile->company_name}}">
-                    </div>
-                </div>
-                <div class="form-group row">
-                        <label for="repid" class="col-sm-3 col-form-label">REPRESENTATIVE NAME</label>
-                        <div class="col-sm-9">
-                        <input name="representative" type="text" class="form-control" id="repid" placeholder="Representative Name" value="{{$profile->company_rep}}">
-                        </div>
-                    </div>
-                        <div class="form-group row">
-                                <label for="numid" class="col-sm-3 col-form-label">Number</label>
+            <div class="card">
+                <div class="container">
+                        <form method="post" action="/employee/profile/update" enctype="multipart/form-data">
+                            {{ csrf_field() }}
+                            <div class="container"> 
+                                    <div class="d-flex justify-content-center"> 
+                                    <img class="card-img-top" src="{{ Storage::url($profile->image)  }}" alt="Card image cap">
+                                    </div>
+                                    <div class="form-group">
+                                            <label for="fileid">Picture</label>
+                                            <input type="file" name="image" class="form-control-file" id="fileid" accept=""  required>
+                                          </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="nameid" class="col-sm-3 col-form-label">Company Name</label>
                                 <div class="col-sm-9">
-                                <input name="number" type="text" class="form-control" id="numid" placeholder="Number" value="{{$profile->number}}">
+                                <input name="company_name" type="text" class="form-control" id="nameid" placeholder="Company Name" value="{{$profile->company_name}}">
                                 </div>
-                        </div>
+                            </div>
+                            <div class="form-group row">
+                                    <label for="repid" class="col-sm-3 col-form-label">Representative Name</label>
+                                    <div class="col-sm-9">
+                                    <input name="representative" type="text" class="form-control" id="repid" placeholder="Representative Name" value="{{$profile->company_rep}}">
+                                    </div>
+                                </div>
+                                    <div class="form-group row">
+                                            <label for="numid" class="col-sm-3 col-form-label">Telephone Number</label>
+                                            <div class="col-sm-9">
+                                            <input name="number" type="text" class="form-control" id="numid" placeholder="Tel. Number" value="{{$profile->number}}">
+                                            </div>
+                                    </div>
+                                       
+                                    <div class="form-group row">
+                                            <label for="email" class="col-sm-3 col-form-label">Email</label>
+                                            <div class="col-sm-9">
+                                            <input name="email" type="text" class="form-control" id="email" placeholder="Email" value="{{$profile->email}}">
+                                            </div>
+                                    </div>
+                            <div class="form-group row">
+                                <label for="desc" class="col-sm-3 col-form-label">Description of the Company</label>
+                                <div class="col-sm-9">
+                                    <textarea name="desc" type="text" class="form-control" id="desc" rows="3"
+                                           placeholder="DESCRIPTION" >{{$profile->description}}</textarea>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="address" class="col-sm-3 col-form-label">Company Address</label>
+                                <div class="col-sm-9">
+                                    <textarea name="address" type="text" class="form-control" id="searchmap" rows="2"
+                                           placeholder="ADDRESS" >{{$profile->adress}}</textarea>
+                                </div>
+                            </div>   
+                            <input type="hidden" name="lat" id="lat">
+                            <input type="hidden" name="lng" id="lng">
+                                <div class="card">
+                                    <div id="map" style="height: 400px"></div>
+                                </div>
+            <div class="card-footer">
+                   
+                            <div class="d-flex justify-content-end">
+                                 <button type="submit" class="btn btn-success" style="margin-top:10px">Save</button>
+                              
+                         </div>
+            </div>
                            
-                        <div class="form-group row">
-                                <label for="email" class="col-sm-3 col-form-label">Email</label>
-                                <div class="col-sm-9">
-                                <input name="email" type="text" class="form-control" id="email" placeholder="Email" value="{{$profile->email}}">
-                                </div>
-                        </div>
-                <div class="form-group row">
-                    <label for="desc" class="col-sm-3 col-form-label">DESCRIPTION OF THE COMPANY</label>
-                    <div class="col-sm-9">
-                        <textarea name="desc" type="text" class="form-control" id="desc" rows="3"
-                               placeholder="DESCRIPTION" >{{$profile->description}}</textarea>
-                    </div>
+                        </form>  
                 </div>
-                <div class="form-group row">
-                    <label for="address" class="col-sm-3 col-form-label">ADDRESS</label>
-                    <div class="col-sm-9">
-                        <textarea name="address" type="text" class="form-control" id="searchmap" rows="2"
-                               placeholder="ADDRESS" >{{$profile->adress}}</textarea>
-                    </div>
-                </div>   
-                <input type="hidden" name="lat" id="lat">
-                <input type="hidden" name="lng" id="lng">
-                    <div class="card">
-                        <div id="map" style="height: 400px"></div>
-                    </div>
-
-                <div class="form-group row">
-                    <div class="offset-sm-3 col-sm-9">
-                        <button type="submit" class="btn btn-primary">Save</button>
-                    </div>
-                </div>
-            </form>
+            </div>
+            
         
             @endif
 

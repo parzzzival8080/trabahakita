@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Sample;
 use App\User;
 use App\Profile;
+use App\Post;
 use App\Notification;
 use Illuminate\Http\Request;
 
@@ -21,6 +22,7 @@ class SampleController extends Controller
         {
             if(auth()->user()->type == 'employee')
             {
+                $post = Post::all();
                 $notifcount = Notification::where(['user_id' => auth()->user()->id, 'type' => 'employee', 'message_status' => '0']);
 
                 $user_detail = Profile::where('id', auth()->user()->id)->select('lat', 'lng')->get();
@@ -35,6 +37,7 @@ class SampleController extends Controller
                 {
                     $info =  [
                         "id" => $comp->id,
+                        "adress" => $comp->adress,
                         "distance" => $this->calculateDistance($user->lat, $comp->lat, $user->lng, $comp->lng),
                         "name" => $comp->company_name,
                         "lat" => $comp->lat,
@@ -58,13 +61,16 @@ class SampleController extends Controller
                 }
         
                 $locations = collect($locations);
-        
-                return view('sample')->with(['notifcount' => $notifcount, 'locations' => $locations, 'user' => $user]);   
+
+              $post = Post::all();
+               
+                return view('sample')->with(['notifcount' => $notifcount, 'locations' => $locations, 'user' => $user, 'post' => $post ]);   
             }
 
             else{
+                $post = Post::all();
                 $notifcount = Notification::where(['company_id' => auth()->user()->id, 'type' => 'company', 'message_status' => '0']);
-            return view('home')->with( 'notifcount', $notifcount);  
+            return view('home')->with( ['notifcount' => $notifcount,'post' => $post]);  
             }
         }
         else

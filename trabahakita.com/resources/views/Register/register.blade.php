@@ -41,123 +41,142 @@ section .section-title {
 }
         </style>
 
-<section id="tabs">
-        <div class="container">
-            <h6 class="section-title h1">Register</h6>
-            <div class="row">
-                <div class="col-xs-12 ">
-                    <nav>
-                        <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-                            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">I want to Hire</a>
-                            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">I want to Work</a>
+<div class="container">
+        <div class="row">
+                <div class="col">               
+                        <h1  style="font-weight:300; margin-top:300px">We give you a Free Job Fair, Everyday!</h1>           
+                </div>
+                <div class="col">
                            
-                        </div>
-                    </nav>
-                    <div class="tab-content" id="nav-tabContent">
-                        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                            <div class="card">
-                                <div class="card-header">
-                                    <center>
-                                <h5>Register as an Employer</h5>
-                                    </center>
-                                </div>
-                                <div class="card-body">
-                                    <div class="card-text">
-                                            <form method="POST" action="/register">
-                                                {{ csrf_field() }}
-                                                <div class="form-group">
-                                                    <label for="name">Name:</label>
-                                                    <input type="text" class="form-control" id="name" name="name">
+                        <section id="tabs">
+
+                                <div class="container">
+                                    <h6 class="section-title h1">Register</h6>
+                                    <div class="row">
+                                        <div class="col-xs-12 ">
+                                            <nav>
+                                                <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                                                    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">I want to Hire</a>
+                                                    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">I want to Work</a>
+                                                   
                                                 </div>
-                                         
-                                                <div class="form-group">
-                                                    <label for="email">Email:</label>
-                                                    <input type="email" class="form-control" id="email" name="email">
-                                                </div>
-                                         
-                                                <div class="form-group">
-                                                    <label for="password">Password:</label>
-                                                    <input type="password" class="form-control" id="password" name="password">
-                                                </div>
-                                        
-                                                <div class="form-group">
-                                                    <label for="password_confirmation">Password Confirmation:</label>
-                                                    <input type="password" class="form-control" id="password_confirmation"
-                                                           name="password_confirmation">
-                                                </div>
-                                        
-                                                <input type="text" class="form-control" id="type" name="type" value="company" hidden>      
-                                                    </div>
-                                                    
-                                         
-                                                <div class="form-group">
-                                                    <button style="cursor:pointer" type="submit" class="btn btn-primary">Submit</button>
-                                                </div>
-                                               
-                                            </form>
-                                           
-                                    </div>
-                                </div>
-                                <p style="color:white">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolor modi provident soluta placeat libero sunt culpa natus maxime impedit voluptatem, voluptatibus officia. Nesciunt delectus totam, non tempore harum at excepturi?</p>
-                               
-                            </div>
-                        
-                                
-                       
-                        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                                <div class="card">
-                                        <div class="card-header">
-                                            <center>
-                                        <h5>Register as Job Seeker</h5>
-                                            </center>
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="card-text">
-                                                    <form method="POST" action="/register">
-                                                        {{ csrf_field() }}
-                                                        <div class="form-group">
-                                                            <label for="name">Name:</label>
-                                                            <input type="text" class="form-control" id="name" name="name">
+                                            </nav>
+                                            <div class="tab-content" id="nav-tabContent">
+                                                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                                                    <div class="card">
+                                                        <div class="card-header">
+                                                            <center>
+                                                        <h5>Register as an Employer</h5>
+                                                            </center>
                                                         </div>
-                                                 
-                                                        <div class="form-group">
-                                                            <label for="email">Email:</label>
-                                                            <input type="email" class="form-control" id="email" name="email">
-                                                        </div>
-                                                 
-                                                        <div class="form-group">
-                                                            <label for="password">Password:</label>
-                                                            <input type="password" class="form-control" id="password" name="password">
-                                                        </div>
-                                                
-                                                        <div class="form-group">
-                                                            <label for="password_confirmation">Password Confirmation:</label>
-                                                            <input type="password" class="form-control" id="password_confirmation"
-                                                                   name="password_confirmation">
-                                                        </div>
-                                                
-                                                        <input type="text" class="form-control" id="type" name="type" value="employee" hidden>      
+                                                        <div class="card-body">
+                                                            <div class="card-text">
+                                                                    <form method="POST" action="/register">
+                                                                        {{ csrf_field() }}
+                                                                        <div class="form-group">
+                                                                            <label for="name">Name:</label>
+                                                                            <input type="text" class="form-control" id="name" name="name">
+                                                                        </div>
+                                                                 
+                                                                        <div class="form-group">
+                                                                            <label for="email">Email:</label>
+                                                                            <input type="email" class="form-control" id="email" name="email">
+                                                                        </div>
+                                                                 
+                                                                        <div class="form-group">
+                                                                            <label for="password">Password:</label>
+                                                                            <input type="password" class="form-control" id="password" name="password">
+                                                                        </div>
+                                                                
+                                                                        <div class="form-group">
+                                                                            <label for="password_confirmation">Password Confirmation:</label>
+                                                                            <input type="password" class="form-control" id="password_confirmation"
+                                                                                   name="password_confirmation">
+                                                                        </div>
+                                                                
+                                                                        <input type="text" class="form-control" id="type" name="type" value="company" hidden>      
+                                                                            </div>
+                                                                            
+                                                                 
+                                                                        <div class="form-group">
+                                                                            <button style="cursor:pointer" type="submit" class="btn btn-primary">Register</button>
+                                                                        </div>
+                                                                       
+                                                                    </form>
+                                                                   
                                                             </div>
-                                                            
-                                                 
-                                                        <div class="form-group">
-                                                            <button style="cursor:pointer" type="submit" class="btn btn-primary">Submit</button>
                                                         </div>
+                                                        <p style="color:white">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolor modi provident soluta placeat libero sunt culpa natus maxime impedit voluptatem, voluptatibus officia. Nesciunt delectus totam, non tempore harum at excepturi?</p>
                                                        
-                                                    </form>
+                                                    </div>
+                                                
+                                                        
+                                               
+                                                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                                        <div class="card">
+                                                                <div class="card-header">
+                                                                    <center>
+                                                                <h5>Register as Job Seeker</h5>
+                                                                    </center>
+                                                                </div>
+                                                                <div class="card-body">
+                                                                    <div class="card-text">
+                                                                            <form method="POST" action="/register">
+                                                                                {{ csrf_field() }}
+                                                                                <div class="form-group">
+                                                                                    <label for="name">Name:</label>
+                                                                                    <input type="text" class="form-control" id="name" name="name">
+                                                                                </div>
+                                                                         
+                                                                                <div class="form-group">
+                                                                                    <label for="email">Email:</label>
+                                                                                    <input type="email" class="form-control" id="email" name="email">
+                                                                                </div>
+                                                                         
+                                                                                <div class="form-group">
+                                                                                    <label for="password">Password:</label>
+                                                                                    <input type="password" class="form-control" id="password" name="password">
+                                                                                </div>
+                                                                        
+                                                                                <div class="form-group">
+                                                                                    <label for="password_confirmation">Password Confirmation:</label>
+                                                                                    <input type="password" class="form-control" id="password_confirmation"
+                                                                                           name="password_confirmation">
+                                                                                </div>
+                                                                        
+                                                                                <input type="text" class="form-control" id="type" name="type" value="employee" hidden>      
+                                                                                    </div>
+                                                                                    
+                                                                         
+                                                                                <div class="form-group">
+                                                                                    <button style="cursor:pointer" type="submit" class="btn btn-primary">Register</button>
+                                                                                </div>
+                                                                               
+                                                                            </form>
+                                                                    </div>
+                                                                </div>
+                                                                <p style="color:white">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolor modi provident soluta placeat libero sunt culpa natus maxime impedit voluptatem, voluptatibus officia. Nesciunt delectus totam, non tempore harum at excepturi?</p>
+                                                       
+                                                            </div>
+                                                </div>
                                             </div>
+                                                
+                                            </div>
+                                        
                                         </div>
-                                        <p style="color:white">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolor modi provident soluta placeat libero sunt culpa natus maxime impedit voluptatem, voluptatibus officia. Nesciunt delectus totam, non tempore harum at excepturi?</p>
-                               
                                     </div>
-                        </div>
-                    </div>
-                        
-                    </div>
-                
+                                </div>
+                            </section>
                 </div>
             </div>
-        </div>
-    </section>
+</div>
+
+           
+                   
+                        
+   
+           
+    
+
  
 @endsection

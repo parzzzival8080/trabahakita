@@ -29,7 +29,11 @@
                                                         <div class="col">
                                                       <button type="submit" class="btn btn-info" style="margin-top">SEARCH</button>
                                               </div>
+                                              <div class="d-flex justify-content-end">
+                                                        <button class="btn btn-info"><a href="/seeker/maps" style="color:white">Find Jobs near you!</a></button>
+                                               </div>
                                </div>
+                              
                                       
                                       
                                
@@ -39,28 +43,27 @@
                                                 <h3>Search Results for "{{$query}}" </b> are :</h3>
                                                 
                                                 @foreach($details as $posts)
-                                                        <div class="container" style="margin-top:20px;">
-                                                                        <div class="card" style="margin-top:10px;">
-                                                                                <div class="card-header">
-                                                                                        <h3>
-                                                                                        Position:{{$posts->Title}}
-                                                                                </h3>
-                                                                                        <a href="/profile/show/{{$posts->company_id}}">{{$posts->company_name}}</a>
-                                                                                        
-                                                                                </div>
-                                                                                <div class="card-body">
-                                                                                        <div class="card-text">
-                                                                                        <h4>Type:{{$posts->job_type}}</h4>
-                                                                                        <h4>Needed:{{$posts->employee_num}}</h4>
-                                                                                        <h4>Category:{{$posts->job_field}}</h4>
-                                                                                        <h4>Posted:{{$posts->created_at->toDateString()}}</h4>
-                                                                                        </div>
-                                                                                </div>
-                                                                                <div class="card-footer">
-                                                                                        <button class="btn btn-primary"><a href="/post/show/{{$posts->id}}" style="color:white">Apply</a></button>
-                                                                                </div>
-                                                                                </div>    
-                                                        </div>
+                                                <div class="card" style="margin-top:10px">
+                                                                <div class="card-body">
+                                                                  <div class="card-header">
+                                                                        <h3>{{$posts->Title}}</h3>
+                                                                        <h6 class="card-subtitle mb-2 text-muted"><a href="/company/profile/{{$posts->company_id}}" class="text-muted">{{$posts->company_name}}</a></h6>
+                                                                  </div>
+                                                                   <div class="card-text" style="margin:10px">
+                                                                    <h6 class="text-muted">Type:{{$posts->job_type}}</h6>
+                                                                    <h6 class="text-muted">Field:{{$posts->job_field}}</h6>
+                                                                    <h6 class="text-muted">Needed:{{$posts->employee_num}}</h6>
+                                                                    <h6 class="text-muted">Date Posted:{{$posts->created_at->toDateString()}}</h6>
+                                                                    </div>
+                                                                    <div class="card-footer">
+                                                                            <h3>Description:</h3>
+                                                                            <h6>
+                                                                                {{$posts->description}}
+                                                                            </h6>
+                                                                            <button class="btn btn-primary"><a href="/post/show/{{$posts->id}}" style="color:white">Check it Out</a></button>
+                                                                    </div>
+                                                                </div>  
+                                                            </div>
                                                           
                                                 
                                                 @endforeach
