@@ -25,8 +25,8 @@ class SampleController extends Controller
                 $post = Post::all();
                 $notifcount = Notification::where(['user_id' => auth()->user()->id, 'type' => 'employee', 'message_status' => '0']);
 
+                // maps
                 $user_detail = Profile::where('id', auth()->user()->id)->select('lat', 'lng')->get();
-
                 foreach($user_detail as $user)
 
                 $company = Profile::where('type', '=', 'company')->get();
@@ -61,10 +61,48 @@ class SampleController extends Controller
                 }
         
                 $locations = collect($locations);
-
               $post = Post::all();
-               
                 return view('sample')->with(['notifcount' => $notifcount, 'locations' => $locations, 'user' => $user, 'post' => $post ]);   
+            }
+            elseif(auth()->user()->type == 'company')
+            {
+                $user_detail = Profile::where('id', auth()->user()->id)->select('lat', 'lng')->get();
+                foreach($user_detail as $user)
+
+                $company = Profile::where('type', '=', 'employee')->get();
+                    
+                $locations = [];
+
+                foreach($company as $comp)
+                {
+                    $info =  [
+                        "id" => $comp->id,
+                        "adress" => $comp->adress,
+                        "distance" => $this->calculateDistance($user->lat, $comp->lat, $user->lng, $comp->lng),
+                        "name" => $comp->last_name.', '.$comp->first_name,
+                        "lat" => $comp->lat,
+                        "lng" => $comp->lng
+                    ];
+        
+                    array_push($locations, $info);
+                }
+
+                for ($x = 0; $x < count($locations); $x++)
+                {
+                    for ($y = 0; $y < count($locations) - 1; $y++ )
+                    {
+                        if($locations[$y]['distance'] > $locations[$y+1]['distance'])
+                        {
+                            $temp = $locations[$y+1];
+                            $locations[$y+1] = $locations[$y];
+                            $locations[$y] = $temp;
+                        }
+                    }
+                }
+        
+                $locations = collect($locations);
+                $notifcount = Notification::where(['company_id' => auth()->user()->id, 'type' => 'company', 'message_status' => '0']);
+                return view('employeemap')->with(['notifcount' => $notifcount, 'locations' => $locations, 'user' => $user]); 
             }
 
             else{

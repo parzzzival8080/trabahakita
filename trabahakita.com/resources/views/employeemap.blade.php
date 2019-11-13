@@ -42,15 +42,7 @@
                                                 
                                             </h5>
                                             <h5>
-                                                Number of Posts:
-                                                @if(count($post) > 0)
-                                                @php
-                                                    $post = DB::table('posts')->where(['company_id' => $locate['id']])->get();
-                                                    echo $post->count();
-                                                @endphp
-                                                @else
-                                                0
-                                                @endif
+                                              
                                             </h5>
                                     </div>                                            
                                 </div>
@@ -115,7 +107,7 @@
                                     // google.maps.event.addListener(marker, 'click', function() {window.location.href = 'http://www.facebook.com';});
                                     google.maps.event.addListener(marker, 'click', function() {
                                        
-                                        window.open('/company/profile/{{$a['id']}}');
+                                        window.open('/profile/{{$a['id']}}');
                                        
                                     
                                     });

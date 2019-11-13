@@ -191,7 +191,7 @@ class PostController extends Controller
     }
 
     public function Deactivate()
-    {
+{
         $post = Post::find(request('id'));
         $post->post_status = '1';
         $post->save();

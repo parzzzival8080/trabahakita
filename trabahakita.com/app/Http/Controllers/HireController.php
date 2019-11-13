@@ -49,15 +49,15 @@ class HireController extends Controller
             {
                 $appointment = new Appointment;
                 $appointment->company_id = auth()->user()->id;
-                $appointment->user_id = request('id');
+                $appointment->user_id = request('user_id');
                 $appointment->company_name = auth()->user()->name;
-                $appointment->user_name = request('name');
+                $appointment->user_name = request('user_name');
                 $appointment->save();
     
                 $notification = New Notification;
                 $notification->company_id = auth()->user()->id;
                 $notification->app_id = $appointment->id;
-                $notification->user_id = request('id');
+                $notification->user_id = request('user_id');
                 $notification->name = auth()->user()->name;
                 $notification->subject = auth()->user()->name.' sent you a message';
                 $notification->message_type = '0';
@@ -73,8 +73,8 @@ class HireController extends Controller
             {
                 $notification = New Notification;
                 $notification->company_id = auth()->user()->id;
-                $notification->app_id = request('app_id');
-                $notification->user_id = auth()->user()->id;
+                // $notification->app_id = request('app_id');
+                $notification->user_id = request('user_id');
                 $notification->name = auth()->user()->name;
                 $notification->subject = auth()->user()->name.' sent you a message';
                 $notification->message_type = '0';

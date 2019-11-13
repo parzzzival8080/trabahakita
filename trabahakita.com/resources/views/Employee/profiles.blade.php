@@ -3,6 +3,7 @@
     
 <div class="container" style="padding-top:20px;">
        <h2 style="margin-top:10px;margin-bottom:10px;">Seeker Profiles</h2>
+       <button class="btn btn-info"><a href="/company/maps">Find Worker near me!</a></button>
                             @if(count($profile) > 0)
                             @foreach($profile as $profiles)
                                 @if($profiles->status_update == '1')
