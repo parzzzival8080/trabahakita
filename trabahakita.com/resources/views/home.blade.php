@@ -427,12 +427,13 @@
                                                         </form>
                                                            
                                                     </div>
-                                                    <div class="col-sm">
+                                                    {{-- <div class="col-sm">
                                                             <div class="d-flex justify-content-end">
                                                         <button class="btn btn-success" data-toggle="modal" data-target="#message{{$com->id}}" style="margin-right:5px">Message</button>
                                                         <button class="btn btn-success" data-toggle="modal" data-target="#hire{{$com->id}}">Hire</button>
                                                             </div>
-                                                    </div>
+                                                    </div> --}}
+                                                    <button class="btn btn-info"><a href="/Notification" style="color:white" >Check Job Application</a> </button>
                                                     @else
                                                     <div class="col-sm">
                                                             <div class="d-flex justify-content-end">

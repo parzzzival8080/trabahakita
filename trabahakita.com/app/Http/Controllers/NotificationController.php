@@ -92,7 +92,7 @@ class NotificationController extends Controller
                     $notification = Notification::where(['company_id' => auth()->user()->id]);
                     $comments = Comments::all();
                     $post = Post::all();
-                    return view('Notification.Notification')->with(['notification' => $notification, 'notifcount' => $notifcount, 'comments' => $comments, 'post' => $post]);  
+                    return view('notification.notification')->with(['notification' => $notification, 'notifcount' => $notifcount, 'comments' => $comments, 'post' => $post]);  
                 }
             }
         }
