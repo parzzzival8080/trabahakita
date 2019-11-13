@@ -117,11 +117,7 @@
     @yield('content')
 </div>
  
-<footer class="footer">
-    <div class="container">
-        <span class="text-muted">TRABAHAKITA.COM</span>
-    </div>
-</footer>
+
  
 
 <script src="/js/tether.min.js"></script>

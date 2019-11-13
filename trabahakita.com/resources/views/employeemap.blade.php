@@ -42,7 +42,7 @@
                                                 
                                             </h5>
                                             <h5>
-                                              
+                                                    <button class="btn btn-info"><a href="/profile/{{$locate['id']}}" style="color:white">Visit</a></button>
                                             </h5>
                                     </div>                                            
                                 </div>

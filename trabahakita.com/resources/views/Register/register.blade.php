@@ -12,7 +12,7 @@
 
 section .section-title {
     text-align: center;
-    color: black;
+    color: #e8505b;
     margin-bottom: 50px;
     text-transform: uppercase;
 }
@@ -25,9 +25,9 @@ section .section-title {
 }
 
 #tabs .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
-    color: black;
+    color: #e8505b;
     background-color: transparent;
-    border-color: transparent transparent #f3f3f3;
+    border-color: transparent transparent #e8505b;
     border-bottom: 4px solid !important;
     font-size: 20px;
     font-weight: bold;
@@ -36,22 +36,25 @@ section .section-title {
     border: 1px solid transparent;
     border-top-left-radius: .25rem;
     border-top-right-radius: .25rem;
-    color: black;
+    color: #e8505b;
     font-size: 20px;
 }
         </style>
 
 <div class="container">
         <div class="row">
-                <div class="col">               
-                        <h1  style="font-weight:300; margin-top:300px">We give you a Free Job Fair, Everyday!</h1>           
+                <div class="col">      
+                        <div class="align-self-center" style="margin-top:200px">
+                                <img style="margin-left:70px" src="{{ Storage::url('/images/landing.png')  }}" alt="landing_picture">
+                                </div>         
+                        <h1  style="font-weight:300; color:grey">We give you a Free Job Fair, Everyday!</h1>           
                 </div>
                 <div class="col">
                            
                         <section id="tabs">
 
                                 <div class="container">
-                                    <h6 class="section-title h1">Register</h6>
+                                    <h6 class="section-title h1" style="font-weight:300; color:#e8505b">Register</h6>
                                     <div class="row">
                                         <div class="col-xs-12 ">
                                             <nav>
@@ -64,9 +67,9 @@ section .section-title {
                                             <div class="tab-content" id="nav-tabContent">
                                                 <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                                                     <div class="card">
-                                                        <div class="card-header">
+                                                        <div class="card-header" >
                                                             <center>
-                                                        <h5>Register as an Employer</h5>
+                                                        <h5 style="font-weight:400;color:#455a64">Register as an Employer</h5>
                                                             </center>
                                                         </div>
                                                         <div class="card-body">
@@ -99,7 +102,7 @@ section .section-title {
                                                                             
                                                                  
                                                                         <div class="form-group">
-                                                                            <button style="cursor:pointer" type="submit" class="btn btn-primary">Register</button>
+                                                                            <button style="cursor:pointer" type="submit" class="btn btn-success" >Register</button>
                                                                         </div>
                                                                        
                                                                     </form>
@@ -116,7 +119,7 @@ section .section-title {
                                                         <div class="card">
                                                                 <div class="card-header">
                                                                     <center>
-                                                                <h5>Register as Job Seeker</h5>
+                                                                <h5 style="font-weight:400;color:#455a64">Register as Job Seeker</h5>
                                                                     </center>
                                                                 </div>
                                                                 <div class="card-body">
@@ -149,7 +152,7 @@ section .section-title {
                                                                                     
                                                                          
                                                                                 <div class="form-group">
-                                                                                    <button style="cursor:pointer" type="submit" class="btn btn-primary">Register</button>
+                                                                                    <button style="cursor:pointer" type="submit" class="btn btn-success">Register</button>
                                                                                 </div>
                                                                                
                                                                             </form>
