@@ -59,10 +59,10 @@ Route::get('/logout', 'SessionController@destroy');
 Route::get('/employee/profile', 'ProfileController@index');
 Route::get('/company/profiles', 'ProfileController@index2');
 Route::get('/seeker/profiles', 'ProfileController@index2');
-Route::post('/employee/profile','profileController@store');
-Route::post('/employee/profile/update','profileController@update');
-Route::get('/employee/profile','profileController@showme');
-Route::resource('/profile','profileController');
+Route::post('/employee/profile','ProfileController@store');
+Route::post('/employee/profile/update','ProfileController@update');
+Route::get('/employee/profile','ProfileController@showme');
+Route::resource('/profile','ProfileController');
 
 
 //Profile Company
@@ -91,8 +91,8 @@ Route::Post('/Appointments/hire', 'AppointmentController@store');
 
 
 //show pdf
-Route::post('/post/pdf', 'profilecontroller@pdf');
-Route::post('/Download/pdf/application', 'notificationcontroller@pdf');
+Route::post('/post/pdf', 'ProfileController@pdf');
+Route::post('/Download/pdf/application', 'NotificationController@pdf');
 
 // Notification
 Route::get('/Notification', 'NotificationController@index');
