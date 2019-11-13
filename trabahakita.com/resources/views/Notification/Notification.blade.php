@@ -21,6 +21,7 @@
                             @foreach($notification as $notif)
                             @if($notif->type == 'employee')
                             @if($notif->from == 'company')
+
                             <div class="card" style="margin-top:10px">
                                 <div class="card-header">FROM:{{$notif->name}}</div>
                                 <div class="card-body">
@@ -37,8 +38,9 @@
                                           <input type="text " name="user_name" id="name" value="{{$notif->name}}" hidden>
                                           <input type="text " name="company_id" id="company_id" value="{{$notif->company_id}}" hidden>
                                           <input type="text " name="type" id="type" value="message" hidden>
+                                        <input type="text " name="notif_id" id="notif_id" value="{{$notif->id}}" hidden>
                                       <input type="text " name="app_id" id="app_id" value="{{$notif->app_id}}" hidden>
-                                      <input type="text " name="notif_id" id="app_id" value="{{$notif->id}}" hidden>
+                                     
                                           <textarea class="form-control" name="message" id="message" cols="30" rows="5" placeholder="Your Message"></textarea>
                                         
                                           <button class="btn btn-warning" style="margin-top:10px" style="color:white">Reply</button> 
@@ -50,9 +52,10 @@
                                         
                                         @elseif($notif->message_type == '2')
                                        
+
                                         @if(count($comments) > 0)
                                         @foreach($comments as $com)
-                                        @if($com->company_id == $notif->company_id && $com->user_id == auth()->user()->id && $com->hired_status == '0')
+                                        @if($com->company_id == $notif->company_id && $com->user_id == auth()->user()->id && $com->hired_status == '1' && $com->post_id == $notif->app_id)
                                         <form action="/setAppointment/accept" method="POST" enctype="multipart/form-data">
                                           {{ csrf_field() }}
                                           <input type="text " name="name" id="name" value="{{$notif->name}}" hidden>
@@ -75,7 +78,8 @@
                                          
                                           
                                           </form>
-                                        @elseif($com->company_id == $notif->company_id && $com->user_id == auth()->user()->id && $com->hired_status == '2')
+                                        
+                                        @elseif($com->company_id == $notif->company_id && $com->user_id == auth()->user()->id && $com->post_id == $notif->app_id && $com->hired_status == '2')
                                         <button class="btn btn-success" disabled>Hired</button> 
                                         @endif
                                         @endforeach
@@ -140,7 +144,7 @@
                                     @foreach($notification as $notif)
                                     @if($notif->type == 'company')
                                     @if($notif->from == 'employee')
-                                    @if($notif->company_id == auth()->user()->id)
+                                    @if($notif->company_id == auth()->user()->id && $notif->from = 'employee')
 
                                    
                                         <div class="card" style="margin-top:10px">
@@ -173,7 +177,7 @@
                                                 @elseif($notif->message_type == '2')
                                                 @if(count($comments) > 0)
                                                 @foreach($comments as $com)
-                                                @if($com->post_id == $notif->app_id && $com->hired_status == '0')
+                                                @if($com->company_id == $notif->company_id && $com->hired_status == '0' && $com->user_id == $notif->user_id && $com->post_id == $notif->app_id)
                                                 <div class="row">
                                                     <div class="col-sm">
                                                         <form action="/post/pdf" method="POST" enctype="multipart/form-data">
@@ -194,9 +198,9 @@
                                                         </div>
                                                 </div>
                                                 </div>
-                                                @elseif($com->post_id == $notif->app_id && $com->hired_status == '1')
+                                                @elseif($com->post_id == $notif->app_id && $com->hired_status == '1' && $com->user_id == $notif->user_id)
                                                 <button disabled="disabled" class="btn btn-info">Waiting for Confirmation</button>
-                                                @elseif($com->post_id == $notif->app_id && $com->hired_status == '2')
+                                                @elseif($com->post_id == $notif->app_id && $com->hired_status == '2' && $com->user_id == $notif->user_id)
                                                 <button disabled="disabled" class="btn btn-success">Hired</button>
                                                
                                                 @endif
@@ -270,12 +274,12 @@
                                       <div class="modal-body">
                                       <h4>Hire {{$com->name}} for the position of {{$posts->Title}}?</h4>
 
-                                      <form action="/Appointments/hire" method="post" enctype="multipart/form-data">
+                                      <form action="/Appointment/hire" method="post" enctype="multipart/form-data">
                                         {{ csrf_field() }}
                                               <div class="container">
                                                     <div class="form-group row">
                                                             <input type="text" name="comment_id" value="{{$com->id}}"  hidden>
-                                                    <input type="text" name="user_id" value="{{$com->user_id}}" >
+                                                    <input type="text" name="user_id" value="{{$com->user_id}}" hidden>
                                                     <input type="text" name="user_name"  value="{{$com->name}}"  hidden>
                                                     <input type="text" name="post_id"  value="{{$posts->id}}"  hidden>
                                                     <input type="text" name="type"  value="hire"  hidden>

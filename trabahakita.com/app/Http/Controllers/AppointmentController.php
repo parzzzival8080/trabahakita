@@ -62,6 +62,7 @@ class AppointmentController extends Controller
             $notification->subject = auth()->user()->name.' wants to hire you!';
             $notification->name = auth()->user()->name;
             $notification->message = request('message');
+            $notification->from = 'company';
             $notification->message_type = '2';
             $notification->type = 'employee';
             $notification->save();
@@ -114,6 +115,7 @@ class AppointmentController extends Controller
             $notification->message_type = '2';
             $notification->from = 'employee';
             $notification->name = auth()->user()->name;
+
             $notification->to = request('name');
             $notification->message = request('message');
             $notification->from = 'company';

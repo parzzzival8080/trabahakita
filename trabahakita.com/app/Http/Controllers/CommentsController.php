@@ -51,7 +51,7 @@ class CommentsController extends Controller
 
         $notification = New Notification;
         $notification->company_id = $comment->company_id;
-        $notification->app_id = $comment->id;
+        $notification->app_id = $comment->post_id;
         $notification->user_id = auth()->user()->id;
         $notification->name = auth()->user()->name;
         $notification->subject = auth()->user()->name.' sent you an application';

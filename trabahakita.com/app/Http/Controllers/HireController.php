@@ -23,8 +23,8 @@ class HireController extends Controller
             
             $notification = New Notification;
             $notification->company_id = auth()->user()->id;
-            $notification->app_id = $hire->id;
-            $notification->user_id = request('id');
+            $notification->app_id = request('post_id');;
+            $notification->user_id = request('user_id');
             $notification->name = auth()->user()->name;
             $notification->subject = auth()->user()->name.' Wants to hire you!';
             $notification->type ='employee';
@@ -40,7 +40,7 @@ class HireController extends Controller
             $comments->hired_status = '1';
             $comments->save();
     
-            return redirect()->to('/home');
+            return redirect()->to('/Notification');
         }
 
         elseif(request('type') == 'message')
@@ -80,7 +80,7 @@ class HireController extends Controller
 
                 $notification = New Notification;
                 $notification->company_id = auth()->user()->id;
-                $notification->app_id = $appointment->id;
+                $notification->app_id = request('post_id');
                 $notification->user_id = request('user_id');
                 $notification->name = auth()->user()->name;
                 $notification->subject = auth()->user()->name.' sent you a message';
@@ -112,6 +112,7 @@ class HireController extends Controller
 
                 $notifications = Notification::find(request('notif_id'));
                 $notifications->message_status = '1';
+                $notifications->message_type = '1';
                 $notifications->save();
 
                 
