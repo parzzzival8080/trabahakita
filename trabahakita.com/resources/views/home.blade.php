@@ -526,8 +526,8 @@
                                               <div class="container">
                                                     <div class="form-group row">
                                                             <input type="text" name="comment_id" value="{{$com->id}}"  hidden>
-                                                    <input type="text" name="id" value="{{$com->user_id}}"  hidden>
-                                                    <input type="text" name="name"  value="{{$com->name}}"  hidden>
+                                                    <input type="text" name="user_id" value="{{$com->user_id}}" >
+                                                    <input type="text" name="user_name"  value="{{$com->name}}"  hidden>
                                                     <input type="text" name="post_id"  value="{{$posts->id}}"  hidden>
                                                     <input type="text" name="type"  value="message"  hidden>
                                                 </div>  

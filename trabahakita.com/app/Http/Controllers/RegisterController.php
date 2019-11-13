@@ -33,7 +33,7 @@ class RegisterController extends Controller
         }
         else
         {
-            return view('register.register');
+            return view('Register.register');
         }
         }
         

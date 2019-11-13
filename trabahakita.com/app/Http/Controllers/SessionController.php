@@ -27,7 +27,7 @@ class SessionController extends Controller
     public function create()
     {
         //
-        return view('register.login');
+        return view('Register.login');
     }
 
     /**

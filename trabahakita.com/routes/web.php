@@ -87,6 +87,8 @@ Route::Post('/setAppointment/accept', 'AppointmentController@store');
 
 Route::Post('/Appointment/hire', 'HireController@store');
 
+Route::Post('/Appointments/hire', 'AppointmentController@store');
+
 
 //show pdf
 Route::post('/post/pdf', 'profilecontroller@pdf');

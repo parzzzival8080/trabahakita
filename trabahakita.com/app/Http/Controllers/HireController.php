@@ -19,8 +19,8 @@ class HireController extends Controller
         if(request('type') == 'hire')
         {
             
-
-
+            
+            
             $notification = New Notification;
             $notification->company_id = auth()->user()->id;
             $notification->app_id = $hire->id;
@@ -29,7 +29,7 @@ class HireController extends Controller
             $notification->subject = auth()->user()->name.' Wants to hire you!';
             $notification->type ='employee';
             $notification->from ='company';
-            $notification->message_type = '1';
+            $notification->message_type = '2';
             $notification->to = request('name');
             $notification->message = request('message');
             
@@ -47,13 +47,37 @@ class HireController extends Controller
         {
             if(auth()->user()->type == 'company')
             {
+              if(request('msg_type') == 'reply')
+              {
+                $notification = New Notification;
+                $notification->company_id = auth()->user()->id;
+                // $notification->app_id = $appointment->id;
+                $notification->user_id = request('user_id');
+                $notification->name = auth()->user()->name;
+                $notification->subject = auth()->user()->name.' sent you a message';
+                $notification->message_type = '0';
+                $notification->type ='employee';
+                $notification->from ='company';
+                $notification->to = request('name');
+                $notification->message = request('message');
+                $notification->save();
+
+                $notifications = Notification::find(request('notif_id'));
+                $notifications->message_status = '1';
+                $notifications->save();
+
+                
+                return redirect()->to('/Notification');
+              }
+              else
+              {
                 $appointment = new Appointment;
                 $appointment->company_id = auth()->user()->id;
                 $appointment->user_id = request('user_id');
                 $appointment->company_name = auth()->user()->name;
                 $appointment->user_name = request('user_name');
-                $appointment->save();
-    
+                $appointment->save();          
+
                 $notification = New Notification;
                 $notification->company_id = auth()->user()->id;
                 $notification->app_id = $appointment->id;
@@ -66,15 +90,17 @@ class HireController extends Controller
                 $notification->to = request('name');
                 $notification->message = request('message');
                 $notification->save();
-    
-                return redirect()->to('/home');
+                
+                return redirect()->to('/Notification');
+              }    
+               
             }
             elseif(auth()->user()->type == 'employee')
             {
                 $notification = New Notification;
-                $notification->company_id = auth()->user()->id;
+                $notification->company_id = request('user_id');
                 // $notification->app_id = request('app_id');
-                $notification->user_id = request('user_id');
+                $notification->user_id = auth()->user()->id;
                 $notification->name = auth()->user()->name;
                 $notification->subject = auth()->user()->name.' sent you a message';
                 $notification->message_type = '0';

@@ -47,9 +47,9 @@ class AppointmentController extends Controller
         {
             $appointment = new Appointment;
             $appointment->company_id = auth()->user()->id;
-            $appointment->user_id = request('id');
+            $appointment->user_id = request('user_id');
             $appointment->company_name = auth()->user()->name;
-            $appointment->user_name = request('name');
+            $appointment->user_name = request('user_name');
             $appointment->date = request('date');
             $appointment->time = request('time');
             $appointment->save();
@@ -58,10 +58,11 @@ class AppointmentController extends Controller
             $notification = new Notification;
             $notification->company_id = auth()->user()->id;
             $notification->app_id = $appointment->id;
-            $notification->user_id = request('id');
-            $notification->subject = 'Set an Interview';
+            $notification->user_id = request('user_id');
+            $notification->subject = auth()->user()->name.' wants to hire you!';
             $notification->name = auth()->user()->name;
             $notification->message = request('message');
+            $notification->message_type = '2';
             $notification->type = 'employee';
             $notification->save();
     
@@ -110,11 +111,12 @@ class AppointmentController extends Controller
             $notification->app_id = request('comment_id');
             $notification->subject = 'Offer Accepted';
             $notification->type = 'company';
-            $notification->message_type = '1';
+            $notification->message_type = '2';
             $notification->from = 'employee';
             $notification->name = auth()->user()->name;
             $notification->to = request('name');
             $notification->message = request('message');
+            $notification->from = 'company';
             $notification->save();
 
           
