@@ -38,9 +38,9 @@
               {{-- <span class="badge badge-primary badge-pill">{{$post->count()}}</span> --}}
             </li>
             @if(auth()->user()->type == 'company')
-            <a class="nav-link" href="/company/profiles">Seeker Profiles</a>
+            <a class="nav-link" href="/company/profiles">Find Employee</a>
             @elseif(auth()->user()->type == 'employee')
-            <a class="nav-link" href="/company/profiles">Company Profiles</a>
+            <a class="nav-link" href="/company/profiles">Find Employer</a>
             
             @endif
             @if($notifcount->count() == 0)
