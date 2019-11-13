@@ -79,13 +79,13 @@ class NotificationController extends Controller
                 {
                     $profile = Profile::find(auth()->user()->id);
                     $notifcount = Notification::where(['user_id' => auth()->user()->id, 'type' => 'employee', 'message_status' => '0']);
-                    $notification = Notification::where(['user_id' => auth()->user()->id])->orderBy('created_at', 'desc')->get();
+                    $notification = Notification::where(['user_id' => auth()->user()->id])->orderBy('created_at', 'desc')->take(5)->get();
                     $education  = Education::where(['user_id' => auth()->user()->id])->get();
                     $Experience  = Experience::where(['user_id' => auth()->user()->id])->get();
                     $Skills  = Skills::where(['user_id' => auth()->user()->id])->get();
                     $hire = Hire::where(['user_id' => auth()->user()->id])->orderBy('created_at','desc')->get();
                     $posts = Post::all();
-                    return view('seekerprofile')->with(['post' => $post, 'notification' => $notification, 'hire' => $hire, 'notifcount' => $notifcount, 'profile' => $profile, 'education' => $education, 'experience' => $Experience, 'skills' => $Skills]);    
+                    return view('seekerprofile')->with(['post' => $posts, 'notification' => $notification, 'hire' => $hire, 'notifcount' => $notifcount, 'profile' => $profile, 'education' => $education, 'experience' => $Experience, 'skills' => $Skills]);    
                 }
                 else{
                     $notifcount = Notification::where(['company_id' => auth()->user()->id, 'type' => 'company', 'message_status' => '0']);

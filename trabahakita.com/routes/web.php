@@ -184,7 +184,7 @@ Route::get('/employee/category/TradesandTransportation', 'FilterController@trade
 Route::get('/employee/category/ManagementBusinessandFinance', 'FilterController@management');
 Route::get('/employee/category/ArchitectureandCivilEngineering', 'FilterController@arch');
 Route::get('/employee/category/Science', 'FilterController@Science');
-Route::get('/employee/category/HospitalityTourismandtheService Industry', 'FilterController@tour');
+Route::get('/employee/category/HospitalityTourismandtheServiceIndustry', 'FilterController@tour');
 Route::get('/employee/category/LawandLawEnforcement', 'FilterController@law');
 
 // Activate/Deactivate

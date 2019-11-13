@@ -225,7 +225,7 @@
                                 <div class="card-body">
                                     <div class="card-text">
                                             <center>
-                                                        <button class="btn btn-success"><a href="/employee/category/LawandLawEnforcement" style="color:white">{{$post_field_9->count()}} Job Postings</a></button> 
+                                                        <button class="btn btn-success"><a href="/employee/category/LawandLawEnforcement" style="color:white">{{$post_field_10->count()}} Job Postings</a></button> 
                                                  
                                                      </center>
                                     </div>

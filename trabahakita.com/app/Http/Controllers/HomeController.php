@@ -72,7 +72,7 @@ class HomeController extends Controller
             $post_field_6 = Post::where(['job_field' => 'Management, Business, and Finance'])->get();
             $post_field_7 = Post::where(['job_field' => 'Architecture and Civil Engineering'])->get();
             $post_field_8 = Post::where(['job_field' => 'Science'])->get();
-            $post_field_9 = Post::where(['job_field' => ' Hospitality, Tourism, and the Service Industry'])->get();
+            $post_field_9 = Post::where(['job_field' => 'Hospitality, Tourism, and the Service Industry'])->get();
             $post_field_10 = Post::where(['job_field' => 'Law and Law Enforcement'])->get();
             return view('home')->with(['post_field_1' => $post_field_1, 
             'post_field_2' => $post_field_2,
