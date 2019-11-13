@@ -106,6 +106,7 @@
                                                                         value="{{$post->id}}">
                                                                         <input hidden name="company_id" type="text" class="form-control" id="company_id"
                                                                         value="{{$post->company_id}}">
+                                                                        <input hidden name="company_name" type="text" class="form-control" id="company_name" value="{{$post->company_name}}">
                                                                         <textarea name="message" id="message" class="form-control" cols="30" rows="3" placeholder="Skill Summary"></textarea>
             
                                                             </div>

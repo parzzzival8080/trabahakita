@@ -48,6 +48,20 @@ class CommentsController extends Controller
         $comment->contact_twitter = request('viber');
         $comment->contact_email = request('email');
         $comment->save();
+
+        $notification = New Notification;
+        $notification->company_id = $comment->company_id;
+        $notification->app_id = $comment->id;
+        $notification->user_id = auth()->user()->id;
+        $notification->name = auth()->user()->name;
+        $notification->subject = auth()->user()->name.' sent you an application';
+        $notification->message_type = '2';
+        $notification->type = 'company';
+        $notification->message = $comment->message;
+        $notification->from =  'employee';
+        $notification->to = request('company_name');
+        $notification->save();
+
         $post = Post::find(request('post_id'));
 
         $comments = Comments::where(['user_id' => auth()->user()->id, 'post_id' => request('post_id')])->get();

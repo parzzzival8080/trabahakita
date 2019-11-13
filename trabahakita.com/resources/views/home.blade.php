@@ -250,7 +250,14 @@
                     @if(count($post) > 0)
                     @foreach($post as $posts)
                     @if($posts->company_id == auth()->user()->id)
-              <a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-post{{$posts->id}}" role="tab" aria-controls="v-pills-home" aria-selected="true">{{$posts->Title}}</a>
+              <a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-post{{$posts->id}}" role="tab" aria-controls="v-pills-home" aria-selected="true">{{$posts->Title}}
+                        <span class="badge badge-pill badge-dark">
+              @php
+                        $comcount = DB::table('comments')->where(['post_id' => $posts->id])->get();
+                        echo $comcount->count();
+                @endphp
+                        </span>
+        </a>
                 @endif
                 @endforeach
                 @endif
@@ -279,14 +286,13 @@
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
-                                                                <label for="empid" class="col-sm-3 col-form-label">Job Type</label>
+                                                                <label for="empid" class="col-sm-3 col-form-label">Status</label>
                                                                 <div class="col-sm-9">
-                                                                        <select class="custom-select mr-sm-2" id="type" name="type">
-                                                                                <option   selected>Choose...</option>
-                                                                                <option value="Full Time">Full Time</option>
-                                                                                <option value="Term">Term</option>
-                                                                                <option value="Project">Project</option>
-                                                                                <option value="Seasonal">Seasonal</option>
+                                                                        <select class="custom-select mr-sm-2" id="type" name="type" aria-placeholder="Choose" required>
+                                                                                <option   disabled >Choose</option>
+                                                                                <option selected value="Full Time">Full Time</option> 
+                                                                                <option value="Part-time">Part-time</option>
+                                                                                <option value="Project">Project</option> 
                                                                                 <option value="Casual">Casual</option>
                                                                               </select>
                                                                 </div>
@@ -294,8 +300,8 @@
                                                             <div class="form-group row">
                                                                     <label for="empid" class="col-sm-3 col-form-label">Job Field</label>
                                                                     <div class="col-sm-9">
-                                                                            <select class="custom-select mr-sm-2" id="field" name="field">
-                                                                                    <option   selected>Choose...</option>
+                                                                            <select class="custom-select mr-sm-2" id="field" name="field" placeholder="Choose" required>
+                                                                                <option   disabled >Choose</option>
                                                                                     <option value="Computers and Technology">Computers and Technology</option>
                                                                                     <option value="Health Care and Allied Health">Health Care and Allied Health</option>
                                                                                     <option value="Education and Social Services">Education and Social Services</option>
@@ -365,8 +371,7 @@
                                      <div class="card-text">
                                              <h4>Job Type:{{$posts->job_type}}</h4>
                                              <h4>Salary:  {{$posts->salary}}</h4>
-                                             <h4>Needed:  {{$posts->employee_num}}</h4>
-                                             <h4>Hired:  {{$posts->hired_num}}</h4>
+                                             <h4>Status:  {{$posts->emp_hired}}/{{$posts->employee_num}} Hired</h4>
                                              @if($posts->employee_num == $posts->hired_num)
                                                 Closed
                                                 @else
@@ -474,7 +479,7 @@
                                                     <div class="form-group row">
                                                             <input type="text" name="comment_id" value="{{$com->id}}"  hidden>
                                                     <input type="text" name="id" value="{{$com->user_id}}"  hidden>
-                                                    <input type="text" name="name"  value="{{$posts->name}}"  hidden>
+                                                    <input type="text" name="name"  value="{{$com->name}}"  hidden>
                                                     <input type="text" name="post_id"  value="{{$posts->id}}"  hidden>
                                                     <input type="text" name="type"  value="hire"  hidden>
                                                 </div>  

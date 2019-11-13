@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Appointment;
 use App\Notification;
 use App\Comments;
+use App\Post;
+use App\Hire;
+use App\Profile;
 use Illuminate\Http\Request;
 
 class AppointmentController extends Controller
@@ -66,10 +69,40 @@ class AppointmentController extends Controller
         }
         elseif (auth()->user()->type == 'employee')
         {
+            
 
             $comments = Comments::find(request('comment_id'));
             $comments->hired_status = '2';
             $comments->save();
+
+             
+            $profile = Profile::find(auth()->user()->id);
+            $profile->hire_status = '1';
+            $profile->save();
+    
+
+            $post = Post::find(request('post_id'));
+            $post->emp_hired = $post->emp_hired + 1;
+            $post->save();
+
+           if($post->emp_hired == $post->employee_num)
+           {
+               $post = Post::find(request('post_id'));
+               $post->post_status = '1';
+               $post->save();
+           }
+    
+
+            $hire = New Hire;
+            $hire->company_id = request('company_id');
+            $hire->company_name = request('company_name');
+            $hire->user_id = auth()->user()->id;
+            $hire->post_id = request('post_id');
+            $hire->user_name = auth()->user()->name;
+            $hire->position = request('title');
+            $hire->message_status = '0';
+            $hire->save();
+
 
             $notification = new Notification;
             $notification->user_id = auth()->user()->id;
@@ -77,6 +110,7 @@ class AppointmentController extends Controller
             $notification->app_id = request('comment_id');
             $notification->subject = 'Offer Accepted';
             $notification->type = 'company';
+            $notification->message_type = '1';
             $notification->from = 'employee';
             $notification->name = auth()->user()->name;
             $notification->to = request('name');

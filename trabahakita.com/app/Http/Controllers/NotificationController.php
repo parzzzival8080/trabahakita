@@ -11,6 +11,7 @@ use App\Experience;
 use App\Hire;
 use App;
 use App\Comments;
+use App\Post;
 
 use Illuminate\Http\Request;
 
@@ -44,15 +45,16 @@ class NotificationController extends Controller
                     $Experience  = Experience::where(['user_id' => auth()->user()->id])->get();
                     $Skills  = Skills::where(['user_id' => auth()->user()->id])->get();
                     $comments = Comments::where(['user_id' => auth()->user()->id])->get();
-                   
-                    return view('notification.notification')->with(['notification' => $notification, 'notifcount' => $notifcount, 'profile' => $profile, 'education' => $education, 'experience' => $Experience, 'skills' => $Skills,$notifcount, 'comments' => $comments]);    
+                   $post = Post::all();
+                    return view('notification.notification')->with(['post' => $post,'notification' => $notification, 'notifcount' => $notifcount, 'profile' => $profile, 'education' => $education, 'experience' => $Experience, 'skills' => $Skills,$notifcount, 'comments' => $comments]);    
                 }
                 else{
                     $notifcount = Notification::where(['company_id' => auth()->user()->id, 'type' => 'company', 'message_status' => '0']);
                     $notification = Notification::all();
-                    $comments = Comments::where(['user_id' => auth()->user()->id])->get();
+                    $comments = Comments::all();
+                    $posts = Post::all();
                   
-                    return view('notification.notification')->with(['notification' => $notification, 'notifcount' => $notifcount, 'comments' => $comments]);  
+                    return view('notification.notification')->with(['notification' => $notification, 'notifcount' => $notifcount, 'comments' => $comments, 'post' => $posts]);  
                 }
             }
         }
@@ -82,12 +84,15 @@ class NotificationController extends Controller
                     $Experience  = Experience::where(['user_id' => auth()->user()->id])->get();
                     $Skills  = Skills::where(['user_id' => auth()->user()->id])->get();
                     $hire = Hire::where(['user_id' => auth()->user()->id])->orderBy('created_at','desc')->get();
-                    return view('seekerprofile')->with(['notification' => $notification, 'hire' => $hire, 'notifcount' => $notifcount, 'profile' => $profile, 'education' => $education, 'experience' => $Experience, 'skills' => $Skills]);    
+                    $posts = Post::all();
+                    return view('seekerprofile')->with(['post' => $post, 'notification' => $notification, 'hire' => $hire, 'notifcount' => $notifcount, 'profile' => $profile, 'education' => $education, 'experience' => $Experience, 'skills' => $Skills]);    
                 }
                 else{
                     $notifcount = Notification::where(['company_id' => auth()->user()->id, 'type' => 'company', 'message_status' => '0']);
                     $notification = Notification::where(['company_id' => auth()->user()->id]);
-                    return view('')->with(['notification' => $notification, 'notifcount' => $notifcount]);  
+                    $comments = Comments::all();
+                    $post = Post::all();
+                    return view('Notification.Notification')->with(['notification' => $notification, 'notifcount' => $notifcount, 'comments' => $comments, 'post' => $post]);  
                 }
             }
         }

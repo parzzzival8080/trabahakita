@@ -6,6 +6,7 @@
         <div class="container" style="padding:30px">
                 <h2>POSTS</h2>
                 @foreach ($post as $posts)
+                @if($posts->post_status == '0')
                             <div class="card" style="margin-top:10px">
                                     <div class="card-body">
                                       <div class="card-header">
@@ -27,6 +28,8 @@
                                         </div>
                                     </div>  
                                 </div>
+                @else
+                @endif
                                 @endforeach
         </div>
        
@@ -62,7 +65,31 @@
                             <h6>
                                 {{$posts->description}}
                             </h6>
-                            <button class="btn btn-primary"><a href="/post/show/{{$posts->id}}" style="color:white">Open</a></button>
+                            <div class="row">
+                                <div class="col">
+                                        <button class="btn btn-info"><a href="/post/show/{{$posts->id}}" style="color:white">View</a></button>
+                                        <button class="btn btn-warning"><a href="/post/show/{{$posts->id}}/edit" style="color:white">Edit</a></button>
+                                </div>
+                           
+                            
+                                <div class="col">
+                                        @if($posts->post_status == '0')
+                                        <form action="/post/deactivate" method="POST" enctype="multipart/form-data">
+                                            {{ csrf_field() }}
+                                            <input type="text" name="id" value="{{$posts->id}}" hidden>
+                                        <button class="btn btn-danger">Deactivate</button>
+                                        </form>
+                                    
+                                        @elseif($posts->post_status == '1')
+                                        <form action="/post/activate" method="POST" enctype="multipart/form-data">
+                                            {{ csrf_field() }}
+                                            <input type="text" name="id" value="{{$posts->id}}" hidden>
+                                        <button class="btn btn-success">Activate</button>
+                                        </form>
+                                        @endif
+                                </div>
+                            </div>
+                          
                     </div>
                 </div>  
             </div>

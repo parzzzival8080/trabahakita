@@ -19,7 +19,7 @@ class CreateCommentsTable extends Migration
             $table->string('post_id');
             $table->string('user_id');
             $table->string('name');
-            $table->string('title');
+            $table->string('title')->nullable();
             $table->string('contact_fb');
             $table->string('contact_twitter');
             $table->string('contact_email');

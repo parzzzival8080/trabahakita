@@ -27,7 +27,12 @@
             <li class="nav-item active">
             
               @if(auth()->check())
-              <a class="nav-link" href="/">HOME<span class="sr-only">(current)</span></a>
+              @if(auth()->user()->type == 'employee')
+              <a class="nav-link" href="/"><span class="sr-only">(current)</span>Bulletin Board</a>
+              @else
+              <a class="nav-link" href="/"><span class="sr-only">(current)</span>Home</a>
+              @endif
+             
               <li class="nav-item">
               <a class="nav-link" href="/post">Posts</a>
               {{-- <span class="badge badge-primary badge-pill">{{$post->count()}}</span> --}}
@@ -42,7 +47,7 @@
             <a class="nav-link" href="/Notification">Notification</a>
             @else
             <li class="nav-item">
-            <a class="nav-link" href="/Notification">Notification<span class="badge badge-info badge-pill">{{$notifcount->count()}}</span></a>
+           
             </li>
             @endif
              
@@ -55,6 +60,7 @@
             <a class="dropdown-item" href="/seeker/profile">My Profile</a>
             @endif
           <a class="dropdown-item" href="/employee/profile">Edit Profile</a>
+          <a class="dropdown-item"  href="/Notification">Notification<span class="badge badge-info badge-pill">{{$notifcount->count()}}</span></a>
           <a class="dropdown-item" href="/logout">Logout</a>
         
       </li>

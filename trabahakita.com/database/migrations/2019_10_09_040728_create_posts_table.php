@@ -20,7 +20,9 @@ class CreatePostsTable extends Migration
             $table->string('Title');
             $table->string('job_type');
             $table->string('job_field');
-            $table->integer('employee_num')->default('1');
+            $table->integer('employee_num');
+            $table->integer('emp_hired')->default('0');
+            $table->varchar('post_status')->default('0');
             $table->string('salary');
             $table->string('description');
             $table->timestamps();

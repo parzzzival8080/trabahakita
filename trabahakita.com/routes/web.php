@@ -39,7 +39,10 @@ Route::get('/employee/dashboard', 'PostController@index');
 Route::get('post/create', 'PostController@create');
 Route::post('/post', 'PostController@store');
 Route::resource('/post/show', 'PostController');
+Route::resource('/posts/edit', 'PostController');
 Route::post('/post/pdf', 'profilecontroller@pdf');
+
+Route::post('/post/update', 'PostController@updateme');
  
 
 // Register
@@ -168,6 +171,10 @@ Route::get('/employee/category/ArchitectureandCivilEngineering', 'FilterControll
 Route::get('/employee/category/Science', 'FilterController@Science');
 Route::get('/employee/category/HospitalityTourismandtheService Industry', 'FilterController@tour');
 Route::get('/employee/category/LawandLawEnforcement', 'FilterController@law');
+
+// Activate/Deactivate
+Route::post('/post/deactivate', 'PostController@Deactivate');
+Route::post('/post/activate', 'PostController@Activate');
 
 
 
