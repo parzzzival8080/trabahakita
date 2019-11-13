@@ -578,10 +578,105 @@
             @endif
 
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAwG2FvuLOl_rGjp4LHR6XSeLIG_ZjjJ0M&callback=initMap&libraries=places"></script>
-<script>
- var foo = {!! json_encode($profile->toArray())!!}
- console.log(foo.lat)
-    function initMap() {
+<script type="text/javascript">
+    var foo = {!! json_encode($profile->toArray())!!}
+    console.log(foo.lat)
+    if (foo.lat == null || foo.lng == null )
+    {  
+        function initMap() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    function (result) {
+                        // IF GEOLOCATION IS SUCCESSFULL
+
+                        // GOOGLE MAP
+                        var map = new google.maps.Map(
+                            document.getElementById('map'), {
+                                zoom: 18, // GOOGLE MAP ZOOM LEVEL
+                                scrollwheel: false,
+                                center: { // GOOGLE MAP CENTER 
+                                    lat: result.coords.latitude, // GEOLOCATION RESULT LATITUDE
+                                    lng: result.coords.longitude // GEOLOCATION RESULT LONGITUDE
+                                }
+                        });
+                            
+                        // GOOGLE MAP MARKER
+                        var marker = new google.maps.Marker({
+                            position: { // GOOGLE MAP MARKER POSITION
+                                lat: result.coords.latitude, // GEOLOCATION RESULT LATITUDE
+                                lng: result.coords.longitude // GEOLOCATION RESULT LONGITUDE
+                            },
+                            map: map,
+                            draggable: true // GOOGLE MAP WHERE THE MARKER IS TO BE ADDED
+                        });
+
+                        //Initial entry
+                        $('#lat').val(marker.getPosition().lat());
+                        $('#lng').val(marker.getPosition().lng());
+
+                        var searchBox = new google.maps.places.SearchBox(document.getElementById('searchmap'));
+
+                        google.maps.event.addListener(searchBox, 'places_changed', function () {
+
+                            var places = searchBox.getPlaces();
+                            var bounds = new google.maps.LatLngBounds();
+                            var i, place;
+
+                            for (i = 0; place = places[i]; i++) {
+                                bounds.extend(place.geometry.location);
+                                marker.setPosition(place.geometry.location);
+
+                            }
+
+                            map.fitBounds(bounds);
+                            map.setZoom(18);
+
+                        });
+
+                        //var myLatlng = new google.maps.LatLng(marker, 'position');
+                        google.maps.event.addListener(marker, 'position_changed', function () {
+                            var lat = marker.getPosition().lat();
+                            var lng = marker.getPosition().lng();
+
+                            $('#lat').val(lat);
+                            $('#lng').val(lng);
+                      
+
+                        var latlng = new google.maps.LatLng(lat, lng);
+
+                        var geocoder = new google.maps.Geocoder();
+
+                        geocoder.geocode({ 'latLng': latlng }, function (results, status) {
+
+                            if (status !== google.maps.GeocoderStatus.OK) {
+                                alert(status);
+                            }
+
+                            if (status == google.maps.GeocoderStatus.OK) {
+                                console.log(results);
+
+                                var address = (results[0].formatted_address);
+                                
+                                document.getElementById('searchmap').value = results[0].formatted_address;
+                                }
+                        });
+                        });
+                    },
+                    
+                    function (error) {
+                        // IF GEOLOCATION IS UNSUCCESSFULL
+                        alert("Ooops! Something went wrong.")
+                    }
+                )
+            } 
+            else {
+                alert("Ooops! Browser doesn't support Geolocation.")
+            }
+        }
+
+    }
+    else{
+        function initMap() {
         
         var myLatlng = new google.maps.LatLng(foo.lat, foo.lng);
         var mapOptions = {
@@ -623,8 +718,28 @@
 
             $('#lat').val(lat);
             $('#lng').val(lng);
+
+        var latlng = new google.maps.LatLng(lat, lng);
+    
+        var geocoder = new google.maps.Geocoder();
+
+        geocoder.geocode({ 'latLng': latlng }, function (results, status) {
+
+            if (status !== google.maps.GeocoderStatus.OK) {
+                alert(status);
+            }
+
+            if (status == google.maps.GeocoderStatus.OK) {
+                console.log(results);
+
+                var address = (results[0].formatted_address);
+                
+                document.getElementById('searchmap').value = results[0].formatted_address;
+                }
+            });
         });
     }
-</script>
+    }
+    </script>
 
 @endsection
