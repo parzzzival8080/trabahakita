@@ -34,7 +34,7 @@
               @endif
              
               <li class="nav-item">
-              <a class="nav-link" href="/post">Posts</a>
+              <a class="nav-link" href="/post">Job Posts</a>
               {{-- <span class="badge badge-primary badge-pill">{{$post->count()}}</span> --}}
             </li>
             @if(auth()->user()->type == 'company')
@@ -44,7 +44,7 @@
             
             @endif
             @if($notifcount->count() == 0)
-            <a class="nav-link" href="/Notification">Notification</a>
+            <a class="nav-link" href="/Notification">JO</a>
             @else
             <li class="nav-item">
            
@@ -60,7 +60,7 @@
             <a class="dropdown-item" href="/seeker/profile">My Profile</a>
             @endif
           <a class="dropdown-item" href="/employee/profile">Edit Profile</a>
-          <a class="dropdown-item"  href="/Notification">Notification<span class="badge badge-info badge-pill">{{$notifcount->count()}}</span></a>
+          <a class="dropdown-item"  href="/Notification">Job Applications<span class="badge badge-info badge-pill">{{$notifcount->count()}}</span></a>
           <a class="dropdown-item" href="/logout">Logout</a>
         
       </li>

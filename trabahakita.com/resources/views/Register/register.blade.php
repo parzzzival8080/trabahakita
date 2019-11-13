@@ -76,10 +76,7 @@ section .section-title {
                                                             <div class="card-text">
                                                                     <form method="POST" action="/register">
                                                                         {{ csrf_field() }}
-                                                                        <div class="form-group">
-                                                                            <label for="name">Name:</label>
-                                                                            <input type="text" class="form-control" id="name" name="name">
-                                                                        </div>
+                                                                        
                                                                  
                                                                         <div class="form-group">
                                                                             <label for="email">Email:</label>
@@ -126,10 +123,7 @@ section .section-title {
                                                                     <div class="card-text">
                                                                             <form method="POST" action="/register">
                                                                                 {{ csrf_field() }}
-                                                                                <div class="form-group">
-                                                                                    <label for="name">Name:</label>
-                                                                                    <input type="text" class="form-control" id="name" name="name">
-                                                                                </div>
+                                                                                
                                                                          
                                                                                 <div class="form-group">
                                                                                     <label for="email">Email:</label>
