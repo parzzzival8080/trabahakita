@@ -43,9 +43,7 @@
             <a class="nav-link" href="/company/profiles">Find Employer</a>
             
             @endif
-            @if($notifcount->count() == 0)
-            <a class="nav-link" href="/Notification">JO</a>
-            @else
+           
             <li class="nav-item">
            
             </li>
