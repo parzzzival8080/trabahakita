@@ -46,7 +46,7 @@ class NotificationController extends Controller
                     $Skills  = Skills::where(['user_id' => auth()->user()->id])->get();
                     $comments = Comments::where(['user_id' => auth()->user()->id])->get();
                    $post = Post::all();
-                    return view('Notification.notification')->with(['post' => $post,'notification' => $notification, 'notifcount' => $notifcount, 'profile' => $profile, 'education' => $education, 'experience' => $Experience, 'skills' => $Skills,$notifcount, 'comments' => $comments]);    
+                    return view('Notification.notifications')->with(['post' => $post,'notification' => $notification, 'notifcount' => $notifcount, 'profile' => $profile, 'education' => $education, 'experience' => $Experience, 'skills' => $Skills,$notifcount, 'comments' => $comments]);    
                 }
                 else{
                     $notifcount = Notification::where(['company_id' => auth()->user()->id, 'type' => 'company', 'message_status' => '0']);
@@ -54,7 +54,7 @@ class NotificationController extends Controller
                     $comments = Comments::all();
                     $posts = Post::all();
                   
-                    return view('Notification.notification')->with(['notification' => $notification, 'notifcount' => $notifcount, 'comments' => $comments, 'post' => $posts]);  
+                    return view('Notification.notifications')->with(['notification' => $notification, 'notifcount' => $notifcount, 'comments' => $comments, 'post' => $posts]);  
                 }
             }
         }
@@ -92,7 +92,7 @@ class NotificationController extends Controller
                     $notification = Notification::where(['company_id' => auth()->user()->id]);
                     $comments = Comments::all();
                     $post = Post::all();
-                    return view('Notification.notification')->with(['notification' => $notification, 'notifcount' => $notifcount, 'comments' => $comments, 'post' => $post]);  
+                    return view('Notification.notifications')->with(['notification' => $notification, 'notifcount' => $notifcount, 'comments' => $comments, 'post' => $post]);  
                 }
             }
         }
