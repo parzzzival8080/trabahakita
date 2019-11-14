@@ -63,6 +63,8 @@ class ProfileController extends Controller
                 $post = Post::orderBy('id', 'DESC')->get();
                 $hires = Hire::all();
                 return view('employee.profiles')->with(['profile' => $profile, 'notifcount' => $notifcount, 'post' => $post]);
+
+                
             }
         }
        
