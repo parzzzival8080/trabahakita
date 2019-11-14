@@ -53,7 +53,7 @@ class ProfileController extends Controller
                 $profile = Profile::where(['type' => 'company'])->get();
                 $notifcount = Notification::where(['user_id' => auth()->user()->id, 'type' => 'employee', 'message_status' => '0']);
                 $post = Post::all();
-                return view('company.profiles')->with(['profile' => $profile, 'notifcount' => $notifcount, 'post' => $post]);
+                return view('Company.profiles')->with(['profile' => $profile, 'notifcount' => $notifcount, 'post' => $post]);
             }
 
             elseif(auth()->user()->type == 'company')
@@ -62,9 +62,9 @@ class ProfileController extends Controller
                 $notifcount = Notification::where(['company_id' => auth()->user()->id, 'type' => 'company', 'message_status' => '0']);
                 $post = Post::orderBy('id', 'DESC')->get();
                 $hires = Hire::all();
-                return view('employee.profiles')->with(['profile' => $profile, 'notifcount' => $notifcount, 'post' => $post]);
+                return view('Employee.profiles')->with(['profile' => $profile, 'notifcount' => $notifcount, 'post' => $post]);
 
-                
+
             }
         }
        

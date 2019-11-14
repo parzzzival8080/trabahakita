@@ -171,7 +171,7 @@ Route::any('/company/search', function()
     $profile = Profile::where(['type' => 'employee'])->orderBy('id', 'desc')->get();
     $s = Input::get('search');
     $search = Profile::where('last_name', 'LIKE', '%'.$s.'%')->orWhere('first_name', 'LIKE', '%'.$s.'%')->orWhere('title', 'LIKE', '%'.$s.'%')->get();
-    return view('Employee.profiles')->withDetails($search)->withQuery($s)->with(['profile' => $profile,'notifcount' => $notifcount]);
+    return view('employee.profiles')->withDetails($search)->withQuery($s)->with(['profile' => $profile,'notifcount' => $notifcount]);
 });
 
 
