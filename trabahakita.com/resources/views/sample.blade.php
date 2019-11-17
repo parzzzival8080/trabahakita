@@ -9,15 +9,20 @@
         <div class="container">
 <div class="card">
     <div class="card-body">
-        
+            {{-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAwG2FvuLOl_rGjp4LHR6XSeLIG_ZjjJ0M&callback=initMap"></script> --}}
+            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAwG2FvuLOl_rGjp4LHR6XSeLIG_ZjjJ0M&libraries=places" type="text/javascript"></script>
                 <div id="map" style="height: 70vh; width: auto">
                         <!-- Google Map Goes Here -->
                     </div>
+
+                   
         </div>
+
+        <button id="get">Get</button>
             
     </div>
 </div>
-        <div class="container" style="margin-top:10px;">
+        {{-- <div class="container" style="margin-top:10px;">
          <H2>On 5 kilometer Radius</H2>
                 @if(count($locations) > 0 )
                 @foreach($locations as $locate)
@@ -59,7 +64,7 @@
             @endif
                 @endforeach
                 @endif
-        </div>
+        </div> --}}
                        
                     
                   
@@ -67,7 +72,7 @@
                    
             </div>
         </div>
-        <script>
+        {{-- <script>
             function initMap()
             {
                 if (navigator.geolocation) {
@@ -134,8 +139,69 @@
                     alert("Ooops! Browser doesn't support Geolocation.")
                 }
             }
-        </script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAwG2FvuLOl_rGjp4LHR6XSeLIG_ZjjJ0M&callback=initMap"></script>
+        </script> --}}
+
+
+        <script>
+         
+                var directionsDisplay = new google.maps.DirectionsRenderer();
+                var directionsService = new google.maps.DirectionsService();
+
+        var map;
+
+        var boudha = new google.maps.LatLng(6.913594199999999, 122.06137260000003);
+        var hattisar = new google.maps.LatLng(6.925378200000001, 122.04822280000008);
+        
+
+        var wp = new Array ();
+	wp[0] = new google.maps.LatLng(32.742149,119.337218);
+	wp[1] = new google.maps.LatLng(32.735347,119.328485);
+	directions = new google.maps.GDirections();
+	directions.loadFromWaypoints(wp);  
+
+        var mapOptions = 
+        {
+            zoom: 14,
+            center:boudha
+        };
+
+        map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+        directionsDisplay.setMap(map);
+
+
+        function calculateRoute() 
+        {
+            var request = 
+            {
+                origin: boudha,
+                destination: hattisar,
+                travelMode: 'WALKING'
+            };
+
+            directionsService.route(request, function(result, status)
+            {
+               if(status == 'OK')
+               {
+                   directionsDisplay.setDirections(result);
+               }
+            });
+
+          
+        }
+        document.getElementById('get').onclick = function()
+            {
+                calculateRoute();
+            }
+
+            GEvent.addListener(directions, "load", function() {
+    $('log').innerHTML = directions.getDuration ().seconds + " seconds";
+        });
+            
+
+           
+            </script>
+        {{-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAwG2FvuLOl_rGjp4LHR6XSeLIG_ZjjJ0M&callback=initMap"></script> --}}
 
         
 @endsection
