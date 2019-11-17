@@ -18,9 +18,7 @@
                    
         </div>
 
-        <div id ="Distance">
-            
-        </div>
+       <p id="duration"></p>
 
         <button id="get">Get</button>
             
@@ -182,6 +180,7 @@
                 destination: hattisar,
                 travelMode: 'WALKING'
             };
+           
 
             directionsService.route(request, function(result, status)
             {
@@ -191,18 +190,26 @@
                $b = 'Pasonanca, Zamboanga City';
                    directionsDisplay.setDirections(result);
                    $url = 'https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=' + encodeURI($a) +'&destinations='+ encodeURI($b) +'&key=AIzaSyAwG2FvuLOl_rGjp4LHR6XSeLIG_ZjjJ0M';
-                 
+                
                }
             });
+            
+
+          
+
+           
 
           
         }
         document.getElementById('get').onclick = function()
             {
                 calculateRoute();
+
             }
 
-         
+       
+
+       
          
 
            
