@@ -18,6 +18,10 @@
                    
         </div>
 
+        <div id ="Distance">
+            
+        </div>
+
         <button id="get">Get</button>
             
     </div>
@@ -153,11 +157,11 @@
         var hattisar = new google.maps.LatLng(6.925378200000001, 122.04822280000008);
         
 
-        var wp = new Array ();
-	wp[0] = new google.maps.LatLng(32.742149,119.337218);
-	wp[1] = new google.maps.LatLng(32.735347,119.328485);
-	directions = new google.maps.GDirections();
-	directions.loadFromWaypoints(wp);  
+    //     var wp = new Array ();
+	// wp[0] = new google.maps.LatLng(32.742149,119.337218);
+	// wp[1] = new google.maps.LatLng(32.735347,119.328485);
+	// var directions = new google.maps.DirectionsService();
+	// directions.Duration(wp);  
 
         var mapOptions = 
         {
@@ -183,7 +187,11 @@
             {
                if(status == 'OK')
                {
+               $a = 'Lunzuran, Zamboanga City';
+               $b = 'Pasonanca, Zamboanga City';
                    directionsDisplay.setDirections(result);
+                   $url = 'https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=' + encodeURI($a) +'&destinations='+ encodeURI($b) +'&key=AIzaSyAwG2FvuLOl_rGjp4LHR6XSeLIG_ZjjJ0M';
+                 
                }
             });
 
@@ -194,10 +202,8 @@
                 calculateRoute();
             }
 
-            GEvent.addListener(directions, "load", function() {
-    $('log').innerHTML = directions.getDuration ().seconds + " seconds";
-        });
-            
+         
+         
 
            
             </script>
