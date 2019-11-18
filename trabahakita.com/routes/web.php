@@ -29,6 +29,9 @@ Route::get('/', function () {
    
 });
 
+// maps
+
+Route::get('/maps/sample', 'samplecontroller@maps');
 // Admin
 
 Route::get('/admin/home', 'admincontroller@index');
