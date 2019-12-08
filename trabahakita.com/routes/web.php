@@ -194,6 +194,18 @@ Route::get('/employee/category/LawandLawEnforcement', 'FilterController@law');
 Route::post('/post/deactivate', 'PostController@Deactivate');
 Route::post('/post/activate', 'PostController@Activate');
 
+// sample upload image
+Route::get('/sample/image', 'ImageController@home');
+
+Route::post('/upload/images', [
+  'uses'   =>  'ImageController@uploadImages',
+  'as'     =>  'uploadImage'
+]);
+
+// sample
+
+Route::get('/sample/profile', 'ProfileController@sample');
+Route::get('/sample/education', 'ProfileController@sampleed');
 
 
 

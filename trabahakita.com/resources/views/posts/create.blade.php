@@ -17,7 +17,7 @@
                     <div class="form-group row">
                             <label for="empid" class="col-sm-3 col-form-label">Status</label>
                             <div class="col-sm-9">
-                                    <select class="custom-select mr-sm-2" id="type" name="type">
+                            <select class="custom-select mr-sm-2" id="type" name="type">
                                             <option   selected>Choose...</option>
                                             <option value="Full Time">Full Time</option>
                                             <option value="Part-time">Part-time</option>

@@ -14,6 +14,7 @@ use App\Skills;
 use App\Experience;
 use App\Notification;
 use App\Hire;
+use App\Category;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -83,14 +84,11 @@ class ProfileController extends Controller
             [
                 'last_name' => 'required',
                 'first_name' => 'required',
-                'middle_name' => 'required',
+            
                 'address' => 'required',
                 'title' => 'required',
                 'address' => 'required',
-                'degree' => 'required',
-                'from-year' => 'required',
-                'to-year' => 'required',
-                'expertise' => 'required',
+                'field' => 'required',
                 'desc' => 'required',
             ]);
     
@@ -100,15 +98,12 @@ class ProfileController extends Controller
             $profile->last_name = request('last_name');
             $profile->first_name = request('first_name');
             $profile->middle_name = request('middle_name');
+            $profile->ext_name = request('ext_name');
             $profile->title = request('title');
             $profile->adress = request('adress');
-            $profile->school = request('school');
-            $profile->degree = request('degree');
             $profile->lat = request('lat');
             $profile->lng = request('lng');
-            $profile->from_year = request('from-year');
-            $profile->to_year = request('to-year');
-            $profile->area = request('expertise');
+            $profile->field = request('field');
             $profile->description = request('desc');
             $profile->company_rep = request('representative');
             $profile->number = request('number');
@@ -149,19 +144,16 @@ class ProfileController extends Controller
 
             $profile = Profile::find(auth()->user()->id);
             $profile->id = auth()->user()->id;
-            $profile->last_name = request('lastname');
-            $profile->first_name = request('firstname');
-            $profile->middle_name = request('middlename');
-            $profile->title = request('title');
+            $profile->last_name = request('last_name');
+            $profile->first_name = request('first_name');
+            $profile->middle_name = request('middle_name');
             $profile->adress = request('address');
             $profile->lat = request('lat');
             $profile->lng = request('lng');
-            $profile->school = request('school');
-            $profile->degree = request('degree');
+          
             $profile->number = request('number'); 
-            $profile->from_year = request('from-year');
-            $profile->to_year = request('to-year');
-            $profile->area = request('expertise');
+            $profile->email = request('email'); 
+            $profile->area = request('field');
             $profile->image = request()->file('image')->store('public/images');
             $profile->description = request('desc');
             $profile->status_update = '1';
@@ -177,12 +169,23 @@ class ProfileController extends Controller
             foreach($comment as $com)
             {
                if ($com->user_id == auth()->user()->id){
-                 $com = Comments::where('user_id', auth()->user()->id)->update(['name' => request('firstname')]);
+                 $com = Comments::where('user_id', auth()->user()->id)->update(['name' => request('first_name')]);
                  
                }
             }
-    
+            if($profiles->status_edu == '0')
+            {
+                return redirect()->to('/employee/profile/education')->with('profile', $profiles);
+            }
+            elseif($profiles->status_edu == '1' && $profiles->status_skills == '0')
+            {
+                return redirect()->to('/employee/profile/skills')->with('profile', $profiles);
+            }
+           else
+        //    if($profiles->status_edu == '1' && $profiles->status_skills == '1')
+           {
             return redirect()->to('/employee/profile')->with('profile', $profiles);
+           }
         }
 
         elseif(auth()->user()->type == 'company')
@@ -402,6 +405,37 @@ class ProfileController extends Controller
                             );
                             return $pdf->stream();               
          }   
+    }
+
+    public function sample()
+    {
+        $profile = Profile::find(auth()->user()->id);
+        $education = Education::all();
+        $skills = Skills::all();
+        $experience = Experience::all();
+
+        if(auth()->user()->type == 'employee')
+        {
+            $notifcount = Notification::where(['user_id' => auth()->user()->id, 'type' => 'company', 'message_status' => '0']);
+            return view('profile2')->with(['profile' => $profile, 'education' => $education, 'skills' => $skills,'experience' => $experience, 'notifcount' => $notifcount]);
+        }
+        elseif(auth()->user()->type == 'company')
+        {
+            $notifcount = Notification::where(['company_id' => auth()->user()->id, 'type' => 'employee', 'message_status' => '0']);
+            return view('profile2')->with(['profile' => $profile, 'education' => $education, 'skills' => $skills,'experience' => $experience, 'notifcount' => $notifcount]);
+        }
+        
+    }
+
+    public function sampleed()
+    {
+        $profile = Profile::find(auth()->user()->id);
+        $education = Education::all();
+        $exp = Experience::all();
+        $skills = Skills::all();
+        $category = Category::all();
+        $notifcount = Notification::where(['user_id' => auth()->user()->id, 'type' => 'company', 'message_status' => '0']);
+        return view('Education')->with(['profile' => $profile ,'notifcount' => $notifcount, 'education' => $education, 'experience' => $exp, 'skills' => $skills,'category' => $category]);
     }
    
 
