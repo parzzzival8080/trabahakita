@@ -53,11 +53,12 @@ class CompanyController extends Controller
     {
         //
         $profile = Profile::find($id);
+        $profiles = Profile::find(auth()->user()->id);
         
         $post = Post::all();
         // return view('company')->with('post', $post);
         $notifcount = Notification::where(['user_id' => auth()->user()->id, 'type' => 'employee', 'message_status' => '0']);
-      return view('company')->with(['profile' => $profile, 'post' => $post, 'notifcount' => $notifcount]);
+      return view('company')->with(['profile' => $profile, 'post' => $post, 'notifcount' => $notifcount, 'profiles' => $profiles]);
    
     }
 

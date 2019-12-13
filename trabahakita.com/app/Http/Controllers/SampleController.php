@@ -105,6 +105,7 @@ class SampleController extends Controller
         
                 $locations = collect($locations);
               $post = Post::all();
+
                 return view('sample')->with(['notifcount' => $notifcount, 'locations' => $locations, 'user' => $user, 'post' => $post ]);   
             }
             elseif(auth()->user()->type == 'company')
@@ -120,11 +121,14 @@ class SampleController extends Controller
                 {
                     $info =  [
                         "id" => $comp->id,
+                      
                         "adress" => $comp->adress,
                         "distance" => $this->calculateDistance($user->lat, $comp->lat, $user->lng, $comp->lng),
                         "name" => $comp->last_name.', '.$comp->first_name,
+                        "type" => $comp->type,
                         "lat" => $comp->lat,
-                        "lng" => $comp->lng
+                        "lng" => $comp->lng,
+                        "title" => $comp->title
                     ];
         
                     array_push($locations, $info);
@@ -144,8 +148,9 @@ class SampleController extends Controller
                 }
         
                 $locations = collect($locations);
+                $skills = Skills::all();
                 $notifcount = Notification::where(['company_id' => auth()->user()->id, 'type' => 'company', 'message_status' => '0']);
-                return view('employeemap')->with(['notifcount' => $notifcount, 'locations' => $locations, 'user' => $user]); 
+                return view('employeemap')->with(['notifcount' => $notifcount, 'locations' => $locations, 'user' => $user, 'skills' => $skills]); 
             }
 
             else{

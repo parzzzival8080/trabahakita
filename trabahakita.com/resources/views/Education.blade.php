@@ -14,19 +14,29 @@
                         </tr>
                     </thead>
                     <tbody>
+                            @if(count($education) > 0)
+                            @foreach($education as $exp)
                         <tr>
-                                @if(count($education) > 0)
-                                @foreach($education as $exp)
-                                <th>{{$exp->school}}</th>
-                                <th>{{$exp->level}}</th>
-                                <th>{{$exp->from}} - {{$exp->to}}</th>
-                                <th>{{$exp->attainment}}</th>
                                
-                                @endforeach
-                                @else
-                                <th>Add Your Academic Background</th>
-                                @endif
+                               
+                                    
+                               
+                                <th scope="row">{{$exp->school}}</th>
+                                <td>{{$exp->level}}</td>
+                                <td>{{$exp->from}} - {{$exp->to}}</td>
+                                <td>{{$exp->attainment}}</td>
+                               
+                              
+                               
+                               
                         </tr>
+                        @endforeach
+                        @else
+                        <tr>
+                                <th>Add Your Academic Background</th>
+                        </tr>
+                        
+                        @endif
                     </tbody>
                 </table>
             
@@ -51,7 +61,7 @@
                                                 <form action="/profile/education" method="POST" enctype="multipart/form-data">
                                                     {{ csrf_field() }}
                                             <label for="school">Name of your School</label>  
-                                            <input type="text" class="form-control" placeholder="School">  
+                                            <input type="text" name="school" class="form-control" placeholder="School">  
                                         </div>    
                                     </div>
                                     <div class="row">
@@ -69,17 +79,17 @@
                                     <div class="row">
                                         <div class="col">
                                                 <label for="school">From</label>  
-                                            <input type="text" class="form-control" placeholder="Year Started">   
+                                            <input type="text" name="from-year" class="form-control" placeholder="Year Started">   
                                         </div>
                                         <div class="col">
                                                 <label for="school">To</label>  
-                                                <input type="text" class="form-control" placeholder="Year Ended">  
+                                                <input type="text" name="to-year" class="form-control" placeholder="Year Ended">  
                                         </div>    
                                     </div> 
                                     <div class="row">
                                         <div class="col">
                                                 <label for="attainment">Highest Attainment</label>    
-                                                <input type="text" class="form-control" placeholder="Note:if tertiary, indicate your course">  
+                                                <input type="text" name="degree" class="form-control" placeholder="Note:if tertiary, indicate your course">  
                                         </div>
                                       
                                     </div>  
@@ -163,19 +173,23 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
                         @if(count($experience) > 0)
                         @foreach($experience as $exp)
-                        <th>{{$exp->workplace}}</th>
-                        <th>{{$exp->position}}</th>
-                        <th>{{$exp->from}} - {{$exp->to}}</th>
+                    <tr>
+                        
+                        <th scope="row">{{$exp->workplace}}</th>
+                        <td>{{$exp->position}}</td>
+                        <td>{{$exp->from}} - {{$exp->to}}</td>
                        
-                        @endforeach
-                        @else
-                        <th>No Experience</th>
-                        @endif
+                       
                       
                     </tr>
+                    @endforeach
+                    @else
+                    <tr>
+                        <th>No Experience</th>
+                    </tr>
+                    @endif
                 </tbody>
             </table>
             <div class="d-flex justify-content-end">
@@ -199,22 +213,25 @@
                                     {{ csrf_field() }}
                                 <div class="form-group row">
                                     <div class="container">
-                                            <label for="schoolid">School</label>
+                                            <label for="schoolid">Office Name</label>
 
-                                            <input type="text" name="school" class="form-control" id="schoolid" placeholder="School Graduated"   required>
+                                            <input type="text" name="office" class="form-control" id="schoolid" placeholder="Office Name"   required>
+                                            <label for="schoolid">Position</label>
+
+                                            <input type="text" name="position" class="form-control" id="schoolid" placeholder="Position"   required>
                                     </div>
                                        
                                         <div class="col-md-4 mb-3">
                                                 <label for="fyear">From</label>
-                                                <input type="text" name="from-year" class="form-control" id="year" placeholder="FROM(YEAR)"  required>
+                                                <input type="text" name="from-year" class="form-control" id="year" placeholder="From" required>
                                                 </div>
                                                 <div class="col-md-4 mb-3">
                                                     <label for="tyear">To</label>
-                                                    <input type="text" name="to-year" class="form-control" id="year" placeholder="TO(YEAR)"   required>
+                                                    <input type="text" name="to-year" class="form-control" id="year" placeholder="To"   required>
                                                     </div>
                                 </div>
                                 <label for="">Work Descriptions</label>
-                                <input type="text" name="office" class="form-control" id="schoolid" placeholder="Description"  required>
+                                <input type="text" name="work_desc" class="form-control" id="schoolid" placeholder="Description"  required>
                        
                         <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -290,16 +307,18 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
                                     @if(count($skills) > 0)
                                     @foreach($skills as $skill)
+                                <tr>
+                                   
                                 <th>{{$skill->desc}}</th>
-                                    @endforeach
-                                    @else
-                                    <th>Add your skills</th>
-                                    @endif
+                                   
                                    
                                 </tr>
+                                @endforeach
+                                @else
+                                <tr> <th>Add your skills</th></tr>
+                                @endif
                             </tbody>
                         </table>
                         <div class="d-flex justify-content-end">
@@ -320,7 +339,7 @@
                             <form action="/profile/skill" method="post" enctype="multipart/form-data" >
                                 {{ csrf_field() }}
                                 <div class="modal-body">
-                                        <select class="custom-select mr-sm-2" id="field" name="field" placeholder="Choose" required>
+                                        <select class="custom-select mr-sm-2" id="skill " name="skill" placeholder="Choose" required>
                                                 <option   disabled >Choose</option>
                                                     @foreach($category as $cat)
                                                     @if($profile->area == $cat->category)
@@ -330,7 +349,7 @@
                                                   </select>
                                 </div>
                                 <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>sssssssssss
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                     <button type="submit" class="btn btn-primary">Save changes</button>
                                 </div>
                             </form>

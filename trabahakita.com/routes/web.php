@@ -29,9 +29,9 @@ Route::get('/', function () {
    
 });
 
-// maps
 
-Route::get('/maps/sample', 'samplecontroller@maps');
+
+
 // Admin
 
 Route::get('/admin/home', 'admincontroller@index');
@@ -102,8 +102,9 @@ Route::get('/Notification', 'NotificationController@index');
 Route::resource('/Notification/show', 'NotificationController');
 
 //Sample getting nearest companies
-Route::get('/seeker/maps', 'SampleController@index');
+// Route::get('/seeker/maps', 'SampleController@index');
 Route::get('/company/maps', 'SampleController@index');
+Route::get('/seeker/maps', 'samplecontroller@maps');
 
 
 Route::get('/seeker/profile', 'NotificationController@index2');
@@ -205,7 +206,7 @@ Route::post('/upload/images', [
 // sample
 
 Route::get('/sample/profile', 'ProfileController@sample');
-Route::get('/sample/education', 'ProfileController@sampleed');
+Route::get('/employee/education', 'ProfileController@sampleed');
 
 
 

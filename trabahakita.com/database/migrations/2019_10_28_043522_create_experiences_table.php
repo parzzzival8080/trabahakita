@@ -19,9 +19,10 @@ class CreateExperiencesTable extends Migration
             $table->string('workplace')->nullable();
             $table->string('from');
             $table->string('to');
+            $table->string('position')->nullable();
             $table->string('desc_1')->nullable();
-            $table->string('desc_2')->nullable();
-            $table->string('desc_3')->nullable();
+          
+           
             $table->timestamps();
         });
     }

@@ -38,12 +38,11 @@ class ExperienceController extends Controller
         //
         $experience = new Experience;
         $experience->user_id = auth()->user()->id;
-        $experience->workplace = request('work');
-        $experience->from = request('from');
-        $experience->to = request('to');
-        $experience->desc_1 = request('desc_1');
-        $experience->desc_2 = request('desc_2');
-        $experience->desc_3 = request('desc_3');
+        $experience->workplace = request('office');
+        $experience->from = request('from-year');
+        $experience->to = request('to-year');
+        // $experience->position = request('position');
+        $experience->desc_1 = request('work_desc');
         $experience->save();
     }
 

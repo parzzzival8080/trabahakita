@@ -102,6 +102,75 @@
         </div>
       
     @elseif(auth()->user()->type == 'company')
+    <h2>Customize Your Profile</h2>
+            <div class="card">
+                <div class="container">
+                        <form method="post" action="/employee/profile/update" enctype="multipart/form-data">
+                            {{ csrf_field() }}
+                            <div class="container"> 
+                                    <div class="d-flex justify-content-center"> 
+                                    <img class="card-img-top" src="{{ Storage::url($profile->image)  }}" alt="Card image cap">
+                                    </div>
+                                    <div class="form-group">
+                                            <label for="fileid">Picture</label>
+                                            <input type="file" name="image" class="form-control-file" id="fileid" accept=""  required>
+                                          </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="nameid" class="col-sm-3 col-form-label">Company Name</label>
+                                <div class="col-sm-9">
+                                <input name="company_name" type="text" class="form-control" id="nameid" placeholder="Company Name" value="{{$profile->company_name}}">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                    <label for="repid" class="col-sm-3 col-form-label">Representative Name</label>
+                                    <div class="col-sm-9">
+                                    <input name="representative" type="text" class="form-control" id="repid" placeholder="Representative Name" value="{{$profile->company_rep}}">
+                                    </div>
+                                </div>
+                                    <div class="form-group row">
+                                            <label for="numid" class="col-sm-3 col-form-label">Telephone Number</label>
+                                            <div class="col-sm-9">
+                                            <input name="number" type="text" class="form-control" id="numid" placeholder="Tel. Number" value="{{$profile->number}}">
+                                            </div>
+                                    </div>
+                                       
+                                    <div class="form-group row">
+                                            <label for="email" class="col-sm-3 col-form-label">Email</label>
+                                            <div class="col-sm-9">
+                                            <input name="email" type="text" class="form-control" id="email" placeholder="Email" value="{{$profile->email}}">
+                                            </div>
+                                    </div>
+                            <div class="form-group row">
+                                <label for="desc" class="col-sm-3 col-form-label">Description of the Company</label>
+                                <div class="col-sm-9">
+                                    <textarea name="desc" type="text" class="form-control" id="desc" rows="3"
+                                           placeholder="DESCRIPTION" >{{$profile->description}}</textarea>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="address" class="col-sm-3 col-form-label">Company Address</label>
+                                <div class="col-sm-9">
+                                    <textarea name="address" type="text" class="form-control" id="searchmap" rows="2"
+                                           placeholder="ADDRESS" >{{$profile->adress}}</textarea>
+                                </div>
+                            </div>   
+                            <input type="hidden" name="lat" id="lat">
+                            <input type="hidden" name="lng" id="lng">
+                                <div class="card">
+                                    <div id="map" style="height: 400px"></div>
+                                </div>
+            <div class="card-footer">
+                   
+                            <div class="d-flex justify-content-end">
+                                 <button type="submit" class="btn btn-success" style="margin-top:10px">Save</button>
+                              
+                         </div>
+            </div>
+                           
+                        </form>  
+                </div>
+            </div>
     @endif
 
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAwG2FvuLOl_rGjp4LHR6XSeLIG_ZjjJ0M&callback=initMap&libraries=places"></script>

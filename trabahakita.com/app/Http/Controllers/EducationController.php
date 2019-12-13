@@ -24,10 +24,10 @@ class EducationController extends Controller
         $education = new Education;
         $education->user_id = auth()->user()->id;
         $education->school = request('school');
-        $education->level = request('level');
+        // $education->level = request('level');
         $education->from = request('from-year');
         $education->to = request('to-year');
-        $education->attainment = request('attainment');
+        $education->course = request('degree');
         $education->save();
 
         $profiles = Profile::find(auth()->user()->id);
@@ -65,4 +65,6 @@ class EducationController extends Controller
         $category = Category::all();
         return redirect()->to('/employee/profile')->with(['profile' => $profiles, 'education' => $education, 'skills' => $skills, 'category' => $category]);
     }
+
+    
 }
