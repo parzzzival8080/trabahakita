@@ -29,19 +29,19 @@
                         <div class="form-group row">
                                 <label for="empid" class="col-sm-3 col-form-label">Field</label>
                                 <div class="col-sm-9">
-                                        <select class="custom-select mr-sm-2" id="field" name="field" placeholder="Choose" required>
-                                            <option   disabled >Choose</option>
-                                                <option value="Computers and Technology">Computers and Technology</option>
-                                                <option value="Health Care and Allied Health">Health Care and Allied Health</option>
-                                                <option value="Education and Social Services">Education and Social Services</option>
-                                                <option value="Arts and Communications">Arts and Communications</option>
-                                                <option value="Trades and Transportation">Trades and Transportation</option>
-                                                <option value="Management, Business, and Finance">Management, Business, and Finance</option>
-                                                <option value="Architecture and Civil Engineering">Architecture and Civil Engineering</option>
-                                                <option value="Science">Science</option>
-                                                <option value="Hospitality, Tourism, and the Service Industry">Hospitality, Tourism, and the Service Industry</option>
-                                                <option value="Law and Law Enforcement">Law and Law Enforcement</option>
-                                              </select>
+                                    <select class="custom-select mr-sm-2" id="field" name="field" placeholder="Choose" required>
+                                        <option   disabled >Choose</option>
+                                            <option value="Accounting & Consulting">Accounting & Consulting</option>
+                                            <option value="Admin Support">Admin Support</option>
+                                            <option value="Customer Service">Customer Service</option>
+                                            <option value="Data Science & Analytics">Data Science & Analytics</option>
+                                            <option value="Design & Creative">Design & Creative</option>
+                                            <option value="Engineering & Architecture">Engineering & Architecture</option>
+                                            <option value="IT & Engineering">IT & Engineering</option>
+                                            <option value="Legal">Legal</option>
+                                            <option value="Translation">Translation</option>
+                                            <option value="Web, Mobile & Software Development">Web, Mobile & Software Development</option>
+                                          </select>
                                 </div>
                             </div>
                         <div class="form-group row">

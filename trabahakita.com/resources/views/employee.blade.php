@@ -1,40 +1,115 @@
 @extends('layouts.app')
 @section('content')
 <div class="container">
-        <div class="d-flex justify-content-center"> 
-                <img class="card-img-top" style="height:400px;width:300px;" src="{{ Storage::url($profile->image)  }}" alt="Card image cap">
+  <div class="container my-5">
+    <div class="row">
+        <div class="col">
+            <div class="d-flex justify-content-end">
+                <img style="height:300px;width:300px" src="{{$profile->image}}" alt="">
+            </div>
+        </div>
+        <div class="col my-auto">
+                <h3 ><strong>{{$profile->first_name}} {{$profile->last_name}}</strong></h3>
+                <h3 class="text-muted mt-2">{{$profile->area}}</h3>
+               
+        </div>
+    </div>
+   
+</div>
+<div class="container my-3">
+   <div class="row">
+       <div class="col">
+           <div class="card" style="height:300px">
+               <div class="card-header">
+                   <div class="row">
+                       <div class="col">
+                        <i style="font-size:3em" class="fas fa-user-circle"></i>
+                       </div>
+                       <div class="col">
+                        <h4>Personal Information</h4>
+                       </div>
+                       <div class="col"></div>
+                   </div>
+               </div>
+               <div class="card-body">
+                <h5 style="font-weight:300" class="text-muted mt-2">Phone Number:{{$profile->number}}</h5>
+                <h5 style="font-weight:300" class="text-muted mt-2">Email:{{$profile->email}}</h5>
+                <h5 style="font-weight:300" class="text-muted mt-2">Address:{{$profile->adress}}</h5>
+               
+               </div>
+               
+               
+               
+           </div>
+       </div>
+       <div class="col">
+        <div class="card" style="height:300px">
+            <div class="card-header">
+             <div class="row">
+                 <div class="col">
+                    <i style="font-size:3em" class="fas fa-scroll"></i>
+                 </div>
+                 <div class="col">
+                    <h4>Skill Summary</h4>
+                 </div>
+                 <div class="col"></div>
+             </div>
+            </div>
+            <div class="card-body">
+                @if(count($skills) > 0)
+                    @foreach($skills as $skill)
+                        @if($skill->user_id ==  $profile->id)
+                            {{$skill->desc}}
+                            @endif
+                    @endforeach
+                @endif
+              
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card" style="height:300px">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col">
+                       <i style="font-size:3em" class="fas fa-book"></i>
+                    </div>
+                    <div class="col">
+                       <h4>Educational Background</h4>
+                    </div>
+                    <div class="col"></div>
                 </div>
-                <h3>                   
-                    {{$profile->last_name}},{{$profile->first_name}} {{$profile->middle_name}}
-                </h3>
-                <h5>
-                    "{{$profile->title}}"
-                </h5>
-                <h5>
-                        School:{{$profile->school}}
+            </div>
+            <div class="card-body">
+                @if(count($education) > 0)
+                @foreach($education as $edu)
+                    @if($edu->user_id ==  $profile->id)
+                        @if($edu->level == 'tertiary')
+                            <h5 style="font-weight:300" class="text-muted">School: {{$edu->school}}</h5>
+                            <h5 style="font-weight:300" class="text-muted">Course: {{$edu->attainment}}</h5>
+                            <h5 style="font-weight:300" class="text-muted">Year: {{$edu->from}}-{{$edu->to}}</h5>
+                            @endif
+                        @endif
+                @endforeach
+            @endif
+        
+            </div>
+        </div>
+    </div>
+   </div>
+   
+</div>
                         
-                    </h5>
-                    <h5>
-                            Degree:{{$profile->degree}}
-                        </h5>
-                        <h5>
-                                About:{{$profile->description}}
-                            </h5>
-                        
-                         <div class="row">
-                             <div class="col-sm">
-                                <form action="/post/pdf" method="POST" enctype="multipart/form-data">
-                                    {{ csrf_field() }}
-                                <input type="text" name="id" value="{{$profile->id}}" hidden>
-                                    <button type="submit" class="btn btn-primary">Download Resume</button>
-                                   
-                                </form>
-                             </div>
-
-                             <div class="col-sm">
-                                <button class="btn btn-info" data-toggle="modal" data-target="#modalAppointment">Set Appointment</button>
-                                <button class="btn btn-success" data-toggle="modal" data-target="#message">message</button>
-                             </div>
+                        <div class="d-flex justify-content-end">
+                          <form action="/post/pdf" method="POST" enctype="multipart/form-data">
+                            {{ csrf_field() }}
+                        <input type="text" name="id" value="{{$profile->id}}" hidden>
+                            <button type="submit" class="btn btn-primary">Download Resume</button>
+                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#message">message</button>
+                        </form>
+                        </div>
+                               
+                            
                          </div>
                            
                          

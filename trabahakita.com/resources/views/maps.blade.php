@@ -1,13 +1,16 @@
 @extends('layouts.app')
 @section('content')
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAwG2FvuLOl_rGjp4LHR6XSeLIG_ZjjJ0M&libraries=places" type="text/javascript"></script>
-    <div id="map" style="width:100%;height:700px"></div>
+    <div class="container my-3">
+        <h4><strong>Find your Ideal Job</strong></h4>
+    </div>
+    <div id="map" style="width:100%;height:700px" ></div>
     {{-- @foreach($locations as $loc)
 <button class="btn btn-info" id="{{$loc['id']}}">Show Direction</button>
 {{$loc['id']}}
     @endforeach --}}
 
-
+    
     @if(auth()->user()->type == 'employee')
     @if(count($locations) > 0 )
     @foreach($locations as $locate)
@@ -121,7 +124,8 @@
 
 
    
-   
+    lat: {{$user->lat}}, 
+            lng: {{$user->lng}}
 
 <script>
    
@@ -135,8 +139,8 @@
             scrollwheel: false,
             center:
              {
-            lat: {{ $user->lat }}, 
-            lng: {{ $user->lng }}
+            lat: {{$user->lat}}, 
+            lng: {{$user->lng}}
              }
     });
     
@@ -166,7 +170,16 @@
         }
     });
 
+    var clat = {{$user->lat}};
+    var clng = {{$user->lng}};
+
         @foreach($locations as $a)
+        {
+            @if($a['lat'] == '' || $a['lng'] == '')
+        {
+
+        }
+        @else
                             {
                                
                                     marker = new google.maps.Marker({
@@ -199,8 +212,8 @@
             {
                 origin:
                 {
-                    lat: {{$user->lat}}, 
-                    lng: {{$user->lng}},
+                    lat: clat, 
+                    lng: clng,
                 },
                 
                 destination:
@@ -283,14 +296,13 @@
         document.getElementById('{{$a['id']}}').onclick = function()
        
         {
-
-            calculateRoute();
-          
-           
-           
+            calculateRoute();     
         }
    
 }
+@endif
+        }
+       
         @endforeach
 
 

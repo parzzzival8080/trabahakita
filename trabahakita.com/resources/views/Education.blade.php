@@ -1,5 +1,8 @@
 @extends('layouts.app')
 @section('content')
+<div class="container my-3">
+    <h4><strong>Education, Experience and Skills</strong></h4>
+</div>
 <div class="card my-3">
         <div class="container my-3">
                 <strong ><h5>Academic Background</h5></strong>
@@ -17,18 +20,21 @@
                             @if(count($education) > 0)
                             @foreach($education as $exp)
                         <tr>
-                               
-                               
-                                    
-                               
                                 <th scope="row">{{$exp->school}}</th>
                                 <td>{{$exp->level}}</td>
                                 <td>{{$exp->from}} - {{$exp->to}}</td>
                                 <td>{{$exp->attainment}}</td>
-                               
-                              
-                               
-                               
+                                <td>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <button class="btn btn-md" style="background-color:#7791c9; color:white">Edit</button>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <button class="btn btn-md" style="background-color:#ed7777; color:white">Remove</button>
+                                        </div>
+                                    </div>
+                                   </td> 
+                                  
                         </tr>
                         @endforeach
                         @else
@@ -41,7 +47,7 @@
                 </table>
             
                 <div class="d-flex justify-content-end">
-                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#educationmodal">Add Academic Background</button>
+                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#educationmodal">Add Academic Background</button>
                 </div>
         </div>
         
@@ -89,7 +95,7 @@
                                     <div class="row">
                                         <div class="col">
                                                 <label for="attainment">Highest Attainment</label>    
-                                                <input type="text" name="degree" class="form-control" placeholder="Note:if tertiary, indicate your course">  
+                                                <input type="text" name="attainment" class="form-control" placeholder="Note:if tertiary, indicate your course">  
                                         </div>
                                       
                                     </div>  
@@ -180,6 +186,14 @@
                         <th scope="row">{{$exp->workplace}}</th>
                         <td>{{$exp->position}}</td>
                         <td>{{$exp->from}} - {{$exp->to}}</td>
+                        <td> <div class="row">
+                            <div class="col-lg-2">
+                                <button class="btn btn-md" style="background-color:#7791c9; color:white">Edit</button>
+                            </div>
+                            <div class="col-lg-2">
+                                <button class="btn btn-md" style="background-color:#ed7777; color:white">Remove</button>
+                            </div>
+                        </div></td> 
                        
                        
                       
@@ -193,7 +207,7 @@
                 </tbody>
             </table>
             <div class="d-flex justify-content-end">
-                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#workmodal">Add Work Experience</button>
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#workmodal">Add Work Experience</button>
             </div>
     </div>
 </div>
@@ -230,6 +244,8 @@
                                                     <input type="text" name="to-year" class="form-control" id="year" placeholder="To"   required>
                                                     </div>
                                 </div>
+                                <label for="">Position</label>
+                                <input type="text" name="position" class="form-control" id="schoolid" placeholder="Work Description"   required>
                                 <label for="">Work Descriptions</label>
                                 <input type="text" name="work_desc" class="form-control" id="schoolid" placeholder="Description"  required>
                        
@@ -265,20 +281,22 @@
                                                 <input type="text" id="exp_id" name="id" value="{{$exp->id}}" hidden>
                                                 <label for="schoolid">Office</label>
     
-                                                <input type="text" name="office" class="form-control" id="schoolid" placeholder="School Graduated" value={{$exp->workplace}}   required>
+                                                <input type="text" name="office" class="form-control" id="schoolid" placeholder="Office Name" value={{$exp->workplace}}   required>
                                         </div>
                                            
                                             <div class="col-md-4 mb-3">
                                                     <label for="fyear">From</label>
-                                                    <input type="text" name="from-year" class="form-control" id="year" placeholder="FROM(YEAR)" value={{$exp->from}}  required>
+                                                    <input type="text" name="from-year" class="form-control" id="year" placeholder="FROM" value={{$exp->from}}  required>
                                                     </div>
                                                     <div class="col-md-4 mb-3">
                                                         <label for="tyear">To</label>
-                                                        <input type="text" name="to-year" class="form-control" id="year" placeholder="TO(YEAR)"  value={{$exp->to}}  required>
+                                                        <input type="text" name="to-year" class="form-control" id="year" placeholder="TO"  value={{$exp->to}}  required>
                                                         </div>
                                     </div>
+                                    <label for="">Position</label>
+                                    <input type="text" name="pos" class="form-control" id="schoolid" placeholder="Work Description" value={{$exp->position}}   required>
                                     <label for="">Work Descriptions</label>
-                                    <input type="text" name="office" class="form-control" id="schoolid" placeholder="School Graduated" value={{$exp->workplace}}   required>
+                                    <input type="text" name="workdesc" class="form-control" id="schoolid" placeholder="Work Description" value={{$exp->desc_1}}   required>
                            
                             <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -312,6 +330,7 @@
                                 <tr>
                                    
                                 <th>{{$skill->desc}}</th>
+                                <td><button class="btn btn-md" style="background-color:#ed7777; color:white">Remove</button></td> 
                                    
                                    
                                 </tr>
@@ -322,7 +341,7 @@
                             </tbody>
                         </table>
                         <div class="d-flex justify-content-end">
-                                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#skillmodal">Add Skills</button>
+                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#skillmodal">Add Skills</button>
                         </div>
                 </div>
             </div>

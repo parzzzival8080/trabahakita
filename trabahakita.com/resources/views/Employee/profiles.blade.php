@@ -86,12 +86,6 @@
                                                                    <span class="badge badge-pill badge-secondary">Unemployed</span>
                                                                    @endif
                                                             </h4>
-                                                               
-                                                             
-                                                        
-                                                           
-                                                           
-                                                           
                                                         </div>
                                                         <div class="card-footer">
                                                         <button class="btn btn-info"><a href="/profile/{{$profiles->id}}" style="color:white">Visit</a></button>

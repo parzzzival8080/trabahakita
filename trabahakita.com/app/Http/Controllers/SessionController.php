@@ -40,46 +40,29 @@ class SessionController extends Controller
     {
         //
 
-        
+
         if (auth()->attempt(request(['email', 'password'])) == false) {
             return back()->withErrors([
-                'message' => 'The email or password is incorrect, please try again'
+                'error' => 'The email or password is incorrect, please try again'
             ]);
         }
 
         $profile = Profile::find(Auth::user()->id);
-        if(Auth::user()->type == 'admin')
-        {
+        if (Auth::user()->type == 'admin') {
             return redirect()->to('/admin/home');
-        }
-        elseif (Auth::user()->type == 'employee')
-        {
-            if($profile->status_update == '1')
-            {
+        } elseif (Auth::user()->type == 'employee') {
+            if ($profile->status_update == '1') {
                 return redirect()->to('/post');
+            } elseif ($profile->status_update == '0' || $profile->status_update == '') {
+                return redirect()->to('/employee/profile');
             }
-            elseif($profile->status_update == '0' || $profile->status_update == '')
-            {
+        } elseif (Auth::user()->type == 'company') {
+            if ($profile->status_update == '1') {
+                return redirect()->to('/post');
+            } elseif ($profile->status_update == '0') {
                 return redirect()->to('/employee/profile');
             }
         }
-        elseif(Auth::user()->type == 'company')
-        {
-            if($profile->status_update == '1')
-            {
-                return redirect()->to('/post');
-            }
-            elseif($profile->status_update == '0')
-            {
-                return redirect()->to('/employee/profile');
-            }
-        }
-        
-       
-       
-        
-      
-
     }
 
     /**
@@ -125,7 +108,7 @@ class SessionController extends Controller
     public function destroy()
     {
         //
-        auth()->logout();    
+        auth()->logout();
         return redirect()->to('/login');
     }
 }

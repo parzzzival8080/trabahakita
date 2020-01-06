@@ -17,6 +17,7 @@
     </div>  --}}
     
    
+   
     <div class="container" style="margin-top:20px">
       
         <div class="container" style="margin-top:20px;">
@@ -72,13 +73,14 @@
                         </form>
         </div>
       
+      
        
         <h1 style="margin-top:30px">Bulletin Board</h1>
         <div class="row" style="margin-top:10px;">
             <div class="col-sm">
                 <div class="card" style="margin-top:10px">
                     <div class="card-header">
-                            Computers and Technology
+                        Accounting & Consulting
                     </div>
                     <div class="card-body">
                         <div class="card-text">
@@ -92,7 +94,7 @@
             <div class="col">
                     <div class="card" style="margin-top:10px">
                             <div class="card-header">
-                                    Health Care and Allied Health
+                                Admin Support
                             </div>
                             <div class="card-body">
                                 <div class="card-text">
@@ -106,7 +108,7 @@
             <div class="col">
                     <div class="card" style="margin-top:10px">
                             <div class="card-header">
-                                    Education and Social Services
+                                Data Science & Analytics
                             </div>
                             <div class="card-body">
                                 <div class="card-text">
@@ -124,7 +126,7 @@
                 <div class="col-sm">
                     <div class="card" style="margin-top:10px">
                         <div class="card-header">
-                                Arts and Communications
+                                Design & Creative
                         </div>
                         <div class="card-body">
                             <div class="card-text">
@@ -139,7 +141,7 @@
                 <div class="col">
                         <div class="card" style="margin-top:10px">
                                 <div class="card-header">
-                                        Trades and Transportation
+                                        Engineering & Architecture
                                 </div>
                                 <div class="card-body">
                                     <div class="card-text">
@@ -154,7 +156,7 @@
                 <div class="col">
                         <div class="card" style="margin-top:10px">
                                 <div class="card-header">
-                                        Management, Business, and Finance
+                                        IT & Engineering
                                 </div>
                                 <div class="card-body">
                                     <div class="card-text">
@@ -172,7 +174,7 @@
                     <div class="col-sm">
                         <div class="card" style="margin-top:10px">
                             <div class="card-header">
-                                    Architecture and Civil Engineering
+                                Legal
                             </div>
                             <div class="card-body">
                                 <div class="card-text">
@@ -187,7 +189,7 @@
                     <div class="col">
                             <div class="card" style="margin-top:10px">
                                     <div class="card-header">
-                                            Science
+                                        Translation
                                     </div>
                                     <div class="card-body">
                                         <div class="card-text">
@@ -202,7 +204,7 @@
                     <div class="col">
                             <div class="card" style="margin-top:10px">
                                     <div class="card-header">
-                                            Hospitality, Tourism, and the Service Industry
+                                        Customer Service
                                     </div>
                                     <div class="card-body">
                                         <div class="card-text">
@@ -220,7 +222,7 @@
                
                         <div class="card" style="margin-top:10px">
                                 <div class="card-header">
-                                       Law and Law Enforcement
+                                        Web, Mobile & Software Development
                                 </div>
                                 <div class="card-body">
                                     <div class="card-text">
@@ -300,18 +302,19 @@
                                                             <div class="form-group row">
                                                                     <label for="empid" class="col-sm-3 col-form-label">Job Field</label>
                                                                     <div class="col-sm-9">
-                                                                            <select class="custom-select mr-sm-2" id="field" name="field" placeholder="Choose" required>
+                                                                        <select class="custom-select mr-sm-2" id="field" name="field" placeholder="Choose" required>
                                                                                 <option   disabled >Choose</option>
-                                                                                    <option value="Computers and Technology">Computers and Technology</option>
-                                                                                    <option value="Health Care and Allied Health">Health Care and Allied Health</option>
-                                                                                    <option value="Education and Social Services">Education and Social Services</option>
-                                                                                    <option value="Arts and Communications">Arts and Communications</option>
-                                                                                    <option value="Trades and Transportation">Trades and Transportation</option>
-                                                                                    <option value="Management, Business, and Finance">Management, Business, and Finance</option>
-                                                                                    <option value="Architecture and Civil Engineering">Architecture and Civil Engineering</option>
-                                                                                    <option value="Science">Science</option>
-                                                                                    <option value="Hospitality, Tourism, and the Service Industry">Hospitality, Tourism, and the Service Industry</option>
-                                                                                    <option value="Law and Law Enforcement">Law and Law Enforcement</option>
+                                                                              
+                                                                                    <option value="Accounting & Consulting">Accounting & Consulting</option>
+                                                                                    <option value="Admin Support">Admin Support</option>
+                                                                                    <option value="Customer Service">Customer Service</option>
+                                                                                    <option value="Data Science & Analytics">Data Science & Analytics</option>
+                                                                                    <option value="Design & Creative">Design & Creative</option>
+                                                                                    <option value="Engineering & Architecture">Engineering & Architecture</option>
+                                                                                    <option value="IT & Engineering">IT & Engineering</option>
+                                                                                    <option value="Legal">Legal</option>
+                                                                                    <option value="Translation">Translation</option>
+                                                                                    <option value="Web, Mobile & Software Development">Web, Mobile & Software Development</option>
                                                                                   </select>
                                                                     </div>
                                                                 </div>
@@ -573,79 +576,127 @@
 
 <div class="container" style="margin-top:30px">
                 <div class="container">
-                                <h1>Bulletin Board</h1>
-                                <form action="/search" method="POST" role="search">
-                                        {{ csrf_field() }}
-                                       <div class="row">
-                                                <div class="col">
-                                                                <input type="text" class="form-control" name="search" placeholder="Search Posting"> 
-                                                      </div>
-                                                                <div class="col">
-                                                              <button type="submit" class="btn btn-info" style="margin-top">SEARCH</button>
-                                                      </div>
-                                       </div>
-                                              
-                                              
-                                       
-                                
-                                        <div class="container">
-                                                @if(@isset($details))
-                                                        <h3>Search Results for "{{$query}}" </b> are :</h3>
-                                                        
-                                                        @foreach($details as $posts)
-                                                                <div class="container">
-                                                                                <div class="card" style="margin-top:10px;">
-                                                                                        <div class="card-header">
-                                                                                                <h3>
-                                                                                                Position:{{$posts->Title}}
-                                                                                        </h3>
-                                                                                                <a href="/profile/show/{{$posts->company_id}}">{{$posts->company_name}}</a>
-                                                                                                
-                                                                                        </div>
-                                                                                        <div class="card-body">
-                                                                                                <div class="card-text">
-                                                                                                <h4>Type:{{$posts->job_type}}</h4>
-                                                                                                <h4>Needed:{{$posts->employee_num}}</h4>
-                                                                                                <h4>Category:{{$posts->job_field}}</h4>
-                                                                                                <h4>Posted:{{$posts->created_at->toDateString()}}</h4>
-                                                                                                </div>
-                                                                                        </div>
-                                                                                        <div class="card-footer">
-                                                                                                <button class="btn btn-primary"><a href="/post/show/{{$posts->id}}" style="color:white">Apply</a></button>
-                                                                                        </div>
-                                                                                        </div>    
-                                                                </div>
-                                                                  
-                                                        
-                                                        @endforeach
-                                                @endisset
+                        <h1 style="margin-top:30px">Bulletin Board</h1>
+                        <div class="row" style="margin-top:10px;">
+                            <div class="col-sm">
+                                <div class="card" style="margin-top:10px">
+                                    <div class="card-header">
+                                        Accounting & Consulting
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="card-text">
+                                            <center>
+                                                        <button class="btn btn-success"><a href="/employee/category/ComputerandTechnology" style="color:white">{{$post_field_1->count()}} Job Postings</a></button> 
+                                            </center>
                                         </div>
-                                </form>
-                               
-                                <div class="row" style="margin-top:10px;">
-                                    <div class="col-sm">
-                                        <div class="card" style="margin-top:10px">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                    <div class="card" style="margin-top:10px">
                                             <div class="card-header">
-                                                    Computers and Technology
+                                                Admin Support
                                             </div>
                                             <div class="card-body">
                                                 <div class="card-text">
+                                                        <center>
+                                                                        <button class="btn btn-success"><a href="/employee/category/HealthCareandAlliedHealth" style="color:white">{{$post_field_2->count()}} Job Postings</a></button> 
+                                                                 </center>
+                                                </div>
+                                            </div>
+                                        </div>
+                            </div>
+                            <div class="col">
+                                    <div class="card" style="margin-top:10px">
+                                            <div class="card-header">
+                                                Data Science & Analytics
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="card-text">
+                                                        <center>
+                                                                        <button class="btn btn-success"><a href="/employee/category/EducationandSocialServices" style="color:white">{{$post_field_3->count()}} Job Postings</a></button> 
+                                                                 
+                                                                 </center>
+                                                </div>
+                                            </div>
+                                        </div>
+                            </div>
+                        </div>
+                
+                        <div class="row" style="margin-top:10px;">
+                                <div class="col-sm">
+                                    <div class="card" style="margin-top:10px">
+                                        <div class="card-header">
+                                                Design & Creative
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="card-text">
                                                     <center>
-                                                   <button class="btn btn-success"><a href="/employee/category/ComputerandTechnology" style="color:white">{{$post_field_1->count()}} Job Postings</a></button> 
-                                                    </center>
+                                                                <button class="btn btn-success"><a href="/employee/category/ArtsandCommunications" style="color:white">{{$post_field_4->count()}} Job Postings</a></button> 
+                                                                 
+                                                             </center>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                        <div class="card" style="margin-top:10px">
+                                                <div class="card-header">
+                                                        Engineering & Architecture
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="card-text">
+                                                            <center>
+                                                                        <button class="btn btn-success"><a href="/employee/category/TradesandTransportation" style="color:white">{{$post_field_5->count()}} Job Postings</a></button> 
+                                                                 
+                                                                     </center>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                </div>
+                                <div class="col">
+                                        <div class="card" style="margin-top:10px">
+                                                <div class="card-header">
+                                                        IT & Engineering
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="card-text">
+                                                            <center>
+                                                                        <button class="btn btn-success"><a href="/employee/category/ManagementBusinessandFinance" style="color:white">{{$post_field_6->count()}} Job Postings</a></button> 
+                                                                 
+                                                                     </center>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                </div>
+                            </div>
+                
+                            <div class="row" style="margin-top:10px;">
+                                    <div class="col-sm">
+                                        <div class="card" style="margin-top:10px">
+                                            <div class="card-header">
+                                                Legal
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="card-text">
+                                                        <center>
+                                                                        <button class="btn btn-success"><a href="/employee/category/ArchitectureandCivilEngineering" style="color:white">{{$post_field_7->count()}} Job Postings</a></button> 
+                                                                 
+                                                                 </center>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col">
-                                            <div class="card" >
+                                            <div class="card" style="margin-top:10px">
                                                     <div class="card-header">
-                                                            Health Care and Allied Health
+                                                        Translation
                                                     </div>
                                                     <div class="card-body">
                                                         <div class="card-text">
                                                                 <center>
-                                                                        <button class="btn btn-success">{{$post_field_2->count()}} Job Postings</button> 
+                                                                                <button class="btn btn-success"><a href="/employee/category/Science" style="color:white">{{$post_field_8->count()}} Job Postings</a></button> 
+                                                                 
                                                                          </center>
                                                         </div>
                                                     </div>
@@ -654,126 +705,40 @@
                                     <div class="col">
                                             <div class="card" style="margin-top:10px">
                                                     <div class="card-header">
-                                                            Education and Social Services
+                                                        Customer Service
                                                     </div>
                                                     <div class="card-body">
                                                         <div class="card-text">
                                                                 <center>
-                                                                        <button class="btn btn-success">{{$post_field_3->count()}} Job Postings</button> 
+                                                                                <button class="btn btn-success"><a href="/employee/category/HospitalityTourismandtheServiceIndustry" style="color:white">{{$post_field_9->count()}} Job Postings</a></button> 
+                                                                 
                                                                          </center>
                                                         </div>
                                                     </div>
                                                 </div>
                                     </div>
                                 </div>
-                        
+                                <div class="d-flex justify-content-center">
                                 <div class="row" style="margin-top:10px;">
-                                        <div class="col-sm">
-                                            <div class="card" style="margin-top:10px">
+                               
+                                        <div class="card" style="margin-top:10px">
                                                 <div class="card-header">
-                                                        Arts and Communications
+                                                        Web, Mobile & Software Development
                                                 </div>
                                                 <div class="card-body">
                                                     <div class="card-text">
                                                             <center>
-                                                                    <button class="btn btn-success">{{$post_field_4->count()}} Job Postings</button> 
+                                                                        <button class="btn btn-success"><a href="/employee/category/LawandLawEnforcement" style="color:white">{{$post_field_10->count()}} Job Postings</a></button> 
+                                                                 
                                                                      </center>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col">
-                                                <div class="card" style="margin-top:10px">
-                                                        <div class="card-header">
-                                                                Trades and Transportation
-                                                        </div>
-                                                        <div class="card-body">
-                                                            <div class="card-text">
-                                                                    <center>
-                                                                            <button class="btn btn-success">{{$post_field_5->count()}} Job Postings</button> 
-                                                                             </center>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                        </div>
-                                        <div class="col">
-                                                <div class="card" style="margin-top:10px">
-                                                        <div class="card-header">
-                                                                Management, Business, and Finance
-                                                        </div>
-                                                        <div class="card-body">
-                                                            <div class="card-text">
-                                                                    <center>
-                                                                            <button class="btn btn-success">{{$post_field_6->count()}} Job Postings</button> 
-                                                                             </center>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                        </div>
-                                    </div>
-                        
-                                    <div class="row" style="margin-top:10px;">
-                                            <div class="col-sm">
-                                                <div class="card" style="margin-top:10px">
-                                                    <div class="card-header">
-                                                            Architecture and Civil Engineering
-                                                    </div>
-                                                    <div class="card-body">
-                                                        <div class="card-text">
-                                                                <center>
-                                                                        <button class="btn btn-success">{{$post_field_7->count()}} Job Postings</button> 
-                                                                         </center>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                    <div class="card" style="margin-top:10px">
-                                                            <div class="card-header">
-                                                                    Science
-                                                            </div>
-                                                            <div class="card-body">
-                                                                <div class="card-text">
-                                                                        <center>
-                                                                                <button class="btn btn-success">{{$post_field_8->count()}} Job Postings</button> 
-                                                                                 </center>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                            </div>
-                                            <div class="col">
-                                                    <div class="card" style="margin-top:10px">
-                                                            <div class="card-header">
-                                                                    Hospitality, Tourism, and the Service Industry
-                                                            </div>
-                                                            <div class="card-body">
-                                                                <div class="card-text">
-                                                                        <center>
-                                                                                <button class="btn btn-success">{{$post_field_9->count()}} Job Postings</button> 
-                                                                                 </center>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex justify-content-center">
-                                        <div class="row" style="margin-top:10px;">
-                                       
-                                                <div class="card" style="margin-top:10px">
-                                                        <div class="card-header">
-                                                                Hospitality, Tourism, and the Service Industry
-                                                        </div>
-                                                        <div class="card-body">
-                                                            <div class="card-text">
-                                                                    <center>
-                                                                            <button class="btn btn-success">{{$post_field_10->count()}} Job Postings</button> 
-                                                                             </center>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                        </div>
-                                            
-                                    </div>
+                                </div>
+                                    
+                            </div>
+                               
+                    </div>
                                        
                             </div>
                 </div>

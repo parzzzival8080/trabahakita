@@ -10,6 +10,8 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+use App\Http\Controllers\HomeController;
 use App\Post;
 use App\Profile;
 use App\Notification;
@@ -18,15 +20,11 @@ use Illuminate\Support\Facades\Input;
 
 
 Route::get('/', function () {
-    if(auth()->check())
-    {
+    if (auth()->check()) {
+        return redirect()->to('/home');
+    } else {
         return redirect()->to('/home');
     }
-    else
-    {
-        return redirect()->to('/home');
-    }
-   
 });
 
 
@@ -47,11 +45,11 @@ Route::resource('/posts/edit', 'PostController');
 Route::post('/post/pdf', 'profilecontroller@pdf');
 
 Route::post('/post/update', 'PostController@updateme');
- 
+
 
 // Register
 Route::get('/register', 'RegisterController@create');
-Route::post('register','RegisterController@store');
+Route::post('register', 'RegisterController@store');
 
 // Login
 Route::get('/login', 'SessionController@create');
@@ -62,10 +60,10 @@ Route::get('/logout', 'SessionController@destroy');
 Route::get('/employee/profile', 'ProfileController@index');
 Route::get('/company/profiles', 'ProfileController@index2');
 Route::get('/seeker/profiles', 'ProfileController@index2');
-Route::post('/employee/profile','ProfileController@store');
-Route::post('/employee/profile/update','ProfileController@update');
-Route::get('/employee/profile','ProfileController@showme');
-Route::resource('/profile','ProfileController');
+Route::post('/employee/profile', 'ProfileController@store');
+Route::post('/employee/profile/update', 'ProfileController@update');
+Route::get('/employee/profile', 'ProfileController@showme');
+Route::resource('/profile', 'ProfileController');
 
 
 //Profile Company
@@ -76,7 +74,7 @@ Route::post('/post/comment', 'CommentsController@store');
 
 // Educational Attainment and Skills and experience
 Route::post('/profile/education', 'EducationController@store');
-Route::post('/profile/education/update','EducationController@updateme');
+Route::post('/profile/education/update', 'EducationController@updateme');
 
 Route::post('/profile/skill', 'SkillsController@store');
 Route::post('/profile/skill/update', 'SkillsController@update');
@@ -110,72 +108,70 @@ Route::get('/seeker/maps', 'samplecontroller@maps');
 Route::get('/seeker/profile', 'NotificationController@index2');
 
 //Search
-Route::any('/search', function()
-{
+Route::any('/search', function () {
     $s = Input::get('search');
-    $search = Post::where('Title', 'LIKE', '%'.$s.'%')->orWhere('job_field', 'LIKE', '%'.$s.'%')->get();
-    if(count($search) > 0)
-    {
+    $search = Post::where('Title', 'LIKE', '%' . $s . '%')->orWhere('job_field', 'LIKE', '%' . $s . '%')->get();
+    if (count($search) > 0) {
         $notifcount = Notification::where(['user_id' => auth()->user()->id, 'type' => 'employee', 'message_status' => '0']);
-                $post = Post::all();
-        $post_field_1 = Post::where(['job_field' => 'Computers and Technology'])->get();
-        $post_field_2 = Post::where(['job_field' => 'Health Care and Allied Health'])->get();
-        $post_field_3 = Post::where(['job_field' => 'Education and Social Services'])->get();
-        $post_field_4 = Post::where(['job_field' => 'Arts and Communications'])->get();
-        $post_field_5 = Post::where(['job_field' => 'Trades and Transportation'])->get();
-        $post_field_6 = Post::where(['job_field' => 'Management, Business, and Finance'])->get();
-        $post_field_7 = Post::where(['job_field' => 'Architecture and Civil Engineering'])->get();
-        $post_field_8 = Post::where(['job_field' => 'Science'])->get();
-        $post_field_9 = Post::where(['job_field' => ' Hospitality, Tourism, and the Service Industry'])->get();
-        $post_field_10 = Post::where(['job_field' => 'Law and Law Enforcement'])->get();
-    return view('home')->withDetails($search)->withQuery($s)->with(['post_field_1' => $post_field_1, 
-    'post_field_2' => $post_field_2,
-    'post_field_3' => $post_field_3,
-    'post_field_4' => $post_field_4,
-    'post_field_5' => $post_field_5,
-    'post_field_6' => $post_field_6,
-    'post_field_7' => $post_field_7,
-    'post_field_8' => $post_field_8,
-    'post_field_9' => $post_field_9,
-    'post_field_10' => $post_field_10,'notifcount' => $notifcount,'post' => $post]);
-    
-    }
-    else
-    {
+        $post = Post::all();
+        $post_field_1 = Post::where(['job_field' => ' Accounting & Consulting'])->get();
+        $post_field_2 = Post::where(['job_field' => 'Admin Support'])->get();
+        $post_field_3 = Post::where(['job_field' => 'Data Science & Analytics'])->get();
+        $post_field_4 = Post::where(['job_field' => 'Design & Creative'])->get();
+        $post_field_5 = Post::where(['job_field' => 'Engineering & Architecture'])->get();
+        $post_field_6 = Post::where(['job_field' => 'IT & Engineering'])->get();
+        $post_field_7 = Post::where(['job_field' => 'Legal'])->get();
+        $post_field_8 = Post::where(['job_field' => 'Translation'])->get();
+        $post_field_9 = Post::where(['job_field' => 'Customer Service'])->get();
+        $post_field_10 = Post::where(['job_field' => 'Web, Mobile & Software Development'])->get();
+        return view('home')->withDetails($search)->withQuery($s)->with([
+            'post_field_1' => $post_field_1,
+            'post_field_2' => $post_field_2,
+            'post_field_3' => $post_field_3,
+            'post_field_4' => $post_field_4,
+            'post_field_5' => $post_field_5,
+            'post_field_6' => $post_field_6,
+            'post_field_7' => $post_field_7,
+            'post_field_8' => $post_field_8,
+            'post_field_9' => $post_field_9,
+            'post_field_10' => $post_field_10, 'notifcount' => $notifcount, 'post' => $post
+        ]);
+    } else {
         $notifcount = Notification::where(['user_id' => auth()->user()->id, 'type' => 'employee', 'message_status' => '0']);
-                $post = Post::all();
-        $post_field_1 = Post::where(['job_field' => 'Computers and Technology'])->get();
-        $post_field_2 = Post::where(['job_field' => 'Health Care and Allied Health'])->get();
-        $post_field_3 = Post::where(['job_field' => 'Education and Social Services'])->get();
-        $post_field_4 = Post::where(['job_field' => 'Arts and Communications'])->get();
-        $post_field_5 = Post::where(['job_field' => 'Trades and Transportation'])->get();
-        $post_field_6 = Post::where(['job_field' => 'Management, Business, and Finance'])->get();
-        $post_field_7 = Post::where(['job_field' => 'Architecture and Civil Engineering'])->get();
-        $post_field_8 = Post::where(['job_field' => 'Science'])->get();
-        $post_field_9 = Post::where(['job_field' => ' Hospitality, Tourism, and the Service Industry'])->get();
-        $post_field_10 = Post::where(['job_field' => 'Law and Law Enforcement'])->get();
-        return view ('home')->withMessage('No Details found. Try to search again !')->with(['notifcount' => $notifcount,'post_field_1' => $post_field_1, 
-        'post_field_2' => $post_field_2,
-        'post_field_3' => $post_field_3,
-        'post_field_4' => $post_field_4,
-        'post_field_5' => $post_field_5,
-        'post_field_6' => $post_field_6,
-        'post_field_7' => $post_field_7,
-        'post_field_8' => $post_field_8,
-        'post_field_9' => $post_field_9,
-        'post_field_10' => $post_field_10,
-        'post' => $post]);
+        $post = Post::all();
+        $post_field_1 = Post::where(['job_field' => ' Accounting & Consulting'])->get();
+        $post_field_2 = Post::where(['job_field' => 'Admin Support'])->get();
+        $post_field_3 = Post::where(['job_field' => 'Data Science & Analytics'])->get();
+        $post_field_4 = Post::where(['job_field' => 'Design & Creative'])->get();
+        $post_field_5 = Post::where(['job_field' => 'Engineering & Architecture'])->get();
+        $post_field_6 = Post::where(['job_field' => 'IT & Engineering'])->get();
+        $post_field_7 = Post::where(['job_field' => 'Legal'])->get();
+        $post_field_8 = Post::where(['job_field' => 'Translation'])->get();
+        $post_field_9 = Post::where(['job_field' => 'Customer Service'])->get();
+        $post_field_10 = Post::where(['job_field' => 'Web, Mobile & Software Development'])->get();
+        return view('home')->withMessage('No Details found. Try to search again !')->with([
+            'notifcount' => $notifcount, 'post_field_1' => $post_field_1,
+            'post_field_2' => $post_field_2,
+            'post_field_3' => $post_field_3,
+            'post_field_4' => $post_field_4,
+            'post_field_5' => $post_field_5,
+            'post_field_6' => $post_field_6,
+            'post_field_7' => $post_field_7,
+            'post_field_8' => $post_field_8,
+            'post_field_9' => $post_field_9,
+            'post_field_10' => $post_field_10,
+            'post' => $post
+        ]);
     }
 });
 
 // Search users
-Route::any('/company/search', function()
-{
+Route::any('/company/search', function () {
     $notifcount = Notification::where(['company_id' => auth()->user()->id, 'type' => 'company', 'message_status' => '0']);
     $profile = Profile::where(['type' => 'employee'])->orderBy('id', 'desc')->get();
     $s = Input::get('search');
-    $search = Profile::where('last_name', 'LIKE', '%'.$s.'%')->orWhere('first_name', 'LIKE', '%'.$s.'%')->orWhere('title', 'LIKE', '%'.$s.'%')->get();
-    return view('employee.profiles')->withDetails($search)->withQuery($s)->with(['profile' => $profile,'notifcount' => $notifcount]);
+    $search = Profile::where('last_name', 'LIKE', '%' . $s . '%')->orWhere('first_name', 'LIKE', '%' . $s . '%')->orWhere('title', 'LIKE', '%' . $s . '%')->get();
+    return view('employee.profiles')->withDetails($search)->withQuery($s)->with(['profile' => $profile, 'notifcount' => $notifcount]);
 });
 
 
@@ -199,19 +195,13 @@ Route::post('/post/activate', 'PostController@Activate');
 Route::get('/sample/image', 'ImageController@home');
 
 Route::post('/upload/images', [
-  'uses'   =>  'ImageController@uploadImages',
-  'as'     =>  'uploadImage'
+    'uses'   =>  'ImageController@uploadImages',
+    'as'     =>  'uploadImage'
 ]);
 
-// sample
+Route::get('/tips', 'HomeController@tips');
 
+
+// sample
 Route::get('/sample/profile', 'ProfileController@sample');
 Route::get('/employee/education', 'ProfileController@sampleed');
-
-
-
-
-
-
-
-

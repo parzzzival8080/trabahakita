@@ -24,7 +24,10 @@
                                                 <h6>
                                                     {{$posts->description}}
                                                 </h6>
-                                                <button class="btn btn-primary"><a href="/post/show/{{$posts->id}}" style="color:white">Check it Out</a></button>
+                                                <div class="d-flex justify-content-end">
+                                                    <button class="btn btn-primary"><a href="/post/show/{{$posts->id}}" style="color:white">View</a></button>
+                                                </div>
+                                                
                                         </div>
                                     </div>  
                                 </div>

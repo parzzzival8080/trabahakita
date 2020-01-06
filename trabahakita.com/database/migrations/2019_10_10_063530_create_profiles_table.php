@@ -25,8 +25,8 @@ class CreateProfilesTable extends Migration
             $table->double('lng')->nullable();
             $table->string('type')->nullable();
             $table->string('field')->nullable();
-            $table->string('field')->nullable();
-            $table->string('description')->nullable(); 
+            $table->string('area')->nullable();
+            $table->string('description')->nullable();
             $table->string('status_update')->nullable();
             $table->string('approval_status')->default('0');
             $table->string('hire_status')->default('0');

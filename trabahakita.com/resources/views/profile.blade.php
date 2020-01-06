@@ -1,5 +1,8 @@
 @extends('layouts.app')
 @section('content')
+<div class="container my-3">
+    <h4><strong>Personal Information</strong></h4>
+</div>
     @if(auth()->user()->type == 'employee')
         <div class="container my-5">
                 <form method="post" action="/employee/profile/update" enctype="multipart/form-data">
@@ -7,13 +10,29 @@
                         <div class="row my-3" >
                              <div class="col-4">
                                         <center>
-                                                <img  alt="" class="img-fluid" style="background:gray;width:200px;height:200px" src="{{ Storage::url($profile->image)  }}">
+                                            @if($profile->image == null)
+                                            <img  alt="" class="img-fluid" style="background:gray;width:200px;height:200px" src="http://res.cloudinary.com/dntfm4ivf/image/upload/c_fit,h_554,w_554/whs7ihyxxa91889a6sot.png">
+                                            @else
+                                            <img  alt="" class="img-fluid" style="background:gray;width:200px;height:200px" src="{{$profile->image}}">
+                                            @endif
+                                                
                                               
                                                
                                         </center>
                                         <center>
                                         <label for="fileid" class=""><strong>Profile</strong></label>
-                                        <input type="file" name="image" class="form-control-file" id="fileid" accept=""  required>
+                                        @if(session()->has('status'))
+                                        <div class="alert alert-info" role="alert">
+                                            {{session()->get('status')}}
+                                        </div>
+                                    @endif
+                                    <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                                        <input type="file" name="image_name" class="form-control" id="name" value="" required>
+                                        @if($errors->has('image_name'))
+                                            <span class="help-block">{{ $errors->first('image_name') }}</span>
+                                        @endif
+                                    </div>
+                 
                                         </center>
                                            
 
@@ -23,19 +42,19 @@
                                  <div class="row ">
                                          <div class="col">
                                                  <label for="firstname">First Name*</label>
-                                                  <input type="text" name="first_name" class="form-control" placeholder="First name" value={{$profile->first_name}} required>
+                                                  <input type="text" name="first_name" class="form-control" placeholder="First name" value="{{$profile->first_name}}" required>
                                              </div>
                                              <div class="col">
                                                   <label for="middlename">Middle Name*</label>
-                                                  <input type="text" name="middle_name" class="form-control" placeholder="Middle Name" value={{$profile->middle_name}} required>
+                                                  <input type="text" name="middle_name" class="form-control" placeholder="Middle Name" value="{{$profile->middle_name}}" required>
                                              </div>
                                              <div class="col">
                                                   <label for="lastname">Last Name*</label>
-                                                  <input type="text" name="last_name" class="form-control" placeholder="Last Name" value={{$profile->last_name}} required>
+                                                  <input type="text" name="last_name" class="form-control" placeholder="Last Name" value="{{$profile->last_name}}" required>
                                              </div>
                                              <div class="col">
                                                   <label for="extname">Extension Name*</label>
-                                                  <input type="text" name="ext_name" class="form-control" placeholder="Extension Name" value={{$profile->ext_name}} required>
+                                                  <input type="text" name="ext_name" class="form-control" placeholder="Extension Name" value="{{$profile->ext_name}}" required>
                                              </div>
                                  </div>
                                  <div class="row my-3">
@@ -78,8 +97,8 @@
                         <div class="row my-3">
                                 <label for="desc">Address*</label>
                                 <input type="text" name="address" class="form-control" id="searchmap" placeholder="Permanent Address" required value="{{$profile->adress}}">
-                                <input type="hidden" name="lat" id="lat">
-                                <input type="hidden" name="lng" id="lng">
+                        <input  name="lat" id="lat" value="{{$profile->lat}}"  hidden>
+                                <input  name="lng" id="lng" value="{{$profile->lng}}" hidden>
                                
                             </div>
                             {{-- <div class="row my-3"> --}}
@@ -91,30 +110,55 @@
                             </div>
 
                       <div class="d-flex justify-content-end">
+                       
                             
                             <button class="btn btn-success mb-5">
-                                   Proceed
+                                   Save
                                 </button>
                       </div>
                   
              
                     </form>
+                    <div class="d-flex justify-content-end">
+                        <a href="/employee/education" style="color:white"><button class="btn btn-info mb-5">
+                      
+                        Academic And Working Background </a>
+                     </button>
+                    </div>
+
         </div>
       
     @elseif(auth()->user()->type == 'company')
-    <h2>Customize Your Profile</h2>
-            <div class="card">
+          
                 <div class="container">
                         <form method="post" action="/employee/profile/update" enctype="multipart/form-data">
                             {{ csrf_field() }}
-                            <div class="container"> 
-                                    <div class="d-flex justify-content-center"> 
-                                    <img class="card-img-top" src="{{ Storage::url($profile->image)  }}" alt="Card image cap">
-                                    </div>
-                                    <div class="form-group">
-                                            <label for="fileid">Picture</label>
-                                            <input type="file" name="image" class="form-control-file" id="fileid" accept=""  required>
-                                          </div>
+                            <div class="container mt-2"> 
+                                <center>
+                                    @if($profile->image == null)
+                                    <img  alt="" class="img-fluid" style="background:gray;width:1000px;height:400px" src="http://res.cloudinary.com/dntfm4ivf/image/upload/c_fit,h_554,w_554/whs7ihyxxa91889a6sot.png">
+                                    @else
+                                    <img  alt="" class="img-fluid" style="background:gray;width:1000px;height:400px" src="{{$profile->image}}">
+                                    @endif
+                                        
+                                      
+                                       
+                                </center>
+                                <center>
+                                <label for="fileid" class="">Banner<strong></strong></label>
+                                @if(session()->has('status'))
+                                <div class="alert alert-info" role="alert">
+                                    {{session()->get('status')}}
+                                </div>
+                            @endif
+                            <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                                <input type="file" name="image_name" class="form-control" id="name" value="" required>
+                                @if($errors->has('image_name'))
+                                    <span class="help-block">{{ $errors->first('image_name') }}</span>
+                                @endif
+                            </div>
+         
+                                </center>
                             </div>
                             <div class="form-group row">
                                 <label for="nameid" class="col-sm-3 col-form-label">Company Name</label>
@@ -155,29 +199,31 @@
                                            placeholder="ADDRESS" >{{$profile->adress}}</textarea>
                                 </div>
                             </div>   
-                            <input type="hidden" name="lat" id="lat">
-                            <input type="hidden" name="lng" id="lng">
+                        <input  name="lat" id="lat" value="{{$profile->lat}}" hidden>
+                            <input name="lng" id="lng" value="{{$profile->lng}}" hidden>
                                 <div class="card">
                                     <div id="map" style="height: 400px"></div>
                                 </div>
-            <div class="card-footer">
+        
                    
                             <div class="d-flex justify-content-end">
                                  <button type="submit" class="btn btn-success" style="margin-top:10px">Save</button>
-                              
-                         </div>
+                
+                         
             </div>
                            
                         </form>  
                 </div>
-            </div>
+            
     @endif
 
+    {{-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAwG2FvuLOl_rGjp4LHR6XSeLIG_ZjjJ0M&callback=initMap">
+    </script> --}}
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAwG2FvuLOl_rGjp4LHR6XSeLIG_ZjjJ0M&callback=initMap&libraries=places"></script>
 <script type="text/javascript">
     var foo = {!! json_encode($profile->toArray())!!}
     console.log(foo.lat)
-    if (foo.lat == null || foo.lng == null )
+    if (foo.lat == '0' || foo.lng == '0' )
     {  
         function initMap() {
             if (navigator.geolocation) {

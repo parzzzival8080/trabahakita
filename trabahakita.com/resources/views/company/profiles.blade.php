@@ -26,7 +26,7 @@
                             Posts:
                             @if(count($post) > 0 )
                                @php
-                                    $count = DB::table('posts')->where(['company_id' => $profiles->id])->get();
+                                    $count = DB::table('posts')->where(['company_id' => $profiles->id, 'post_status' => '0'])->get();
                                     echo $count->count();
                                @endphp
                                 @endif

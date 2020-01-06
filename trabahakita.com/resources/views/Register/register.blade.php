@@ -41,10 +41,10 @@ section .section-title {
 }
         </style>
 
-<div class="container">
+<div class="container" style="padding-bottom:50px">
         <div class="row">
                 <div class="col">      
-                        <div class="align-self-center" style="margin-top:200px">
+                        <div class="align-self-center" style="margin-top:200px;">
                                 <img style="margin-left:70px" src="{{ Storage::url('/images/landing.png')  }}" alt="landing_picture">
                                 </div>         
                         <h1  style="font-weight:300; color:grey">We give you a Free Job Fair, Everyday!</h1>           

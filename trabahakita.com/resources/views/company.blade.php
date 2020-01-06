@@ -33,8 +33,17 @@
                                 <div class="container my-3" >
                                         <div id="map" style="width:100%;height:300px"></div> 
                                        <button class="btn btn-info my-3" id="get">Get Direction</button>
-                                       <h6 id="walk"></h6>
-                                       <h6 id="drive"></h6>
+                                       <div class="row">
+                                           <div class="col">
+                                              
+                                            <div id="walk"></div>
+                                           </div>
+                                           <div class="col">
+                                            <div id="drive"></div>
+                                           </div>
+                                       </div>
+                                      
+                                      
                                 </div>
                         </div>
                         <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
@@ -43,6 +52,7 @@
                                         @if (count($post) > 0)
                                         @foreach ($post as $posts)
                                       @if($posts->company_id == $profile->id)
+                                      @if($posts->post_status == '0')
                                       <div class="card" style="margin-top:10px">
                                             <div class="card-body">
                                               <div class="card-header">
@@ -64,6 +74,7 @@
                                                 </div>
                                             </div>  
                                         </div>
+                                        @endif
                                   @endif
                                     @endforeach
                                     @endif
@@ -141,7 +152,7 @@
     directionsDisplay.setMap(map);
     directionsDisplay.setOptions({
         polylineOptions:{
-            strokeColor: 'green',
+            strokeColor: '#9dc1fc',
             strokeWeight: '8'
         }
     });
@@ -198,7 +209,7 @@
                     totalTime += myroute.legs[i].duration.value;
                     totalDist = totalDist / 1000;
                     }
-                    document.getElementById("walk").innerHTML = "Travel Mode:Walking<br>Distance: " + totalDist + " km<br>Travel Time: " + (totalTime / 60).toFixed(2) + " minutes</p>";
+                    document.getElementById("walk").innerHTML = "<div class='card'><div class='card-header'>Travel Mode: Walking <i class='fas fa-walking'></i></div><div class='card-body'><div card='card-text'>Distance: " + totalDist + " km<br>Travel Time: " + (totalTime / 60).toFixed(2) + " minutes</p></div></div></div>";
                     return console.log()
                 }
                 }
@@ -220,7 +231,7 @@
                     totalTime += myroute.legs[i].duration.value;
                     totalDist = totalDist / 1000;
                     }
-                    document.getElementById("drive").innerHTML = "Travel Mode:Driving<br>Distance: " + totalDist + " <br>Travel Time: " + (totalTime / 60).toFixed(2) + " minutes";
+                    document.getElementById("drive").innerHTML = "<div class='card'><div class='card-header'>Travel Mode: Driving <i class='fas fa-car'></i></div><div class='card-body'><div card='card-text'>Distance: " + totalDist + " km<br>Travel Time: " + (totalTime / 60).toFixed(2) + " minutes</p></div></div></div>";
                 }
                 }
                

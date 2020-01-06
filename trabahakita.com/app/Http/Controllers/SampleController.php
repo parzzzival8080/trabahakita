@@ -8,6 +8,7 @@ use App\Profile;
 use App\Post;
 use App\Notification;
 use Illuminate\Http\Request;
+use App\Skills;
 
 class SampleController extends Controller
 {
@@ -18,66 +19,57 @@ class SampleController extends Controller
      */
 
 
-     public function maps()
-     {
+    public function maps()
+    {
         $post = Post::all();
         $notifcount = Notification::where(['user_id' => auth()->user()->id, 'type' => 'employee', 'message_status' => '0']);
         $user_detail = Profile::where('id', auth()->user()->id)->select('lat', 'lng')->get();
-        foreach($user_detail as $user)
-        {
+        foreach ($user_detail as $user) {
             $locations = [];
             $company = Profile::where('type', '=', 'company')->get();
-            foreach($company as $comp)
-                {
-                    $info =  [
-                        "id" => $comp->id,
-                        "adress" => $comp->adress,
-                        "distance" => $this->calculateDistance($user->lat, $comp->lat, $user->lng, $comp->lng),
-                        "name" => $comp->company_name,
-                        "lat" => $comp->lat,
-                        "lng" => $comp->lng
-                    ];
-        
-                    array_push($locations, $info);
-                }
+            foreach ($company as $comp) {
+                $info =  [
+                    "id" => $comp->id,
+                    "adress" => $comp->adress,
+                    "distance" => $this->calculateDistance($user->lat, $comp->lat, $user->lng, $comp->lng),
+                    "name" => $comp->company_name,
+                    "lat" => $comp->lat,
+                    "lng" => $comp->lng
+                ];
 
-                for ($x = 0; $x < count($locations); $x++)
-                {
-                    for ($y = 0; $y < count($locations) - 1; $y++ )
-                    {
-                        if($locations[$y]['distance'] > $locations[$y+1]['distance'])
-                        {
-                            $temp = $locations[$y+1];
-                            $locations[$y+1] = $locations[$y];
-                            $locations[$y] = $temp;
-                        }
+                array_push($locations, $info);
+            }
+
+            for ($x = 0; $x < count($locations); $x++) {
+                for ($y = 0; $y < count($locations) - 1; $y++) {
+                    if ($locations[$y]['distance'] > $locations[$y + 1]['distance']) {
+                        $temp = $locations[$y + 1];
+                        $locations[$y + 1] = $locations[$y];
+                        $locations[$y] = $temp;
                     }
                 }
+            }
         }
         $locations = collect($locations);
-       
-        return view('maps')->with(['notifcount' => $notifcount, 'locations' => $locations, 'user' => $user, 'post' => $post ]);   
-            
-     }
+
+        return view('maps')->with(['notifcount' => $notifcount, 'locations' => $locations, 'user' => $user, 'post' => $post]);
+    }
     public function index()
     {
-        if(auth()->check())
-        {
-            if(auth()->user()->type == 'employee')
-            {
+        if (auth()->check()) {
+            if (auth()->user()->type == 'employee') {
                 $post = Post::all();
                 $notifcount = Notification::where(['user_id' => auth()->user()->id, 'type' => 'employee', 'message_status' => '0']);
 
                 // maps
                 $user_detail = Profile::where('id', auth()->user()->id)->select('lat', 'lng')->get();
-                foreach($user_detail as $user)
+                foreach ($user_detail as $user)
 
-                $company = Profile::where('type', '=', 'company')->get();
-                    
+                    $company = Profile::where('type', '=', 'company')->get();
+
                 $locations = [];
 
-                foreach($company as $comp)
-                {
+                foreach ($company as $comp) {
                     $info =  [
                         "id" => $comp->id,
                         "adress" => $comp->adress,
@@ -86,84 +78,70 @@ class SampleController extends Controller
                         "lat" => $comp->lat,
                         "lng" => $comp->lng
                     ];
-        
+
                     array_push($locations, $info);
                 }
 
-                for ($x = 0; $x < count($locations); $x++)
-                {
-                    for ($y = 0; $y < count($locations) - 1; $y++ )
-                    {
-                        if($locations[$y]['distance'] > $locations[$y+1]['distance'])
-                        {
-                            $temp = $locations[$y+1];
-                            $locations[$y+1] = $locations[$y];
+                for ($x = 0; $x < count($locations); $x++) {
+                    for ($y = 0; $y < count($locations) - 1; $y++) {
+                        if ($locations[$y]['distance'] > $locations[$y + 1]['distance']) {
+                            $temp = $locations[$y + 1];
+                            $locations[$y + 1] = $locations[$y];
                             $locations[$y] = $temp;
                         }
                     }
                 }
-        
+
                 $locations = collect($locations);
-              $post = Post::all();
+                $post = Post::all();
 
-                return view('sample')->with(['notifcount' => $notifcount, 'locations' => $locations, 'user' => $user, 'post' => $post ]);   
-            }
-            elseif(auth()->user()->type == 'company')
-            {
+                return view('sample')->with(['notifcount' => $notifcount, 'locations' => $locations, 'user' => $user, 'post' => $post]);
+            } elseif (auth()->user()->type == 'company') {
                 $user_detail = Profile::where('id', auth()->user()->id)->select('lat', 'lng')->get();
-                foreach($user_detail as $user)
+                foreach ($user_detail as $user)
 
-                $company = Profile::where('type', '=', 'employee')->get();
-                    
+                    $company = Profile::where('type', '=', 'employee')->get();
+
                 $locations = [];
 
-                foreach($company as $comp)
-                {
+                foreach ($company as $comp) {
                     $info =  [
                         "id" => $comp->id,
-                      
+
                         "adress" => $comp->adress,
                         "distance" => $this->calculateDistance($user->lat, $comp->lat, $user->lng, $comp->lng),
-                        "name" => $comp->last_name.', '.$comp->first_name,
+                        "name" => $comp->last_name . ', ' . $comp->first_name,
                         "type" => $comp->type,
                         "lat" => $comp->lat,
                         "lng" => $comp->lng,
                         "title" => $comp->title
                     ];
-        
+
                     array_push($locations, $info);
                 }
 
-                for ($x = 0; $x < count($locations); $x++)
-                {
-                    for ($y = 0; $y < count($locations) - 1; $y++ )
-                    {
-                        if($locations[$y]['distance'] > $locations[$y+1]['distance'])
-                        {
-                            $temp = $locations[$y+1];
-                            $locations[$y+1] = $locations[$y];
+                for ($x = 0; $x < count($locations); $x++) {
+                    for ($y = 0; $y < count($locations) - 1; $y++) {
+                        if ($locations[$y]['distance'] > $locations[$y + 1]['distance']) {
+                            $temp = $locations[$y + 1];
+                            $locations[$y + 1] = $locations[$y];
                             $locations[$y] = $temp;
                         }
                     }
                 }
-        
+
                 $locations = collect($locations);
                 $skills = Skills::all();
                 $notifcount = Notification::where(['company_id' => auth()->user()->id, 'type' => 'company', 'message_status' => '0']);
-                return view('employeemap')->with(['notifcount' => $notifcount, 'locations' => $locations, 'user' => $user, 'skills' => $skills]); 
-            }
-
-            else{
+                return view('employeemap')->with(['notifcount' => $notifcount, 'locations' => $locations, 'user' => $user, 'skills' => $skills]);
+            } else {
                 $post = Post::all();
                 $notifcount = Notification::where(['company_id' => auth()->user()->id, 'type' => 'company', 'message_status' => '0']);
-            return view('home')->with( ['notifcount' => $notifcount,'post' => $post]);  
+                return view('home')->with(['notifcount' => $notifcount, 'post' => $post]);
             }
-        }
-        else
-        {
+        } else {
             redirect()->to('/login');
         }
-        
     }
 
     /**

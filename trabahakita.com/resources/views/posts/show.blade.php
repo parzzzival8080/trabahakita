@@ -78,13 +78,18 @@
                                             <div class="card-title">      
                                                     <h3>{{$com->name}}</h3>          
                                                 </div>
-                                                <h6 class="card-subtitle mb-2 text-muted">Actions</h6>
+                                                <h5 class="card-subtitle mb-2 text-muted">Application Summary</h5>
 
                                                 <div class="card-text">
-                                                <h5>{{$com->message}}</h5>
+                                                
+                                                <h6>{{$com->message}}</h6>
+                                                Contacts:
+                                                <h6>{{$com->contact_fb}}</h6>
+                                                <h6>{{$com->contact_twitter}}</h6>
+                                                <h6>{{$com->contact_email}}</h6>
                                                 </div>
                                                 <div class="card-footer">
-                                                        <button class="btn btn-danger" type="submit">Decline Application</button>
+                                                        <button class="btn btn-info" type="submit" disabled>Application Submitted</button>
                                                     </div>
                                     </div>
                                 </div> 
@@ -107,26 +112,35 @@
                                                                         <input hidden name="company_id" type="text" class="form-control" id="company_id"
                                                                         value="{{$post->company_id}}">
                                                                         <input hidden name="company_name" type="text" class="form-control" id="company_name" value="{{$post->company_name}}">
-                                                                        <textarea name="message" id="message" class="form-control" cols="30" rows="3" placeholder="Skill Summary"></textarea>
+                                                                        <textarea name="message" id="message" class="form-control" cols="30" rows="8" placeholder="Skill Summary"></textarea>
             
                                                             </div>
+                                                            <label for="">Contacts</label>
                                                             <div class="form-group row">
-                                                                <label for="">Contacts</label>
-                                                                    <input name="fb" type="text" class="form-control" id="fb" placeholder="FACEBOOK">
+                                                               
+                                                                <div class="col">
+                                                                    
+                                                                    <input name="fb" type="text" class="form-control" id="fb" placeholder="Facebook">
+                                                                </div>
+                                                                <div class="col">
+                                                                    <input name="viber" type="text" class="form-control" id="viber" placeholder="Viber">
+                                                                </div>
+                                                                <div class="col">
+                                                                    <input name="email" type="text" class="form-control" id="email" placeholder="Email">
+                                                                </div>
+                                                               
                                                             </div>
-                                                            <div class="form-group row">
-                                                                    <input name="viber" type="text" class="form-control" id="viber" placeholder="VIBER">
-                                                            </div>
-                                                             <div class="form-group row">
-                                                                    <input name="email" type="text" class="form-control" id="email" placeholder="EMAIL">
-                                                             </div>
+                                                           
                                                                     
                                                                    
                                                         </div>
                                                         </div>
                                                 </div>
                                                             <div class="card-footer">
-                                                            <button class="btn btn-primary" type="submit">Apply</button>
+                                                                <div class="d-flex justify-content-end">
+                                                                    <button class="btn btn-primary" type="submit">Apply</button>
+                                                                </div>
+                                                           
                                                         </div> 
                                     </div>        
                                 </div>

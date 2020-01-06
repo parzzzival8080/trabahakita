@@ -2,14 +2,16 @@
  
 @section('content')
  
-<div class="container" style="margin-top:50px">
+<div class="container"  style="margin-bottom:220px" >
     <div class="row">
         <div class="col">
-                <div class="card" style="margin-top:90px;">
-                        <div class="card-header" style="background:#455a64">
-                            <center>
-                                <h2 style="color:white; font-weight:300">Log In</h2>
-                            </center>
+                <div class="card" data-aos="fade-up" style="margin-top:90px;">
+                        <div class="card-header py-2" style="background:#212121">
+                           <div class="d-flex justify-content-center">
+                            <h3 style="color:white; font-weight:300">Log In</h3>
+                           </div>
+                                
+                           
                         </div>
                         <div class="card-body">
                             <div class="card-text">
@@ -37,7 +39,7 @@
         </div>
         <div class="col">
                 <div class="align-self-center" style="margin-top:70px">
-                <img style="margin-left:70px" src="{{ Storage::url('/images/landing.png')  }}" alt="landing_picture">
+                <img data-aos="fade-up" style="margin-left:70px" src="{{ Storage::url('/images/landing.png')  }}" alt="landing_picture">
                 </div>
         </div>
     </div>

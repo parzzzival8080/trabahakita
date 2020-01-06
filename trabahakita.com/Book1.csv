@@ -1,0 +1,162 @@
+﻿id,category,skill
+1,Accounting & Consulting,Accounting
+2,Accounting & Consulting,Bookkeeping
+3,Accounting & Consulting,Business Analysis
+4,Accounting & Consulting,Financial Analysis & Modeling
+5,Accounting & Consulting,Financial Management / CFO
+6,Accounting & Consulting,HR Administration
+7,Accounting & Consulting,Instructional Design
+8,Accounting & Consulting,Management Consulting
+9,Accounting & Consulting,Recruiting
+10,Accounting & Consulting,Tax Preparation
+11,Accounting & Consulting,Training & Development
+12,Admin Support,Data Entry
+13,Admin Support,Online Research
+14,Admin Support,Order Processing
+15,Admin Support,Project Management
+16,Admin Support,Transcription
+17,Admin Support,Virtual Assistance
+18,Customer Service,Customer Service
+19,Customer Service,Technical Support
+20,Data Science & Analytics,A/B Testing
+21,Data Science & Analytics,Bandits
+22,Data Science & Analytics,Data Analytics
+23,Data Science & Analytics,Data Engineering
+24,Data Science & Analytics,Data Extraction
+25,Data Science & Analytics,Data Mining
+26,Data Science & Analytics,Data Processing
+27,Data Science & Analytics,Data Visualization
+28,Data Science & Analytics,Deep Learning
+29,Data Science & Analytics,Experimentation & Testing
+30,Data Science & Analytics,Knowledge Representation
+31,Data Science & Analytics,Machine Learning
+32,Design & Creative,2D Animation
+33,Design & Creative,3D Animation
+34,Design & Creative,Actor
+35,Design & Creative,Art Direction
+36,Design & Creative,Audio Editing / Post-Production
+37,Design & Creative,Audio Production
+38,Design & Creative,Brand Identity Design
+39,Design & Creative,Brand Strategy
+40,Design & Creative,Cartoonist
+41,Design & Creative,Creative Direction
+42,Design & Creative,Editorial Design
+43,Design & Creative,Exhibit Design
+44,Design & Creative,Fashion Design
+45,Design & Creative,Graphic Design
+46,Design & Creative,Illustration
+47,Design & Creative,Image Editing / Retouching
+48,Design & Creative,Motion Graphics Design
+49,Design & Creative,Musician
+50,Design & Creative,Music Composition
+51,Design & Creative,Music Production
+52,Design & Creative,Photography
+53,Design & Creative,Presentation Design
+54,Design & Creative,Scriptwriting
+55,Design & Creative,Social Media Strategy
+56,Design & Creative,Store Design
+57,Design & Creative,Videographer
+58,Design & Creative,Video Editing / Post-Production
+59,Design & Creative,Video Production
+60,Design & Creative,Vocalist
+61,Design & Creative,Voice Talent
+62,Design & Creative,VR & AR Design
+63,Engineering & Architecture,3D Modeling
+64,Engineering & Architecture,3D Rendering
+65,Engineering & Architecture,3D Visualization
+66,Engineering & Architecture,Architecture
+67,Engineering & Architecture,BIM Modeling
+68,Engineering & Architecture,Biology
+69,Engineering & Architecture,CAD
+70,Engineering & Architecture,Chemical Engineering
+71,Engineering & Architecture,Chemistry
+72,Engineering & Architecture,Civil Engineering
+73,Engineering & Architecture,Electrical Engineering
+74,Engineering & Architecture,Electronic Engineering
+75,Engineering & Architecture,Energy Management & Modeling
+76,Engineering & Architecture,Engineering Tutoring
+77,Engineering & Architecture,Jewelry Design
+78,Engineering & Architecture,Landscape Design
+79,Engineering & Architecture,Oil & Gas Engineering
+80,Engineering & Architecture,Process Engineering
+81,Engineering & Architecture,Quantity Surveying
+82,Engineering & Architecture,Structural Engineering
+83,Engineering & Architecture,Sourcing & Procurement
+84,Engineering & Architecture,Hydraulics Engineering
+85,Engineering & Architecture,HVAC & MEP Desig
+86,Engineering & Architecture,Industrial Design
+87,Engineering & Architecture,Interior Design
+88,Engineering & Architecture,Logistics & Supply Chain Management
+89,Engineering & Architecture,Mathematics
+90,Engineering & Architecture,Mechanical Engineering
+91,Engineering & Architecture,PCB Design
+92,Engineering & Architecture,Physics
+93,Engineering & Architecture,Product Design
+94,Engineering & Architecture,Science Tutoring
+95,Engineering & Architecture,Solar Energy
+96,Engineering & Architecture,Wind Energy
+97,IT & Engineering,Database Administration
+98,IT & Engineering,DevOps Engineering
+99,IT & Engineering,Information Security
+100,IT & Engineering,Network Administration
+101,IT & Engineering,Network Security
+102,IT & Engineering,Solutions Architecture
+103,IT & Engineering,System Administration
+104,IT & Engineering,Systems Architecture
+105,IT & Engineering,Systems Compliance
+106,IT & Engineering,Systems Engineering
+107,Legal,Business Development
+108,Legal,Campaign Management
+109,Legal,Community Management
+110,Legal,Content Strategy
+111,Legal,Digital Marketing
+112,Legal,Email Marketing
+113,Legal,Lead Generation
+114,Legal,Marketing Automation
+115,Legal,Marketing Strategy
+116,Legal,Market Research
+117,Legal,Public Relations
+118,Legal,Search Engine Marketing
+119,Legal,Search Engine Optimization
+120,Legal,Social Media Marketing
+121,Legal,Telemarketing
+122,Translation,Language Localization
+123,Translation,Language Tutoring
+124,Translation,Legal Translation
+125,Translation,Medical Translation
+126,Translation,Technical Translation
+127,Translation,Translation
+128,"Web, Mobile & Software Development",AR / VR Development
+129,"Web, Mobile & Software Development",Automation QA
+130,"Web, Mobile & Software Development",Back-End Development
+131,"Web, Mobile & Software Development",CMS Customization
+132,"Web, Mobile & Software Development",CMS Development
+133,"Web, Mobile & Software Development",Database Development
+134,"Web, Mobile & Software Development",Desktop Software Development
+135,"Web, Mobile & Software Development",Ecommerce Development
+136,"Web, Mobile & Software Development",Emerging Tech
+137,"Web, Mobile & Software Development",Firmware Development
+138,"Web, Mobile & Software Development",Front-End Development
+139,"Web, Mobile & Software Development",Full Stack Development
+140,"Web, Mobile & Software Development",Functional QA
+141,"Web, Mobile & Software Development",Game Development
+142,"Web, Mobile & Software Development",Mobile App Development
+143,"Web, Mobile & Software Development",Mobile Design
+144,"Web, Mobile & Software Development",Mobile Game Development
+145,"Web, Mobile & Software Development",Product Management
+146,"Web, Mobile & Software Development",Prototyping
+147,"Web, Mobile & Software Development",Scripting & Automation
+148,"Web, Mobile & Software Development",Scrum Master
+149,"Web, Mobile & Software Development",User Research
+150,"Web, Mobile & Software Development",UX/UI Design
+151,"Web, Mobile & Software Development",Web Design
+152,Writing,Business Writing
+153,Writing,Career Coaching
+154,Writing,Content Writing
+155,Writing,Copywriting
+156,Writing,Creative Writing
+157,Writing,Editing & Proofreading
+158,Writing,Ghostwriting
+159,Writing,Grant Writing
+160,Writing,Technical Writing
+161,Writing,Writing Tutoring

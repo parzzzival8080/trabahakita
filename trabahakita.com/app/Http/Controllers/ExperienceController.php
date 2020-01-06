@@ -41,9 +41,11 @@ class ExperienceController extends Controller
         $experience->workplace = request('office');
         $experience->from = request('from-year');
         $experience->to = request('to-year');
-        // $experience->position = request('position');
-        $experience->desc_1 = request('work_desc');
+        $experience->position = request('position');
+        $experience->desc_1 = request('workdesc');
         $experience->save();
+
+        return redirect()->to('/employee/education')->with('message', 'Successfully Saved!');
     }
 
     /**
@@ -88,6 +90,8 @@ class ExperienceController extends Controller
         $experience->desc_2 = request('desc_2');
         $experience->desc_3 = request('desc_3');
         $experience->save();
+
+        return redirect()->to('/employee/education')->with('message', 'Successfully Updated!');
     }
 
     /**

@@ -27,16 +27,13 @@ class RegisterController extends Controller
     public function create()
     {
         //
-        if (auth()->check())
-        {
+        if (auth()->check()) {
             return redirect()->to('/');
-        }
-        else
-        {
+        } else {
             return view('Register.register');
         }
-        }
-        
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -46,45 +43,38 @@ class RegisterController extends Controller
     public function store(Request $request)
     {
         //
-        $this->validate(request(),
-        [
-           
-            'email' => 'required|email',
-            'password' => 'required|confirmed',
-            'type' => 'required',
-            'lat' => 'nullable',
-            'lng' => 'nullable'
-        ]);
+        $this->validate(
+            request(),
+            [
 
-     
+                'email' => 'required|email',
+                'password' => 'required|confirmed',
+                'type' => 'required',
+                'lat' => 'nullable',
+                'lng' => 'nullable'
+            ]
+        );
 
-        $user = User::create(request([ 'email', 'password','type','skill','']));
-       
+
+
+        $user = User::create(request(['email', 'password', 'type', 'skill', '']));
+
 
         auth()->login($user);
 
-       $profile = New Profile;
-       $profile->id = $user->id;
-       $profile->type = $user->type;
-       $profile->lat = $request->lat;
-       $profile->lng = $request->lng;
+        $profile = new Profile;
+        $profile->id = $user->id;
+        $profile->type = $user->type;
+        $profile->lat = '0.000000';
+        $profile->lng = '0.000000';
         $profile->save();
-      
-       if ($user->type == 'admin')
-       {
-        return redirect()->to('/');
-       }
-       elseif  ($user->type == 'employee' || $user->type == 'company')
-       {
-           $profile_view = Profile::find($user->id);
-           return redirect()->to('/employee/profile');
-       }
-    
-       
-     
-           
-       
-       
+
+        if ($user->type == 'admin') {
+            return redirect()->to('/');
+        } elseif ($user->type == 'employee' || $user->type == 'company') {
+            $profile_view = Profile::find($user->id);
+            return redirect()->to('/employee/profile')->with('success', 'You Are Registered!');
+        }
     }
 
     /**
