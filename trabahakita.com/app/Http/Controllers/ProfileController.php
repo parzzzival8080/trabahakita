@@ -139,8 +139,7 @@ class ProfileController extends Controller
 
             $image_url = Cloudder::getResult()['secure_url'];
 
-            //save to uploads directory
-            $image->move(public_path("uploads"), $name);
+
 
             //Save images
             $this->saveImages($request, $image_url);
@@ -202,8 +201,7 @@ class ProfileController extends Controller
 
             $image_url = Cloudder::getResult()['secure_url'];
 
-            //save to uploads directory
-            $image->move(public_path("uploads"), $name);
+
 
             //Save images
             $this->saveImages($request, $image_url);
