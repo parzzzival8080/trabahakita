@@ -137,7 +137,7 @@ class ProfileController extends Controller
 
             list($width, $height) = getimagesize($image_name);
 
-            $image_url = Cloudder::show(Cloudder::getPublicId(), ["width" => $width, "height" => $height]);
+            $image_url = Cloudder::getResult()['secure_url'];
 
             //save to uploads directory
             $image->move(public_path("uploads"), $name);
@@ -200,7 +200,7 @@ class ProfileController extends Controller
 
             list($width, $height) = getimagesize($image_name);
 
-            $image_url = Cloudder::show(Cloudder::getPublicId(), ["width" => $width, "height" => $height]);
+            $image_url = Cloudder::getResult()['secure_url'];
 
             //save to uploads directory
             $image->move(public_path("uploads"), $name);
