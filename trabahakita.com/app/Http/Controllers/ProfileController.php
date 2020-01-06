@@ -175,7 +175,7 @@ class ProfileController extends Controller
                 }
             }
             if ($profiles->status_edu == '0') {
-                return redirect()->to('/employee/profile/education')->with('profile', $profiles);
+                return redirect()->to('/employee/education')->with('profile', $profiles);
             } elseif ($profiles->status_edu == '1' && $profiles->status_skills == '0') {
                 return redirect()->to('/employee/profile/skills')->with('profile', $profiles);
             } else
