@@ -305,7 +305,7 @@
 
        
         
-        document.getElementById('get' + '{{$a['id']}}').onclick = function()
+        document.getElementById('get{{$a['id']}}').onclick = function()
         {
             calculateRoute();     
         }
