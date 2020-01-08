@@ -11,7 +11,7 @@
                      <div class="card-text" style="margin:10px">
                       <h6 class="text-muted">Type:{{$post->job_type}}</h6>
                       <h6 class="text-muted">Field:{{$post->job_field}}</h6>
-                      <h6 class="text-muted">Needed:{{$post->employee_num}}</h6>
+                      <h6 class="text-muted">Needed:{{$post->emp_hired}}/{{$post->employee_num}}</h6>
                       <h6 class="text-muted">Date Posted:{{$post->created_at->toDateString()}}</h6>
                       </div>
                       <div class="card-footer">
@@ -112,21 +112,19 @@
                                                                         <input hidden name="company_id" type="text" class="form-control" id="company_id"
                                                                         value="{{$post->company_id}}">
                                                                         <input hidden name="company_name" type="text" class="form-control" id="company_name" value="{{$post->company_name}}">
-                                                                        <textarea name="message" id="message" class="form-control" cols="30" rows="8" placeholder="Skill Summary"></textarea>
+                                                                        <textarea name="message" id="message" class="form-control" cols="30" rows="8" placeholder="Skill Summary" required></textarea>
             
                                                             </div>
                                                             <label for="">Contacts</label>
                                                             <div class="form-group row">
-                                                               
                                                                 <div class="col">
-                                                                    
-                                                                    <input name="fb" type="text" class="form-control" id="fb" placeholder="Facebook">
+                                                                    <input name="fb" type="text" class="form-control" id="fb" placeholder="Facebook" required>
                                                                 </div>
                                                                 <div class="col">
-                                                                    <input name="viber" type="text" class="form-control" id="viber" placeholder="Viber">
+                                                                    <input name="viber" type="text" class="form-control" id="viber" placeholder="Viber" required>
                                                                 </div>
                                                                 <div class="col">
-                                                                    <input name="email" type="text" class="form-control" id="email" placeholder="Email">
+                                                                    <input name="email" type="text" class="form-control" id="email" placeholder="Email" required>
                                                                 </div>
                                                                
                                                             </div>
