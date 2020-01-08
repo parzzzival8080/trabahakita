@@ -19,6 +19,7 @@
                     <tbody>
                             @if(count($education) > 0)
                             @foreach($education as $exp)
+                            @if($exp->user_id == auth()->user()->id)
                         <tr>
                                 <th scope="row">{{$exp->school}}</th>
                                 <td>{{$exp->level}}</td>
@@ -36,6 +37,7 @@
                                    </td> 
                                   
                         </tr>
+                        @endif
                         @endforeach
                         @else
                         <tr>

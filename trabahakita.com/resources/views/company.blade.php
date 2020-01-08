@@ -31,8 +31,14 @@
                       <div class="tab-content" id="pills-tabContent">
                         <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                                 <div class="container my-3" >
-                                        <div id="map" style="width:100%;height:300px"></div> 
-                                       <button class="btn btn-info my-3" id="get">Get Direction</button>
+                                        <div id="map" style="width:100%;height:300px"></div>
+                                        <div class="d-flex justify-content-end">
+                                            <button class="btn btn-info my-3" onclick="getLocation()">Get Route From Current Location</button>
+                                            <button class="btn btn-info my-3"id="get">Get Route From My Saved Address</button>
+                                        </div>
+                                       <div class="row">
+                                           <div id="type"></div>
+                                       </div>
                                        <div class="row">
                                            <div class="col">
                                               
@@ -86,6 +92,10 @@
 
 
 
+
+
+
+
    
   
 
@@ -93,6 +103,7 @@
      var directionsDisplay = new google.maps.DirectionsRenderer();
     var directionsService = new google.maps.DirectionsService();
    
+
    
     var map = new google.maps.Map(document.getElementById('map'),
     {
@@ -157,14 +168,113 @@
         }
     });
 
+// for your current location
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(currenroute);
+  } else { 
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+
+
+    function currenroute(position)
+    {
+
+            var request =
+            {
+                origin:
+                {
+                    lat: position.coords.latitude, 
+                    lng:position.coords.longitude,
+                },
+                
+                destination:
+                {
+                    lat:{{$profile['lat']}}, 
+                    lng:{{$profile['lng']}}
+                },
+
+              
+                travelMode:'WALKING',
+            }
+
+            var request2 =
+            {
+                origin:
+                {
+                    lat: position.coords.latitude, 
+                    lng:position.coords.longitude,
+                },
+                
+                destination:
+                {
+                    lat:{{$profile['lat']}}, 
+                    lng:{{$profile['lng']}}
+                },
+
+              
+                travelMode:'DRIVING',
+            }
+            directionsService.route(request, function(result, status)
+            {
+                
+                {
+                    if(status == 'OK')
+                {
+                   directionsDisplay.setDirections(result);
+                   var totalDist = 0;
+                    var totalTime = 0;
+                    var myroute = result.routes[0];
+                    for (i = 0; i < myroute.legs.length; i++) {
+                    totalDist += myroute.legs[i].distance.value;
+                    totalTime += myroute.legs[i].duration.value;
+                    totalDist = totalDist / 1000;
+                    }
+                    document.getElementById("type").innerHTML = "<h3>From Your Current Location</h3>";
+                    document.getElementById("walk").innerHTML = "<div class='row'><div class='col'><div class='card'><div class='card-header'>Travel Mode: Walking <i class='fas fa-walking'></i></div><div class='card-body'><div card='card-text'>Distance: " + totalDist + " km<br>Travel Time: " + (totalTime / 60).toFixed(2) + " minutes</p></div></div></div></div>";
+                    return console.log()
+                }
+                }
+                
+            });
+
+            directionsService.route(request2, function(result, status)
+            {
+                
+                {
+                    if(status == 'OK')
+                {
+                  
+                   var totalDist = 0;
+                    var totalTime = 0;
+                    var myroute = result.routes[0];
+                    for (i = 0; i < myroute.legs.length; i++) {
+                    totalDist += myroute.legs[i].distance.value;
+                    totalTime += myroute.legs[i].duration.value;
+                    totalDist = totalDist / 1000;
+                    }
+                    
+                    document.getElementById("drive").innerHTML = "<div class='col'> <div class='card'><div class='card-header'>Travel Mode: Driving <i class='fas fa-car'></i></div><div class='card-body'><div card='card-text'>Distance: " + totalDist + " km<br>Travel Time: " + (totalTime / 60).toFixed(2) + " minutes</p></div></div></div></div></div>";
+                }
+                }
+               
+            });
+
+           
+            
+    }
+
+    // for location saved
     function calculateRoute()
     {
+
             var request =
             {
                 origin:
                 {
                     lat: {{$profiles->lat}}, 
-                    lng: {{$profiles->lng}},
+                    lng:{{$profiles->lng}},
                 },
                 
                 destination:
@@ -209,6 +319,7 @@
                     totalTime += myroute.legs[i].duration.value;
                     totalDist = totalDist / 1000;
                     }
+                    document.getElementById("type").innerHTML = "<h3>From Your Saved Location</h3>";
                     document.getElementById("walk").innerHTML = "<div class='card'><div class='card-header'>Travel Mode: Walking <i class='fas fa-walking'></i></div><div class='card-body'><div card='card-text'>Distance: " + totalDist + " km<br>Travel Time: " + (totalTime / 60).toFixed(2) + " minutes</p></div></div></div>";
                     return console.log()
                 }
@@ -244,6 +355,11 @@
                 {
                 calculateRoute();       
                 }
+
+
+                
+        
     
     </script>
+
 @endsection

@@ -249,7 +249,7 @@
                                 lng: result.coords.longitude // GEOLOCATION RESULT LONGITUDE
                             },
                             map: map,
-                            draggable: true // GOOGLE MAP WHERE THE MARKER IS TO BE ADDED
+                            draggable: false // GOOGLE MAP WHERE THE MARKER IS TO BE ADDED
                         });
 
                         //Initial entry
