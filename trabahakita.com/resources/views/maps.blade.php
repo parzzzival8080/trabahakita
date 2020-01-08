@@ -45,6 +45,8 @@
                         
                         <button class="btn btn-primary"><a href="/post/show/{{$posts->id}}" style="color:white">Check it Out</a></button>
                         <button class="btn btn-info" id="{{$locate['id']}}">Get Direction</button>
+
+                        <input type="text" id="company_id" value="{{$posts->company_id}}">
                         
                 </div>
             </div>  
@@ -73,7 +75,7 @@
                            <h6 class="text-muted" id="{{$posts->company_id}}1"></h6>
                            <h6 class="text-muted" id="{{$posts->company_id}}2"></h6>
 
-                           {{$locate['id']}}
+                           
                             </div>
                             <div class="card-footer">
                                     <h3>Description:</h3>
@@ -81,7 +83,11 @@
                                         {{$posts->description}}
                                     </h6>
                                     <button class="btn btn-primary"><a href="/post/show/{{$posts->id}}" style="color:white">Check it Out</a></button>
-                                <button class="btn btn-info" id="{{$posts->company_id}}">Get Direction</button>
+                                <button class="btn btn-info" id="get">Get Direction</button>
+
+                                <input type="text" id="company_id" name="company_id" value="{{$posts->company_id}}">
+
+                               
                                
                             </div>
                         </div>  
@@ -196,6 +202,7 @@
                                         map: map,
                                         label: '{{$a['name']}}',
                                         title: '{{$a['name']}}',
+                                        
                                        
                                         draggable: false // GOOGLE MAP WHERE THE MARKER IS TO BE ADDED
                                         
@@ -265,7 +272,7 @@
                     totalTime += myroute.legs[i].duration.value;
                     totalDist = totalDist / 1000;
                     }
-                    document.getElementById('{{$a['id']}}' + '1').innerHTML = "Travel Mode:Walking<br>Distance: " + totalDist + " km<br>Travel Time: " + (totalTime / 60).toFixed(2) + " minutes</p>";
+                    document.getElementById('{{$a['id']}}1').innerHTML = "Travel Mode:Walking<br>Distance: " + totalDist + " km<br>Travel Time: " + (totalTime / 60).toFixed(2) + " minutes</p>";
                     
                 }
                 }
@@ -287,7 +294,7 @@
                     totalTime += myroute.legs[i].duration.value;
                     totalDist = totalDist / 1000;
                     }
-                    document.getElementById('{{$a['id']}}' + '2').innerHTML = "Travel Mode:Driving<br>Distance: " + totalDist + " <br>Travel Time: " + (totalTime / 60).toFixed(2) + " minutes";
+                    document.getElementById('{{$a['id']}}2').innerHTML = "Travel Mode:Driving<br>Distance: " + totalDist + " <br>Travel Time: " + (totalTime / 60).toFixed(2) + " minutes";
                 }
                 }
                
@@ -299,8 +306,7 @@
 
        
         
-        document.getElementById('{{$a['id']}}').onclick = function()
-       
+        document.getElementById('get').onclick = function()
         {
             calculateRoute();     
         }
