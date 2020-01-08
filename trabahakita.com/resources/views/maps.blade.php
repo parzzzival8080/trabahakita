@@ -83,10 +83,9 @@
                                         {{$posts->description}}
                                     </h6>
                                     <button class="btn btn-primary"><a href="/post/show/{{$posts->id}}" style="color:white">Check it Out</a></button>
-                                <button class="btn btn-info" id="get">Get Direction</button>
+                                <button class="btn btn-info" id="get{{$posts->company_id}}">Get Direction</button>
 
-                                <input type="text" id="company_id" name="company_id" value="{{$posts->company_id}}">
-
+                             
                                
                                
                             </div>
@@ -306,7 +305,7 @@
 
        
         
-        document.getElementById('get').onclick = function()
+        document.getElementById('get' + '{{$a['id']}}').onclick = function()
         {
             calculateRoute();     
         }
