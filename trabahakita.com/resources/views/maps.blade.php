@@ -83,7 +83,7 @@
                                         {{$posts->description}}
                                     </h6>
                                     <button class="btn btn-primary"><a href="/post/show/{{$posts->id}}" style="color:white">Check it Out</a></button>
-                                    <button class="btn btn-info" id="get{{$posts->company_id}}">Get Direction</button>
+                                    <button class="btn btn-info" id="{{$posts->company_id}}">Get Direction</button>
 
                                     <input type="text" id="company_name" value="{{$locate['name']}}" hidden>
                                 <input type="text" id="company_id" value="{{$posts->company_id}}" hidden>
@@ -340,7 +340,7 @@
 
        
         
-        document.getElementById('get{{$b['id']}}').onclick = function()
+        document.getElementById("{{$b['id']}}").onclick = function()
         {
             calculateRoute();     
         }
