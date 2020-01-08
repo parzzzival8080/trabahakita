@@ -27,7 +27,7 @@
                                         </div>
                                     @endif
                                     <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                                        <input type="file" name="image_name" class="form-control" id="name" value="" required>
+                                        <input type="file" name="image_name" class="form-control" id="name" value="">
                                         @if($errors->has('image_name'))
                                             <span class="help-block">{{ $errors->first('image_name') }}</span>
                                         @endif
@@ -54,7 +54,7 @@
                                              </div>
                                              <div class="col">
                                                   <label for="extname">Extension Name*</label>
-                                                  <input type="text" name="ext_name" class="form-control" placeholder="Extension Name" value="{{$profile->ext_name}}" required>
+                                                  <input type="text" name="ext_name" class="form-control" placeholder="Extension Name" value="{{$profile->ext_name}}" >
                                              </div>
                                  </div>
                                  <div class="row my-3">
@@ -96,7 +96,7 @@
                         </div>
                         <div class="row my-3">
                                 <label for="desc">Address*</label>
-                                <input type="text" name="address" class="form-control" id="searchmap" placeholder="Permanent Address" required value="{{$profile->adress}}">
+                                <input type="text" name="address" class="form-control" id="searchmap" placeholder="Permanent Address" required value="{{$profile->adress}}" required>
                         <input  name="lat" id="lat" value="{{$profile->lat}}"  hidden>
                                 <input  name="lng" id="lng" value="{{$profile->lng}}" hidden>
                                
