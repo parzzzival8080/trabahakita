@@ -89,6 +89,7 @@
                                 <input type="text" id="company_id" value="{{$posts->company_id}}" hidden>
                                 <input type="number" id="lat" value="{{$locate['lat']}}" hidden>
                                 <input type="number" id="lng" value="{{$locate['lng']}}" hidden>
+                                {{-- <button onclick="getthis()">Get</button> --}}
                             </div>
                         </div>  
                     </div>
@@ -136,8 +137,7 @@
 
 
    
-    lat: {{$user->lat}}, 
-            lng: {{$user->lng}}
+    
 
 <script>
    
@@ -185,7 +185,31 @@
     var clat = {{$user->lat}};
     var clng = {{$user->lng}};
 
+         
+
+    //  document.getElementById('get').onclick = function()
+    //     {
+        
+         
+    //         console.log(id);
+    //     }
+    var comlat = parseFloat(document.getElementById('lat').value);
+            var comlng = parseFloat(document.getElementById('lng').value);
+            var company_id = document.getElementById('company_id').value;
+
     
+        
+       
+           
+        
+
+    
+     
+
+
+    
+
+
 
   
     
@@ -225,9 +249,11 @@
                                                                 
                                                             
        
-                
-      
-            function calculateRoute()
+       @foreach($locations as $b)
+       {
+            @if($b['id'] == $a['id'])
+            {
+                function calculateRoute()
         {
             var request = 
             {
@@ -239,8 +265,8 @@
                 
                 destination:
                 {
-                    lat:{{$a['lat']}}, 
-                    lng:{{$a['lng']}}
+                    lat:{{$b['lat']}}, 
+                    lng:{{$b['lng']}}
                 },
 
               
@@ -259,8 +285,8 @@
                 },
                 destination:
                 {
-                    lat:{{$a['lat']}}, 
-                    lng:{{$a['lng']}}
+                    lat:{{$b['lat']}}, 
+                    lng:{{$b['lng']}}
                 },
                 travelMode:'DRIVING',
             };
@@ -280,7 +306,7 @@
                     totalTime += myroute.legs[i].duration.value;
                     totalDist = totalDist / 1000;
                     }
-                    document.getElementById('{{$a['id']}}1').innerHTML = "Travel Mode:Walking<br>Distance: " + totalDist + " km<br>Travel Time: " + (totalTime / 60).toFixed(2) + " minutes</p>";
+                    document.getElementById('{{$b['id']}}1').innerHTML = "Travel Mode:Walking<br>Distance: " + totalDist + " km<br>Travel Time: " + (totalTime / 60).toFixed(2) + " minutes</p>";
                     
                 }
                 }
@@ -302,7 +328,7 @@
                     totalTime += myroute.legs[i].duration.value;
                     totalDist = totalDist / 1000;
                     }
-                    document.getElementById('{{$a['id']}}2').innerHTML = "Travel Mode:Driving<br>Distance: " + totalDist + " <br>Travel Time: " + (totalTime / 60).toFixed(2) + " minutes";
+                    document.getElementById('{{$b['id']}}2').innerHTML = "Travel Mode:Driving<br>Distance: " + totalDist + " <br>Travel Time: " + (totalTime / 60).toFixed(2) + " minutes";
                 }
                 }
                
@@ -314,10 +340,14 @@
 
        
         
-        document.getElementById('get{{$a['id']}}').onclick = function()
+        document.getElementById('get{{$b['id']}}').onclick = function()
         {
             calculateRoute();     
         }
+            }@endif
+       }@endforeach    
+      
+            
 
      
        

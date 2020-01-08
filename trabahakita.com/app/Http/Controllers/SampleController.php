@@ -51,8 +51,10 @@ class SampleController extends Controller
             }
         }
         $locations = collect($locations);
+        $company = Profile::where(['type' => 'company']);
 
-        return view('maps')->with(['notifcount' => $notifcount, 'locations' => $locations, 'user' => $user, 'post' => $post]);
+
+        return view('maps')->with(['notifcount' => $notifcount, 'locations' => $locations, 'user' => $user, 'post' => $post, 'company' => $company]);
     }
     public function index()
     {
@@ -94,8 +96,9 @@ class SampleController extends Controller
 
                 $locations = collect($locations);
                 $post = Post::all();
+                $company = Profile::where(['type' => 'company']);
 
-                return view('sample')->with(['notifcount' => $notifcount, 'locations' => $locations, 'user' => $user, 'post' => $post]);
+                return view('sample')->with(['notifcount' => $notifcount, 'locations' => $locations, 'user' => $user, 'post' => $post, 'company' => $company]);
             } elseif (auth()->user()->type == 'company') {
                 $user_detail = Profile::where('id', auth()->user()->id)->select('lat', 'lng')->get();
                 foreach ($user_detail as $user)
@@ -131,12 +134,13 @@ class SampleController extends Controller
                 }
 
                 $locations = collect($locations);
+                $company = Profile::where(['type' => 'company']);
                 $skills = Skills::all();
                 $notifcount = Notification::where(['company_id' => auth()->user()->id, 'type' => 'company', 'message_status' => '0']);
                 return view('employeemap')->with(['notifcount' => $notifcount, 'locations' => $locations, 'user' => $user, 'skills' => $skills]);
             } else {
                 $post = Post::all();
-                $notifcount = Notification::where(['company_id' => auth()->user()->id, 'type' => 'company', 'message_status' => '0']);
+                $notifcount = Notification::where(['company_id' => auth()->user()->id, 'type' => 'company', 'message_status' => '0', 'company' => $company]);
                 return view('home')->with(['notifcount' => $notifcount, 'post' => $post]);
             }
         } else {
