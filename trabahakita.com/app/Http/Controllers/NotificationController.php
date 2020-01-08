@@ -25,19 +25,13 @@ class NotificationController extends Controller
     public function index()
     {
         //
-        
-        if (auth()->check())
-        {
-            $profile = Profile::find(auth()->user()->id);
-            if($profile->status_update == '' || $profile->status_update == '0')
-            {
-                return redirect()->to('employee/profile');
-            }
 
-            elseif($profile->status_update == '1')
-            {
-                if(auth()->user()->type == 'employee')
-                {
+        if (auth()->check()) {
+            $profile = Profile::find(auth()->user()->id);
+            if ($profile->status_update == '' || $profile->status_update == '0') {
+                return redirect()->to('employee/profile');
+            } elseif ($profile->status_update == '1') {
+                if (auth()->user()->type == 'employee') {
                     $profile = Profile::find(auth()->user()->id);
                     $notifcount = Notification::where(['user_id' => auth()->user()->id, 'type' => 'employee', 'message_status' => '0']);
                     $notification = Notification::where(['user_id' => auth()->user()->id])->orderBy('created_at', 'desc')->get();
@@ -45,54 +39,43 @@ class NotificationController extends Controller
                     $Experience  = Experience::where(['user_id' => auth()->user()->id])->get();
                     $Skills  = Skills::where(['user_id' => auth()->user()->id])->get();
                     $comments = Comments::where(['user_id' => auth()->user()->id])->get();
-                   $post = Post::all();
-                    return view('Notification.notifications')->with(['post' => $post,'notification' => $notification, 'notifcount' => $notifcount, 'profile' => $profile, 'education' => $education, 'experience' => $Experience, 'skills' => $Skills,$notifcount, 'comments' => $comments]);    
-                }
-                else{
+                    $post = Post::all();
+                    return view('Notification.notifications')->with(['post' => $post, 'notification' => $notification, 'notifcount' => $notifcount, 'profile' => $profile, 'education' => $education, 'experience' => $Experience, 'skills' => $Skills, $notifcount, 'comments' => $comments]);
+                } else {
                     $notifcount = Notification::where(['company_id' => auth()->user()->id, 'type' => 'company', 'message_status' => '0']);
                     $notification = Notification::all();
                     $comments = Comments::all();
                     $posts = Post::all();
-                  
-                    return view('Notification.notifications')->with(['notification' => $notification, 'notifcount' => $notifcount, 'comments' => $comments, 'post' => $posts]);  
+
+                    return view('Notification.notifications')->with(['notification' => $notification, 'notifcount' => $notifcount, 'comments' => $comments, 'post' => $posts]);
                 }
             }
         }
-        
-     
-        
     }
 
     public function index2()
     {
-        if (auth()->check())
-        {
+        if (auth()->check()) {
             $profile = Profile::find(auth()->user()->id);
-            if($profile->status_update == '' || $profile->status_update == '0')
-            {
+            if ($profile->status_update == '' || $profile->status_update == '0') {
                 return redirect()->to('employee/profile');
-            }
-
-            elseif($profile->status_update == '1')
-            {
-                if(auth()->user()->type == 'employee')
-                {
+            } elseif ($profile->status_update == '1') {
+                if (auth()->user()->type == 'employee') {
                     $profile = Profile::find(auth()->user()->id);
                     $notifcount = Notification::where(['user_id' => auth()->user()->id, 'type' => 'employee', 'message_status' => '0']);
                     $notification = Notification::where(['user_id' => auth()->user()->id])->orderBy('created_at', 'desc')->take(5)->get();
                     $education  = Education::where(['user_id' => auth()->user()->id])->get();
                     $Experience  = Experience::where(['user_id' => auth()->user()->id])->get();
                     $Skills  = Skills::where(['user_id' => auth()->user()->id])->get();
-                    $hire = Hire::where(['user_id' => auth()->user()->id])->orderBy('created_at','desc')->get();
+                    $hire = Hire::where(['user_id' => auth()->user()->id])->orderBy('created_at', 'desc')->get();
                     $posts = Post::all();
-                    return view('seekerprofile')->with(['post' => $posts, 'notification' => $notification, 'hire' => $hire, 'notifcount' => $notifcount, 'profile' => $profile, 'education' => $education, 'experience' => $Experience, 'skills' => $Skills]);    
-                }
-                else{
+                    return view('seekerprofile')->with(['post' => $posts, 'notification' => $notification, 'hire' => $hire, 'notifcount' => $notifcount, 'profile' => $profile, 'education' => $education, 'experience' => $Experience, 'skills' => $Skills]);
+                } else {
                     $notifcount = Notification::where(['company_id' => auth()->user()->id, 'type' => 'company', 'message_status' => '0']);
                     $notification = Notification::where(['company_id' => auth()->user()->id]);
                     $comments = Comments::all();
                     $post = Post::all();
-                    return view('Notification.notifications')->with(['notification' => $notification, 'notifcount' => $notifcount, 'comments' => $comments, 'post' => $post]);  
+                    return view('Notification.notifications')->with(['notification' => $notification, 'notifcount' => $notifcount, 'comments' => $comments, 'post' => $post]);
                 }
             }
         }
@@ -125,7 +108,7 @@ class NotificationController extends Controller
      * @param  \App\Notification  $notification
      * @return \Illuminate\Http\Response
      */
-   
+
 
     public function show($id)
     {
@@ -134,16 +117,13 @@ class NotificationController extends Controller
         $appointment = Appointment::find($notification->app_id);
         $notification->message_status = '1';
         $notification->save();
-          if(auth()->user()->type == 'employee')
-        {
+        if (auth()->user()->type == 'employee') {
             $notifcount = Notification::where(['user_id' => auth()->user()->id, 'type' => 'employee', 'message_status' => '0']);
-            return view('Notification.show')->with(['notification' => $notification, 'notifcount' => $notifcount, 'appointment' => $appointment]);    
-        }
-        else{
+            return view('Notification.show')->with(['notification' => $notification, 'notifcount' => $notifcount, 'appointment' => $appointment]);
+        } else {
             $notifcount = Notification::where(['company_id' => auth()->user()->id, 'type' => 'company', 'message_status' => '0']);
-        return view('Notification.show')->with(['notification' => $notification, 'notifcount' => $notifcount, 'appointment' => $appointment]);  
+            return view('Notification.show')->with(['notification' => $notification, 'notifcount' => $notifcount, 'appointment' => $appointment]);
         }
-       
     }
 
     public function pdf()
@@ -151,19 +131,19 @@ class NotificationController extends Controller
         $appointment = Appointment::find(request('app_id'));
         $pdf = App::make('dompdf.wrapper');
         $pdf->loadhtml(
-            '<p>Dear '.$appointment->user_name.'</p><br>'.
-            '<p>Thank you for applying for the position of'. $appointment->user_name .'in our company. '.
-            'We would like to invite you for an interview in our office this coming '.$appointment->date.
-            ' at '.$appointment->time.'.</p><br>'.
-            '<p>Sincerely yours,</p>'.
-            '<p>'.$appointment->user_name.'</p>'.
-            '_____________________________'.
-            '<p>'.$appointment->user_name.'</p>'.
-            '<p>Contact Person</p>'.
-            '<p>'.$appointment->company_name.'</p>'.
-            '<p>address</p>'.
-            '<p>number</p>'.
-            '<p>email</p>'
+            '<p>Dear ' . $appointment->user_name . '</p><br>' .
+                '<p>Thank you for applying for the position of' . $appointment->user_name . 'in our company. ' .
+                'We would like to invite you for an interview in our office this coming ' . $appointment->date .
+                ' at ' . $appointment->time . '.</p><br>' .
+                '<p>Sincerely yours,</p>' .
+                '<p>' . $appointment->user_name . '</p>' .
+                '_____________________________' .
+                '<p>' . $appointment->user_name . '</p>' .
+                '<p>Contact Person</p>' .
+                '<p>' . $appointment->company_name . '</p>' .
+                '<p>address</p>' .
+                '<p>number</p>' .
+                '<p>email</p>'
         );
         return $pdf->stream();
     }
@@ -190,7 +170,6 @@ class NotificationController extends Controller
      */
     public function update()
     {
-
     }
 
     /**
@@ -203,6 +182,4 @@ class NotificationController extends Controller
     {
         //
     }
-
-   
 }

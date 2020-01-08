@@ -23,6 +23,7 @@
     <div class="card" style="margin-top:10px">
             <div class="card-body">
               <div class="card-header">
+               
                     <h3>{{$posts->Title}}</h3>
                     <h6 class="card-subtitle mb-2 text-muted"><a href="/company/profile/{{$posts->company_id}}" class="text-muted">{{$posts->company_name}}</a></h6>
               </div>
@@ -41,8 +42,10 @@
                         <h6>
                             {{$posts->description}}
                         </h6>
+                        
                         <button class="btn btn-primary"><a href="/post/show/{{$posts->id}}" style="color:white">Check it Out</a></button>
                         <button class="btn btn-info" id="{{$locate['id']}}">Get Direction</button>
+                        
                 </div>
             </div>  
         </div>
@@ -67,8 +70,10 @@
                            <h6 class="text-muted">Location:{{$locate['adress']}}</h6>
                           
                           
-                           <h6 class="text-muted" id="{{$locate['id']}}1"></h6>
-                           <h6 class="text-muted" id="{{$locate['id']}}2"></h6>
+                           <h6 class="text-muted" id="{{$posts->company_id}}1"></h6>
+                           <h6 class="text-muted" id="{{$posts->company_id}}2"></h6>
+
+                           {{$locate['id']}}
                             </div>
                             <div class="card-footer">
                                     <h3>Description:</h3>
@@ -76,7 +81,8 @@
                                         {{$posts->description}}
                                     </h6>
                                     <button class="btn btn-primary"><a href="/post/show/{{$posts->id}}" style="color:white">Check it Out</a></button>
-                                <button class="btn btn-info" id="{{$locate['id']}}">Get Direction</button>
+                                <button class="btn btn-info" id="{{$posts->company_id}}">Get Direction</button>
+                               
                             </div>
                         </div>  
                     </div>
