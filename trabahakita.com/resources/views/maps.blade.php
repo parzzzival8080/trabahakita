@@ -83,11 +83,12 @@
                                         {{$posts->description}}
                                     </h6>
                                     <button class="btn btn-primary"><a href="/post/show/{{$posts->id}}" style="color:white">Check it Out</a></button>
-                                <button class="btn btn-info" id="get{{$posts->company_id}}">Get Direction</button>
+                                    <button class="btn btn-info" id="get{{$posts->company_id}}">Get Direction</button>
 
-                             
-                               
-                               
+                                    <input type="text" id="company_name" value="{{$locate['name']}}" hidden>
+                                <input type="text" id="company_id" value="{{$posts->company_id}}" hidden>
+                                <input type="number" id="lat" value="{{$locate['lat']}}" hidden>
+                                <input type="number" id="lng" value="{{$locate['lng']}}" hidden>
                             </div>
                         </div>  
                     </div>
@@ -165,7 +166,7 @@
 
             map: map,
             icon: {
-                url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png",
+                url: "https://maps.google.com/mapfiles/ms/icons/blue-dot.png",
             },
             draggable: false
         }
@@ -184,6 +185,11 @@
     var clat = {{$user->lat}};
     var clng = {{$user->lng}};
 
+    
+
+  
+    
+
         @foreach($locations as $a)
         {
             @if($a['lat'] == '' || $a['lng'] == '')
@@ -191,6 +197,8 @@
 
         }
         @else
+
+      
                             {
                                
                                     marker = new google.maps.Marker({
@@ -214,11 +222,12 @@
                                        
                               
                                                                 });
+                                                                
                                                             
        
-
-                          
-        function calculateRoute()
+                
+      
+            function calculateRoute()
         {
             var request = 
             {
@@ -309,6 +318,10 @@
         {
             calculateRoute();     
         }
+
+     
+       
+       
    
 }
 @endif
