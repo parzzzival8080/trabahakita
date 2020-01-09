@@ -13,88 +13,156 @@
     
     @if(auth()->user()->type == 'employee')
     @if(count($locations) > 0 )
-    @foreach($locations as $locate)
-    @if(round($locate['distance']/1000, 1) < 5 )    
+    @php
 
+        // $result = DB::table('profile')->where(['id' => auth()->user->id])->select('area')->get();
+
+        // if($result->area == )
+        // {
+        //     echo '<h3>These are the nearest job posts we got for you</h3>';
+        // }
+        // else {
+        //     echo '<h3>There are no matching jobs for your field this time...</h3>';
+        // }
+    @endphp
+    <div class="row">
+    @foreach($locations as $locate)
+    @if(round($locate['distance']/1000, 1) < 5 )
     @if(count($post) > 0)
     @foreach($post as $posts)
     @if($posts->job_field == $user->area)
     @if($posts->company_id == $locate['id'])
-    <div class="card" style="margin-top:10px">
-            <div class="card-body">
-              <div class="card-header">
+    <div class="col-md-5 mt-5 mx-auto">
+        <div class="card">
+            <!-- Card image -->
+            <div class="view overlay">
+            @php
+                $image = DB::table('profiles')->where(['id' => $posts->company_id])->get();
+                if(count($image) > 0)
+                {
+                    foreach($image as $images)
+                {
+                    if($images->image == NULL)
+                    {
+                        echo '<img class="card-img-top" src="http://res.cloudinary.com/dntfm4ivf/image/upload/c_fit,h_554,w_554/whs7ihyxxa91889a6sot.png" alt="Card image cap">';
+                        
+                    }
+                    else 
+                        {
+                            echo '<img class="card-img-top" style="height:200px" src="'.$images->image.'" alt="Card image cap">';
+                        }
+                    
+                    
+                }
+                }
                
-                    <h3>{{$posts->Title}}</h3>
-                    <h6 class="card-subtitle mb-2 text-muted"><a href="/company/profile/{{$posts->company_id}}" class="text-muted">{{$posts->company_name}}</a></h6>
+               
+             
+              @endphp
+              <a>
+                <div class="mask rgba-white-slight"></div>
+              </a>
+            </div>
+          
+            <!-- Card content -->
+            <div class="card-body elegant-color white-text rounded-bottom">
+          
+              <!-- Social shares button -->
+             
+              <!-- Title -->
+              <h4 class="card-title">{{$posts->Title}}</h4>
+              <h6 class="card-subtitle mb-2 text-muted"><a href="/company/profile/{{$posts->company_id}}" class="text-muted">{{$posts->company_name}}</a></h6>
+              <hr class="hr-light">
+              <!-- Text -->
+              <h6 class="text-light">Type:{{$posts->job_type}}</h6>
+              <h6 class="text-light">Field:{{$posts->job_field}}</h6>
+              <h6 class="text-light">Needed:{{$posts->employee_num}}</h6>
+              <h6 class="text-light">Date Posted:{{$posts->created_at->toDateString()}}</h6>
+              <h6 class="text-light">Distance from you:{{ round($locate['distance']/1000, 1) }}Km </h6>
+              <!-- Link -->
+              <div class="d-flex justify-content-end">
+                <button class="btn" type="button"><a href="/company/profile/{{$posts->company_id}}" style="color:white"> Get Direction</a></button>
+                  <button class="btn" style="background-color:#e8505b"><a href="/post/show/{{$posts->id}}" style="color:white">View</a></button>
               </div>
-               <div class="card-text" style="margin:10px">
-                <h6 class="text-muted">Type:{{$posts->job_type}}</h6>
-                <h6 class="text-muted">Field:{{$posts->job_field}}</h6>
-                <h6 class="text-muted">Needed:{{$posts->employee_num}}</h6>
-                <h6 class="text-muted">Date Posted:{{$posts->created_at->toDateString()}}</h6>
-               <h6 class="text-muted">Location:{{$locate['adress']}}</h6>
-               <input type="text" value="{{$posts->company_id}}">
-               <h6 class="text-muted" id="{{$locate['id']}}1">{{$locate['id']}}</h6>
-               <h6 class="text-muted" id="{{$locate['id']}}2"></h6>
-                </div>
-                <div class="card-footer">
-                        <h3>Description:</h3>
-                        <h6>
-                            {{$posts->description}}
-                        </h6>
-                        
-                        <button class="btn btn-primary"><a href="/post/show/{{$posts->id}}" style="color:white">Check it Out</a></button>
-                        <button class="btn btn-info" id="{{$locate['id']}}">Get Direction</button>
-
-                        <input type="text" id="company_id" value="{{$posts->company_id}}">
-                        
-                </div>
-            </div>  
+          
+            </div>
+          
+          </div>
+       
+   
+          <!-- Card Dark -->
         </div>
         @endif
         @else
       
+
+        
         @if($posts->company_id == $locate['id'])
-       
-        <div class="container my-3">
+    <div class="col-md-5 mt-5 mx-auto">
+        <div class="card">
+            
+            <!-- Card image -->
+            <div class="view overlay">
+            @php
+                $image = DB::table('profiles')->where(['id' => $posts->company_id])->get();
+                if(count($image) > 0)
+                {
+                    foreach($image as $images)
+                {
+                    if($images->image == NULL)
+                    {
+                        echo '<img class="card-img-top" src="http://res.cloudinary.com/dntfm4ivf/image/upload/c_fit,h_554,w_554/whs7ihyxxa91889a6sot.png" alt="Card image cap">';
+                        
+                    }
+                    else 
+                        {
+                            echo '<img class="card-img-top" style="height:200px" src="'.$images->image.'" alt="Card image cap">';
+                        }
+                    
+                    
+                }
+                }
                
-                <div class="card my-3" style="margin-top:10px">
-                        <div class="card-body">
-                          <div class="card-header">
-                                <h3>{{$posts->Title}}</h3>
-                                <h6 class="card-subtitle mb-2 text-muted"><a href="/company/profile/{{$posts->company_id}}" class="text-muted">{{$posts->company_name}}</a></h6>
-                          </div>
-                           <div class="card-text" style="margin:10px">
-                            <h6 class="text-muted">Type:{{$posts->job_type}}</h6>
-                            <h6 class="text-muted">Field:{{$posts->job_field}}</h6>
-                            <h6 class="text-muted">Needed:{{$posts->employee_num}}</h6>
-                            <h6 class="text-muted">Date Posted:{{$posts->created_at->toDateString()}}</h6>
-                           <h6 class="text-muted">Location:{{$locate['adress']}}</h6>
-                          
-                          
-                           <h6 class="text-muted" id="{{$posts->company_id}}1"></h6>
-                           <h6 class="text-muted" id="{{$posts->company_id}}2"></h6>
-
-                           
-                            </div>
-                            <div class="card-footer">
-                                    <h3>Description:</h3>
-                                    <h6>
-                                        {{$posts->description}}
-                                    </h6>
-                                    <button class="btn btn-primary"><a href="/post/show/{{$posts->id}}" style="color:white">Check it Out</a></button>
-                                    <button class="btn btn-info" id="{{$posts->company_id}}">Get Direction</button>
-
-                                    <input type="text" id="company_name" value="{{$locate['name']}}" hidden>
-                                <input type="text" id="company_id" value="{{$posts->company_id}}" hidden>
-                                <input type="number" id="lat" value="{{$locate['lat']}}" hidden>
-                                <input type="number" id="lng" value="{{$locate['lng']}}" hidden>
-                                {{-- <button onclick="getthis()">Get</button> --}}
-                            </div>
-                        </div>  
-                    </div>
+               
+             
+              @endphp
+              <a>
+                <div class="mask rgba-white-slight"></div>
+              </a>
+            </div>
+          
+            <!-- Card content -->
+            <div class="card-body elegant-color white-text rounded-bottom">
+          
+              <!-- Social shares button -->
+             
+              <!-- Title -->
+              <h4 class="card-title">{{$posts->Title}}</h4>
+              <h6 class="card-subtitle mb-2 text-muted"><a href="/company/profile/{{$posts->company_id}}" class="text-muted">{{$posts->company_name}}</a></h6>
+              <hr class="hr-light">
+              <!-- Text -->
+              <h6 class="text-light">Type:{{$posts->job_type}}</h6>
+              <h6 class="text-light">Field:{{$posts->job_field}}</h6>
+              <h6 class="text-light">Needed:{{$posts->employee_num}}</h6>
+              <h6 class="text-light">Date Posted:{{$posts->created_at->toDateString()}}</h6>
+              <h6 class="text-light">Distance from you:({{ round($locate['distance']/1000, 1) }}Km)  
+                                                    {{$locate['distance']}}</h6>
+              <!-- Link -->
+              <div class="d-flex justify-content-end">
+                <button class="btn" type="button"><a href="/company/profile/{{$posts->company_id}}" style="color:white"> Get Direction</a></button>
+                <button class="btn" style="background-color:#e8505b"><a href="/post/show/{{$posts->id}}" style="color:white">View</a></button>
+            </div>
+          
+            </div>
+          
+          </div>
+          <!-- Card Dark -->
         </div>
+ 
+       
+      
         @endif
+    
        
 
     @endif
@@ -103,6 +171,7 @@
 
     @endif
     @endforeach
+    </div>
     @endif
     @elseif(auth()->user()->type == 'company')
     @if(count($locations) > 0 )
@@ -187,15 +256,7 @@
 
          
 
-    //  document.getElementById('get').onclick = function()
-    //     {
-        
-         
-    //         console.log(id);
-    //     }
-    var comlat = parseFloat(document.getElementById('lat').value);
-            var comlng = parseFloat(document.getElementById('lng').value);
-            var company_id = document.getElementById('company_id').value;
+
 
     
         
@@ -207,12 +268,7 @@
      
 
 
-    
 
-
-
-  
-    
 
         @foreach($locations as $a)
         {
@@ -231,13 +287,14 @@
                                             lng: {{$a['lng']}},
                                         },
                                         map: map,
+                                       
                                         label: '{{$a['name']}}',
                                         title: '{{$a['name']}}',
-                                        
-                                       
                                         draggable: false // GOOGLE MAP WHERE THE MARKER IS TO BE ADDED
+                                       
                                         
                                     });
+                                   
                                     
                                     // google.maps.event.addListener(marker, 'click', function() {window.location.href = 'http://www.facebook.com';});
                                     google.maps.event.addListener(marker, 'click', function() {
@@ -249,11 +306,8 @@
                                                                 
                                                             
        
-       @foreach($locations as $b)
-       {
-            @if($b['id'] == $a['id'])
-            {
-                function calculateRoute()
+     
+        function calculateRoute()
         {
             var request = 
             {
@@ -265,8 +319,8 @@
                 
                 destination:
                 {
-                    lat:{{$b['lat']}}, 
-                    lng:{{$b['lng']}}
+                    lat:{{$a['lat']}}, 
+                    lng:{{$a['lng']}}
                 },
 
               
@@ -285,8 +339,8 @@
                 },
                 destination:
                 {
-                    lat:{{$b['lat']}}, 
-                    lng:{{$b['lng']}}
+                    lat:{{$a['lat']}}, 
+                    lng:{{$a['lng']}}
                 },
                 travelMode:'DRIVING',
             };
@@ -306,7 +360,7 @@
                     totalTime += myroute.legs[i].duration.value;
                     totalDist = totalDist / 1000;
                     }
-                    document.getElementById('{{$b['id']}}1').innerHTML = "Travel Mode:Walking<br>Distance: " + totalDist + " km<br>Travel Time: " + (totalTime / 60).toFixed(2) + " minutes</p>";
+                    document.getElementById('{{$a['id']}}1').innerHTML = "Travel Mode:Walking<br>Distance: " + totalDist + " km<br>Travel Time: " + (totalTime / 60).toFixed(2) + " minutes</p>";
                     
                 }
                 }
@@ -328,7 +382,7 @@
                     totalTime += myroute.legs[i].duration.value;
                     totalDist = totalDist / 1000;
                     }
-                    document.getElementById('{{$b['id']}}2').innerHTML = "Travel Mode:Driving<br>Distance: " + totalDist + " <br>Travel Time: " + (totalTime / 60).toFixed(2) + " minutes";
+                    document.getElementById('{{$a['id']}}2').innerHTML = "Travel Mode:Driving<br>Distance: " + totalDist + " <br>Travel Time: " + (totalTime / 60).toFixed(2) + " minutes";
                 }
                 }
                
@@ -340,23 +394,15 @@
 
        
         
-        document.getElementById("{{$b['id']}}").onclick = function()
-        {
-            calculateRoute();     
-        }
-            }@endif
-       }@endforeach    
       
-            
-
-     
-       
-       
-   
 }
+
 @endif
         }
-       
+        document.getElementById("{{$a['id']}}").onclick = function()
+        {
+            calculateRoute();     
+        }  
         @endforeach
 
 

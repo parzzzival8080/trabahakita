@@ -170,7 +170,7 @@ Route::any('/company/search', function () {
     $notifcount = Notification::where(['company_id' => auth()->user()->id, 'type' => 'company', 'message_status' => '0']);
     $profile = Profile::where(['type' => 'employee'])->orderBy('id', 'desc')->get();
     $s = Input::get('search');
-    $search = Profile::where('last_name', 'LIKE', '%' . $s . '%')->orWhere('first_name', 'LIKE', '%' . $s . '%')->orWhere('title', 'LIKE', '%' . $s . '%')->get();
+    $search = Profile::where('area', 'LIKE', '%' . $s . '%')->get();
     return view('employee.profiles')->withDetails($search)->withQuery($s)->with(['profile' => $profile, 'notifcount' => $notifcount]);
 });
 

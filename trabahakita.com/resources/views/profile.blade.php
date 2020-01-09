@@ -11,7 +11,7 @@
                              <div class="col-4">
                                         <center>
                                             @if($profile->image == null)
-                                            <img  alt="" class="img-fluid" style="background:gray;width:200px;height:200px" src="http://res.cloudinary.com/dntfm4ivf/image/upload/c_fit,h_554,w_554/whs7ihyxxa91889a6sot.png">
+                                            <img  alt="" class="img-fluid" style="background:gray;width:200px;height:200px" src="https://res.cloudinary.com/dntfm4ivf/image/upload/c_fit,h_554,w_554/whs7ihyxxa91889a6sot.png">
                                             @else
                                             <img  alt="" class="img-fluid" style="background:gray;width:200px;height:200px" src="{{$profile->image}}">
                                             @endif
@@ -331,7 +331,7 @@
         var marker = new google.maps.Marker({
             position: myLatlng,
             map: map,
-            draggable: true
+            draggable: false
         });
 
         var searchBox = new google.maps.places.SearchBox(document.getElementById('searchmap'));

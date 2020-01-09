@@ -23,7 +23,7 @@ class SampleController extends Controller
     {
         $post = Post::all();
         $notifcount = Notification::where(['user_id' => auth()->user()->id, 'type' => 'employee', 'message_status' => '0']);
-        $user_detail = Profile::where('id', auth()->user()->id)->select('lat', 'lng')->get();
+        $user_detail = Profile::where('id', auth()->user()->id)->select('lat', 'lng', 'area')->get();
         foreach ($user_detail as $user) {
             $locations = [];
             $company = Profile::where('type', '=', 'company')->get();
@@ -64,7 +64,7 @@ class SampleController extends Controller
                 $notifcount = Notification::where(['user_id' => auth()->user()->id, 'type' => 'employee', 'message_status' => '0']);
 
                 // maps
-                $user_detail = Profile::where('id', auth()->user()->id)->select('lat', 'lng')->get();
+            $user_detail = Profile::where('id', auth()->user()->id)->select('lat', 'lng', 'area')->get();
                 foreach ($user_detail as $user)
 
                     $company = Profile::where('type', '=', 'company')->get();
@@ -100,7 +100,7 @@ class SampleController extends Controller
 
                 return view('sample')->with(['notifcount' => $notifcount, 'locations' => $locations, 'user' => $user, 'post' => $post, 'company' => $company]);
             } elseif (auth()->user()->type == 'company') {
-                $user_detail = Profile::where('id', auth()->user()->id)->select('lat', 'lng')->get();
+                $user_detail = Profile::where('id', auth()->user()->id)->select('lat', 'lng', 'area')->get();
                 foreach ($user_detail as $user)
 
                     $company = Profile::where('type', '=', 'employee')->get();
