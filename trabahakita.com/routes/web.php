@@ -174,6 +174,24 @@ Route::any('/company/search', function () {
     return view('employee.profiles')->withDetails($search)->withQuery($s)->with(['profile' => $profile, 'notifcount' => $notifcount]);
 });
 
+Route::any('/employee/search', function () {
+    $notifcount = Notification::where(['employee' => auth()->user()->id, 'type' => 'employee', 'message_status' => '0']);
+    $profile = Profile::where(['type' => 'company'])->orderBy('id', 'desc')->get();
+    $s = Input::get('search');
+    $post = Post::all();
+    $search = Profile::where('company_name', 'LIKE', '%' . $s . '%')->get();
+    return view('company.profiles')->withDetails($search)->withQuery($s)->with(['profile' => $profile, 'notifcount' => $notifcount, 'post' => $post]);
+});
+
+Route::any('/post/search', function () {
+    $notifcount = Notification::where(['user_id' => auth()->user()->id, 'type' => 'employee', 'message_status' => '0']);
+
+    $s = Input::get('search');
+    $post = Post::all();
+    $search = Post::where('company_name', 'LIKE', '%' . $s . '%')->orWhere('Title', 'LIKE', '%' . $s . '%')->orWhere('job_type', 'LIKE', '%' . $s . '%')->orWhere('job_field', 'LIKE', '%' . $s . '%')->orWhere('salary', 'LIKE', '%' . $s . '%')->get();
+    return view('posts.index')->withDetails($search)->withQuery($s)->with(['notifcount' => $notifcount, 'post' => $post]);
+});
+
 
 // Filter fields
 Route::get('/employee/category/ComputerandTechnology', 'FilterController@cat');

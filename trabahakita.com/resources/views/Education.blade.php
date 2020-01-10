@@ -329,13 +329,16 @@
                             <tbody>
                                     @if(count($skills) > 0)
                                     @foreach($skills as $skill)
+                                    @if($skill->user_id == auth()->user()->id)
                                 <tr>
                                    
                                 <th>{{$skill->desc}}</th>
                                 <td><button class="btn btn-md" style="background-color:#ed7777; color:white">Remove</button></td> 
                                    
                                    
+                               
                                 </tr>
+                                @endif
                                 @endforeach
                                 @else
                                 <tr> <th>Add your skills</th></tr>

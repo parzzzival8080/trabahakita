@@ -124,7 +124,7 @@
                                                                     <input name="viber" type="text" class="form-control" id="viber" placeholder="Viber" required>
                                                                 </div>
                                                                 <div class="col">
-                                                                    <input name="email" type="text" class="form-control" id="email" placeholder="Email" required>
+                                                                    <input name="email" type="text" class="form-control" id="email" placeholder="Email" value="{{auth()->user()->email}}" required>
                                                                 </div>
                                                                
                                                             </div>

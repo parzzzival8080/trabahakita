@@ -2,6 +2,107 @@
 @section('content')
 
         @if(auth()->user()->type == 'employee')
+
+        <div class="container" style="padding-top:20px;">
+            <h2 style="margin-top:10px;margin-bottom:10px;">Seeker Profiles</h2>
+            <form action="/post/search" method="POST" role="search">
+             {{ csrf_field() }}
+            <div class="row">
+                     <div class="col">
+                            <input type="text" name="search" class="form-control">
+                                       <button type="submit" class="btn btn-info" style="margin-top">SEARCH</button>
+                           </div>
+            </div>
+          
+                   
+                   
+            
+        
+             <div class="container" style="margin-top:20px;">
+                     @if(@isset($details))
+                             <h3>Search Results for "{{$query}}" </b> are :</h3>
+                             @if(count($details) > 0)
+                             <div class="row">
+                             @foreach($details as $posts)
+                             <div class="col-md-6 mt-5">
+                               
+                            
+
+                                
+                                    <div class="card">
+    
+                                        <!-- Card image -->
+                                        <div class="view overlay">
+                                        @php
+                                            $image = DB::table('profiles')->where(['id' => $posts->company_id])->get();
+                                            if(count($image) > 0)
+                                            {
+                                                foreach($image as $images)
+                                            {
+                                                if($images->image == NULL)
+                                                {
+                                                    echo '<img class="card-img-top" src="http://res.cloudinary.com/dntfm4ivf/image/upload/c_fit,h_554,w_554/whs7ihyxxa91889a6sot.png" alt="Card image cap">';
+                                                    
+                                                }
+                                                else 
+                                                    {
+                                                        echo '<img class="card-img-top" style="height:200px" src="'.$images->image.'" alt="Card image cap">';
+                                                    }
+                                                
+                                                
+                                            }
+                                            }
+                                           
+                                           
+                                         
+                                          @endphp
+                                          <a>
+                                            <div class="mask rgba-white-slight"></div>
+                                          </a>
+                                        </div>
+                                      
+                                        <!-- Card content -->
+                                        <div class="card-body elegant-color white-text rounded-bottom">
+                                      
+                                          <!-- Social shares button -->
+                                         
+                                          <!-- Title -->
+                                          <h4 class="card-title">{{$posts->Title}}</h4>
+                                          <hr class="hr-light">
+                                          <!-- Text -->
+                                          <h6 class="text-light">Type:{{$posts->job_type}}</h6>
+                                          <h6 class="text-light">Field:{{$posts->job_field}}</h6>
+                                          <h6 class="text-light">Needed:{{$posts->employee_num}}</h6>
+                                          <h6 class="text-light">Date Posted:{{$posts->created_at->toDateString()}}</h6>
+                                          <!-- Link -->
+                                          <div class="d-flex justify-content-end">
+                                            <button class="btn" style="background-color:#e8505b"><a href="/post/show/{{$posts->id}}" style="color:white">View</a></button>
+                                        </div>
+                                      
+                                        </div>
+                                      
+                                      </div>
+                                      <!-- Card Dark -->
+                                    </div>
+                                 
+                                     
+                                
+                                                             
+                             @endforeach
+                     </div>
+                             @else
+                             <h3 class="mt-3">There are no Individuals the same with the tag.</h3>
+                             @endif
+                             <h3 class="mt-3"> <strong>Other Seekers Searching for Jobs</strong> </h3>
+                             @else
+                            
+                     @endisset
+                     
+             </div>
+        </form>
+        </div>
+
+
         @if (count($post) > 0)
         <div class="container" style="padding:30px">
                 <h2>POSTS</h2>

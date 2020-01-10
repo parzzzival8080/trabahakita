@@ -83,7 +83,7 @@
                                         </div>
                                         <div class="col">
                                                 <label for="extname">Your Email*</label>
-                                                <input type="email" name="email" class="form-control" placeholder="johndoe@example.com" required value={{$profile->email}}>
+                                                <input type="email" name="email" class="form-control" placeholder="johndoe@example.com" required value={{auth()->user()->email}}>
                                         </div>
                                     </div>
                                    

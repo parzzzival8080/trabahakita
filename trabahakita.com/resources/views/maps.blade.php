@@ -50,14 +50,10 @@
                     else 
                         {
                             echo '<img class="card-img-top" style="height:200px" src="'.$images->image.'" alt="Card image cap">';
-                        }
-                    
-                    
+                        }                    
                 }
                 }
-               
-               
-             
+
               @endphp
               <a>
                 <div class="mask rgba-white-slight"></div>
