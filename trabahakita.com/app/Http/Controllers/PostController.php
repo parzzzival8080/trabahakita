@@ -75,6 +75,7 @@ class PostController extends Controller
                 $posts->company_id = auth()->user()->id;
                 $posts->employee_num = request('per_num');
                 $posts->description = request('description');
+                $posts->experience = request('experience');
                 $posts->save();
                 $post = Post::all();
                 return redirect()->to('/post')->with('post', $post);

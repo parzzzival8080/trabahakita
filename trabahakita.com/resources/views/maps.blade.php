@@ -4,7 +4,33 @@
     <div class="container my-3">
         <h4><strong>Find your Ideal Job</strong></h4>
     </div>
-    <div id="map" style="width:100%;height:700px" ></div>
+    <div class="container" style="padding-top:20px;">
+        <h2 style="margin-top:10px;margin-bottom:10px;">Search for your ideal job</h2>
+        <form action="/post/search" method="POST" role="search">
+         {{ csrf_field() }}
+        <div class="row">
+            <div class="col-md-8">
+                <input type="text" name="search" class="form-control" placeholder="Search here ...">
+            </div>
+                 <div class="col">
+
+                       <select class="form-control" name="filter" id="">
+                        <option value="Nearest">Nearest</option>
+                           <option value="Field">Field</option>
+                           <option value="Salary">Salary</option>
+                           <option value="Experience">Experience</option>
+                       </select>
+
+                       
+        </div>
+        </div>
+        <button class="btn btn-info" type="submit">Search</button>
+         <div class="container" style="margin-top:20px;">
+           
+         </div>
+    </form>
+    </div>
+    <div id="map" style="width:100%;height:400px" ></div>
     {{-- @foreach($locations as $loc)
 <button class="btn btn-info" id="{{$loc['id']}}">Show Direction</button>
 {{$loc['id']}}
@@ -25,7 +51,9 @@
         //     echo '<h3>There are no matching jobs for your field this time...</h3>';
         // }
     @endphp
+    <h3 class="text-muted mt-5">This are the nearest Job Posts on your Area</h3>
     <div class="row">
+   
     @foreach($locations as $locate)
     @if(round($locate['distance']/1000, 1) < 5 )
     @if(count($post) > 0)

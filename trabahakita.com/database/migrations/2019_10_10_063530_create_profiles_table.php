@@ -35,6 +35,8 @@ class CreateProfilesTable extends Migration
             $table->string('number')->nullable();
             $table->string('image')->nullable();
             $table->string('email')->nullable();
+            $table->string('expected_salary')->nullable();
+            $table->string('years_exp')->nullable();
             $table->string('status_edu')->default('0');
             $table->string('status_skills')->default('0');
             $table->timestamps();

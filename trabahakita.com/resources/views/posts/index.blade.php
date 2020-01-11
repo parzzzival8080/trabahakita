@@ -4,20 +4,20 @@
         @if(auth()->user()->type == 'employee')
 
         <div class="container" style="padding-top:20px;">
-            <h2 style="margin-top:10px;margin-bottom:10px;">Seeker Profiles</h2>
+            <h2 style="margin-top:10px;margin-bottom:10px;">Search for your ideal job</h2>
             <form action="/post/search" method="POST" role="search">
              {{ csrf_field() }}
             <div class="row">
                      <div class="col">
-                            <input type="text" name="search" class="form-control">
-                                       <button type="submit" class="btn btn-info" style="margin-top">SEARCH</button>
-                           </div>
+                           <select class="form-control" name="search" id="">
+                               <option value="">Nearest</option>
+                               <option value="">Field</option>
+                               <option value="">Salary</option>
+                               <option value="">Experience</option>
+                           </select>
+
+                           <button class="btn btn-info" type="submit">Search</button>
             </div>
-          
-                   
-                   
-            
-        
              <div class="container" style="margin-top:20px;">
                      @if(@isset($details))
                              <h3>Search Results for "{{$query}}" </b> are :</h3>
@@ -25,10 +25,6 @@
                              <div class="row">
                              @foreach($details as $posts)
                              <div class="col-md-6 mt-5">
-                               
-                            
-
-                                
                                     <div class="card">
     
                                         <!-- Card image -->
@@ -47,14 +43,9 @@
                                                 else 
                                                     {
                                                         echo '<img class="card-img-top" style="height:200px" src="'.$images->image.'" alt="Card image cap">';
-                                                    }
-                                                
-                                                
+                                                    }   
                                             }
-                                            }
-                                           
-                                           
-                                         
+                                            } 
                                           @endphp
                                           <a>
                                             <div class="mask rgba-white-slight"></div>
@@ -181,8 +172,22 @@
     <h1>there are no posts</h1>
     @endif
         @else
+
         <div class="container" style="padding-top:30px; padding-bottom:10px">
-                <h2>Your Company's Post</h2>
+            <div class="row">
+                <div class="col">
+                    <h2>Your Company's Post</h2>
+                </div>
+                <div class="col">
+                    <div class="d-flex justify-content-end">
+                        <button class="btn btn-success">
+                            <a href="/post/create" style="color:white"> Create Post</a>
+                        </button>
+                    </div>
+                   
+                </div>
+            </div>
+                
         </div>
       
         @if (count($post_company) > 0)

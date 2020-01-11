@@ -171,7 +171,7 @@ Route::any('/company/search', function () {
     $profile = Profile::where(['type' => 'employee'])->orderBy('id', 'desc')->get();
     $s = Input::get('search');
     $search = Profile::where('area', 'LIKE', '%' . $s . '%')->get();
-    return view('employee.profiles')->withDetails($search)->withQuery($s)->with(['profile' => $profile, 'notifcount' => $notifcount]);
+    return view('Employee.profiles')->withDetails($search)->withQuery($s)->with(['profile' => $profile, 'notifcount' => $notifcount]);
 });
 
 Route::any('/employee/search', function () {
@@ -185,11 +185,24 @@ Route::any('/employee/search', function () {
 
 Route::any('/post/search', function () {
     $notifcount = Notification::where(['user_id' => auth()->user()->id, 'type' => 'employee', 'message_status' => '0']);
-
     $s = Input::get('search');
     $post = Post::all();
-    $search = Post::where('company_name', 'LIKE', '%' . $s . '%')->orWhere('Title', 'LIKE', '%' . $s . '%')->orWhere('job_type', 'LIKE', '%' . $s . '%')->orWhere('job_field', 'LIKE', '%' . $s . '%')->orWhere('salary', 'LIKE', '%' . $s . '%')->get();
-    return view('posts.index')->withDetails($search)->withQuery($s)->with(['notifcount' => $notifcount, 'post' => $post]);
+    $filter = request('filter');
+
+    $profile = Profile::all();
+    $profiles = Profile::find(auth()->user()->id);
+    if (request('filter') == "Field") {
+        $search = Post::where(['job_field' => $profiles->area])->where('company_name', 'LIKE', '%' . $s . '%')->orwhere('Title', 'LIKE', '%' . $s . '%')->orwhere('job_type', 'LIKE', '%' . $s . '%')->get();
+        return view('postsearch')->withDetails($search)->withQuery($s)->with(['notifcount' => $notifcount, 'post' => $post, 'profile' => $profile, 'profiles' => $profiles, 'filter' => $filter]);
+    } elseif (request('filter') == "Salary") {
+        $search = Post::where('salary', 'LIKE', '%' . $s . '%')->orWhere('Title', 'LIKE', '%' . $s . '%')->orWhere('company_name', 'LIKE', '%' . $s . '%')->orWhere('job_type', 'LIKE', '%' . $s . '%')->orderBy('salary')->get();
+        return view('postsearch')->withDetails($search)->withQuery($s)->with(['notifcount' => $notifcount, 'post' => $post, 'profile' => $profile, 'profiles' => $profiles, 'filter' => $filter]);
+    } elseif (request('filter') == "Experience") {
+        $search = Post::where('experience', 'LIKE', '%' . $s . '%')->orWhere('Title', 'LIKE', '%' . $s . '%')->orWhere('company_name', 'LIKE', '%' . $s . '%')->orWhere('job_type', 'LIKE', '%' . $s . '%')->orderBy('experience')->get();
+        return view('postsearch')->withDetails($search)->withQuery($s)->with(['notifcount' => $notifcount, 'post' => $post, 'profile' => $profile, 'profiles' => $profiles, 'filter' => $filter]);
+    } elseif (request('filter') == "Nearest") {
+        return redirect()->to('/seeker/maps');
+    }
 });
 
 

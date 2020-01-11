@@ -54,7 +54,7 @@ class ProfileController extends Controller
                 $notifcount = Notification::where(['company_id' => auth()->user()->id, 'type' => 'company', 'message_status' => '0']);
                 $post = Post::orderBy('id', 'DESC')->get();
                 $hires = Hire::all();
-                return view('employee.profiles')->with(['profile' => $profile, 'notifcount' => $notifcount, 'post' => $post]);
+                return view('Employee.profiles')->with(['profile' => $profile, 'notifcount' => $notifcount, 'post' => $post]);
             }
         }
     }
@@ -124,25 +124,32 @@ class ProfileController extends Controller
         if (auth()->user()->type == 'employee') {
 
             $this->validate($request, [
-                'image_name' => 'required|mimes:jpeg,bmp,jpg,png|between:1, 6000',
+                'image_name' => 'mimes:jpeg,bmp,jpg,png|between:1, 6000',
             ]);
 
-            $image = $request->file('image_name');
-
-            $name = $request->file('image_name')->getClientOriginalName();
-
-            $image_name = $request->file('image_name')->getRealPath();;
-
-            Cloudder::upload($image_name, null);
-
-            list($width, $height) = getimagesize($image_name);
-
-            $image_url = Cloudder::getResult()['secure_url'];
 
 
+
+
+            if (request('image_name') == '') {
+                // $image = $request->file(auth()->user()->image);
+                // $name = $request->file(auth()->user()->image)->getClientOriginalName();
+                // $image_name = $request->file(auth()->user()->image)->getRealPath();;
+                // Cloudder::upload($image_name, null);
+                $image_url = auth()->user()->image;
+            } else {
+                $image = $request->file('image_name');
+                $name = $request->file('image_name')->getClientOriginalName();
+                $image_name = $request->file('image_name')->getRealPath();;
+                Cloudder::upload($image_name, null);
+                list($width, $height) = getimagesize($image_name);
+
+                $image_url = Cloudder::getResult()['secure_url'];
+                $this->saveImages($request, $image_url);
+            }
 
             //Save images
-            $this->saveImages($request, $image_url);
+
 
             $profile = Profile::find(auth()->user()->id);
             $profile->id = auth()->user()->id;
@@ -158,6 +165,8 @@ class ProfileController extends Controller
             $profile->area = request('field');
             $profile->image = $image_url;
             $profile->description = request('desc');
+            $profile->expected_salary = request('salary');
+            $profile->years_exp = request('exp');
             $profile->status_update = '1';
             $profile->save();
             $profiles = Profile::find(auth()->user()->id);
@@ -186,7 +195,7 @@ class ProfileController extends Controller
         } elseif (auth()->user()->type == 'company') {
 
             $this->validate($request, [
-                'image_name' => 'required|mimes:jpeg,bmp,jpg,png|between:1, 6000',
+                'image_name' => 'mimes:jpeg,bmp,jpg,png|between:1, 6000',
             ]);
 
             $image = $request->file('image_name');

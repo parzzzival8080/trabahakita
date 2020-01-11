@@ -60,6 +60,13 @@
                         </div>
                 </div>
                 <div class="form-group row">
+                    <label for="salary" class="col-sm-3 col-form-label">Experience Needed</label>
+                    <div class="col">
+                        <input name="experience" min="0" type="text" class="form-control" id="salary"
+                               placeholder="Format Example: 1 Year or more|" value="{{$post->experience}}"  required>
+                    </div>
+                </div>
+                <div class="form-group row">
                         <label for="desc" class="col-sm-3 col-form-label">DESCRIPTION</label>
                         <div class="col-sm-9">
                             <textarea name="description" type="text" class="form-control" id="desc" rows="5"

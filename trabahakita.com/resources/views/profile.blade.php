@@ -27,7 +27,7 @@
                                         </div>
                                     @endif
                                     <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                                        <input type="file" name="image_name" class="form-control" id="name" value="">
+                                        <input type="file" name="image_name" class="form-control" id="name" value="{{$profile->image}}">
                                         @if($errors->has('image_name'))
                                             <span class="help-block">{{ $errors->first('image_name') }}</span>
                                         @endif
@@ -75,6 +75,14 @@
                                                         <option value="Web, Mobile & Software Development">Web, Mobile & Software Development</option>
                                                       </select>
                                      </div>
+                                     <div class="col">
+                                        <label for="extname">Expected Salary*</label>
+                                         <input type="text" class="salary" class="form-control" placeholder="Ex: 20,000" >
+                                     </div>
+                                     <div class="col">
+                                        <label for="extname">Year's of Experience*</label>
+                                         <input type="text" class="exp" class="form-control" placeholder="Number of years" >
+                                     </div>
                                  </div>
                                  <div class="row my-3">
                                         <div class="col">
@@ -97,9 +105,8 @@
                         <div class="row my-3">
                                 <label for="desc">Address*</label>
                                 <input type="text" name="address" class="form-control" id="searchmap" placeholder="Permanent Address" required value="{{$profile->adress}}" required>
-                        <input  name="lat" id="lat" value="{{$profile->lat}}"  hidden>
-                                <input  name="lng" id="lng" value="{{$profile->lng}}" hidden>
-                               
+                                <input  name="lat" id="lat" value="{{$profile->lat}}"  hidden>
+                                <input  name="lng" id="lng" value="{{$profile->lng}}" hidden>  
                             </div>
                             {{-- <div class="row my-3"> --}}
                                     <div class="card">
@@ -217,9 +224,9 @@
             
     @endif
 
-    {{-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAwG2FvuLOl_rGjp4LHR6XSeLIG_ZjjJ0M&callback=initMap">
-    </script> --}}
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAwG2FvuLOl_rGjp4LHR6XSeLIG_ZjjJ0M&callback=initMap&libraries=places"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAwG2FvuLOl_rGjp4LHR6XSeLIG_ZjjJ0M&callback=initMap">
+    </script>
+    {{-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAwG2FvuLOl_rGjp4LHR6XSeLIG_ZjjJ0M&callback=initMap&libraries=places"></script> --}}
 <script type="text/javascript">
     var foo = {!! json_encode($profile->toArray())!!}
     console.log(foo.lat)

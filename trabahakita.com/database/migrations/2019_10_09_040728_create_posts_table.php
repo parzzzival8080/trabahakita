@@ -20,6 +20,7 @@ class CreatePostsTable extends Migration
             $table->string('Title');
             $table->string('job_type');
             $table->string('job_field');
+            $table->integer('experience')->nullable();
             $table->integer('employee_num');
             $table->integer('emp_hired')->default('0');
             $table->string('post_status')->default('0');

@@ -87,17 +87,17 @@
                                     <div class="row">
                                         <div class="col">
                                                 <label for="school">From</label>  
-                                            <input type="text" name="from-year" class="form-control" placeholder="Year Started">   
+                                            <input type="text" name="from-year" class="form-control" placeholder="Year Started" required>   
                                         </div>
                                         <div class="col">
                                                 <label for="school">To</label>  
-                                                <input type="text" name="to-year" class="form-control" placeholder="Year Ended">  
+                                                <input type="text" name="to-year" class="form-control" placeholder="Year Ended" required>  
                                         </div>    
                                     </div> 
                                     <div class="row">
                                         <div class="col">
                                                 <label for="attainment">Highest Attainment</label>    
-                                                <input type="text" name="attainment" class="form-control" placeholder="Note:if tertiary, indicate your course">  
+                                                <input type="text" name="attainment" class="form-control" placeholder="Note:if tertiary, indicate your course" required>   
                                         </div>
                                       
                                     </div>  

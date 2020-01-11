@@ -2,7 +2,7 @@
  
 @section('content')
  
-    <h2>CREATE YOUR POST</h2>
+    <h2 class="mt-5">CREATE YOUR POST</h2>
     <div class="card">
         <div class="container" style="padding:20px;">
             
@@ -45,7 +45,7 @@
                                 </div>
                             </div>
                         <div class="form-group row">
-                                <label for="person" class="col-sm-3 col-form-label">Number of Person</label>
+                                <label for="person" class="col-sm-3 col-form-label">People Needed</label>
                                 <div class="col-sm-9">
                                     <input name="per_num" type="text" class="form-control" id="person"
                                            placeholder="Input Number" required>
@@ -56,21 +56,29 @@
                             <label for="salary" class="col-sm-3 col-form-label">Tentative Salary</label>
                             <div class="col-sm-9">
                                 <input name="salary" type="text" class="form-control" id="salary"
-                                       placeholder="Tentative Salary" required>
+                                       placeholder="Ex: 20000" required>
                             </div>
                     </div>
+                    <div class="form-group row">
+                        <label for="salary" class="col-sm-3 col-form-label">Experience Needed</label>
+                        <div class="col">
+                            <input name="experience" min="0" type="text" class="form-control" id="salary"
+                                   placeholder="Format Example: 1 Year or more|"  required>
+                        </div>
+                        
+                </div>
                     <div class="form-group row">
                             <label for="desc" class="col-sm-3 col-form-label">DESCRIPTION</label>
                             <div class="col-sm-9">
                                 <textarea name="description" type="text" class="form-control" id="desc" rows="5"
                                        placeholder="DESCRIPTION" ></textarea>
                             </div>
-                    </div>
-                    
-                           
+                    </div> 
                     <div class="form-group row">
                         <div class="offset-sm-3 col-sm-9">
-                            <button type="submit" class="btn btn-primary">Post Job</button>
+                            <div class="d-flex justify-content-end">
+                                <button type="submit" class="btn btn-primary">Post Job</button>
+                            </div>
                         </div>
                     </div>
                 </div>

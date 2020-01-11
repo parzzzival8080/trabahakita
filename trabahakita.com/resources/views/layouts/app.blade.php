@@ -64,13 +64,13 @@
               @endif
              
               <li class="nav-item">
-              <a class="nav-link" href="/post">Job Posts</a>
+              {{-- <a class="nav-link" href="/post">Job Posts</a> --}}
               {{-- <span class="badge badge-primary badge-pill">{{$post->count()}}</span> --}}
             </li>
             @if(auth()->user()->type == 'company')
             <a class="nav-link" href="/company/profiles">Find Employee</a>
             @elseif(auth()->user()->type == 'employee')
-            <a class="nav-link" href="/company/profiles">Find Employer</a>
+            {{-- <a class="nav-link" href="/company/profiles">Find Employer</a> --}}
             <a class="nav-link" href="/seeker/profile">My Profile</a>
             @endif
             <a class="nav-link" href="/Notification">Notification<span class="badge badge-info badge-pill">{{$notifcount->count()}}</span>

@@ -245,7 +245,7 @@
     
 
 
-    <div class="row" style="margin-top:10px">
+    <div class="row mt-5" style="margin-top:10px">
             <div class="col-3">
               <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                     <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-create-post" role="tab" aria-controls="v-pills-home" aria-selected="true">CREATE YOUR POST</a>
@@ -333,6 +333,14 @@
                                                                            placeholder="Tentative Salary" required>
                                                                 </div>
                                                         </div>
+                                                        <div class="form-group row">
+                                                            <label for="salary" class="col-sm-3 col-form-label">Experience Needed</label>
+                                                            <div class="col">
+                                                                <input name="experience" min="0" type="text" class="form-control" id="salary"
+                                                                       placeholder="Format Example: 1 Year or more|"  required>
+                                                            </div>
+                                                            
+                                                    </div>
                                                         <div class="form-group row">
                                                                 <label for="desc" class="col-sm-3 col-form-label">DESCRIPTION</label>
                                                                 <div class="col-sm-9">
