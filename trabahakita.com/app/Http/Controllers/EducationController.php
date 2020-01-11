@@ -36,8 +36,6 @@ class EducationController extends Controller
 
     public function updateme(Request $request)
     {
-
-
         $education = Education::find(request('id'));
         $education->user_id = auth()->user()->id;
         $education->school = request('school');
