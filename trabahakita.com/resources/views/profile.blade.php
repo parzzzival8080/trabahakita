@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('content')
 <div class="container my-3">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAwG2FvuLOl_rGjp4LHR6XSeLIG_ZjjJ0M&libraries=places" type="text/javascript"></script>
     <h4><strong>Personal Information</strong></h4>
 </div>
     @if(auth()->user()->type == 'employee')
@@ -224,9 +225,10 @@
             
     @endif
 
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAwG2FvuLOl_rGjp4LHR6XSeLIG_ZjjJ0M&callback=initMap">
-    </script>
-    {{-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAwG2FvuLOl_rGjp4LHR6XSeLIG_ZjjJ0M&callback=initMap&libraries=places"></script> --}}
+
+   
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAwG2FvuLOl_rGjp4LHR6XSeLIG_ZjjJ0M&callback=initMap&libraries=places" type="text/javascript"></script>
+    {{-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAwG2FvuLOl_rGjp4LHR6XSeLIG_ZjjJ0M&libraries=places" type="text/javascript"></script> --}}
 <script type="text/javascript">
     var foo = {!! json_encode($profile->toArray())!!}
     console.log(foo.lat)
@@ -325,7 +327,8 @@
 
     }
     else{
-        function initMap() {
+        function initMap() 
+        {
         
         var myLatlng = new google.maps.LatLng(foo.lat, foo.lng);
         var mapOptions = {

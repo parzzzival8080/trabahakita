@@ -59,6 +59,13 @@ class EducationController extends Controller
         $education = Education::all();
         $skills = Skills::all();
         $category = Category::all();
-        return redirect()->to('/employee/profile')->with(['profile' => $profiles, 'education' => $education, 'skills' => $skills, 'category' => $category, 'success' => 'Successfully Updated']);
+        return redirect()->to('/employee/education')->with(['profile' => $profiles, 'education' => $education, 'skills' => $skills, 'category' => $category, 'success' => 'Successfully Updated']);
+    }
+
+    public function del()
+    {
+        $education = Education::find(request('edu_id'));
+        $education->delete();
+        return redirect()->to('/employee/education')->with('success', 'successfully removed');
     }
 }

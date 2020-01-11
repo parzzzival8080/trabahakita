@@ -13,42 +13,51 @@ class SkillsController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate(request(),
-        [
-           'skill' => 'required',
-           
-        ]);
+        $this->validate(
+            request(),
+            [
+                'skill' => 'required',
+
+            ]
+        );
 
         $skill = new Skills;
         $skill->user_id = auth()->user()->id;
-        $skill->desc = request('skill'); 
+        $skill->desc = request('skill');
         $skill->save();
 
         $profiles = Profile::find(auth()->user()->id);
         $education = Education::all();
         $skills = Skills::all();
         return redirect()->to('/employee/profile')->with(['profile' => $profiles, 'education' => $education, 'skills' => $skills]);
-        
     }
 
     public function update(Request $request)
     {
-        $this->validate(request(),
-        [
+        $this->validate(
+            request(),
+            [
 
-           'skill' => 'required',
-           
-        ]);
+                'skill' => 'required',
+
+            ]
+        );
 
         $skill = Skills::find(request('id'));
         $skill->user_id = auth()->user()->id;
-        $skill->desc = request('skill'); 
+        $skill->desc = request('skill');
         $skill->save();
 
         $profiles = Profile::find(auth()->user()->id);
         $education = Education::all();
         $skills = Skills::all();
         return redirect()->to('/employee/profile')->with(['profile' => $profiles, 'education' => $education, 'skills' => $skills]);
-        
+    }
+
+    public function del()
+    {
+        $education = Skills::find(request('exp_id'));
+        $education->delete();
+        return redirect()->to('/employee/education')->with('success', 'successfully removed');
     }
 }

@@ -104,4 +104,12 @@ class ExperienceController extends Controller
     {
         //
     }
+
+    public function del()
+    {
+        $exp = Experience::find(request('exp_id'));
+        $exp->delete();
+
+        return redirect()->to('/employee/education')->with('message', 'Successfully Removed!');
+    }
 }

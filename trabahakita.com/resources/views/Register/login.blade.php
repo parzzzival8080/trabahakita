@@ -37,12 +37,17 @@
                         </div>
                     </div>
         </div>
-        <div class="col">
-                <div class="align-self-center" style="margin-top:70px">
-                <img data-aos="fade-up" style="margin-left:70px" src="{{ Storage::url('/images/landing.png')  }}" alt="landing_picture">
-                </div>
+        <div class="col mx-auto">
+                
+                <img data-aos="fade-up" style="height:500px; width:700px" src="https://res.cloudinary.com/dntfm4ivf/image/upload/v1578729558/2landingpage_w5n42p.jpg" alt="landing_picture">
+                
+          
         </div>
     </div>
+    <div class="d-flex justify-content-center">
+        <h3  class="mx-auto" style="font-weight:300; color:grey">We give you a Free Job Fair, Everyday!</h3>
+    </div>
+   
       
 </div>
   

@@ -26,15 +26,18 @@
                                 <td>{{$exp->from}} - {{$exp->to}}</td>
                                 <td>{{$exp->attainment}}</td>
                                 <td>
-                                    <div class="row">
-                                        <div class="col-lg-3">
-                                            <button class="btn btn-md" style="background-color:#7791c9; color:white">Edit</button>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <button class="btn btn-md" style="background-color:#ed7777; color:white">Remove</button>
-                                        </div>
-                                    </div>
-                                   </td> 
+                                    <form action="/remove/school" method="post" enctype="multipart/form-data">
+                                        {{ csrf_field() }}
+                                        <td> <div class="row">
+                                            <div class="col-lg-2">
+                                            <input type="text" name="edu_id" value="{{$exp->id}}" hidden>
+                                                <button type="button" class="btn btn-md" style="background-color:#7791c9; color:white">Edit</button>
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <button type="submit" class="btn btn-md" style="background-color:#ed7777; color:white">Remove</button>
+                                            </div>
+                                        </div></td> 
+                                    </form>
                                   
                         </tr>
                         @endif
@@ -183,23 +186,30 @@
                 <tbody>
                         @if(count($experience) > 0)
                         @foreach($experience as $exp)
+                        @if($exp->user_id == auth()->user()->id)
                     <tr>
                         
                         <th scope="row">{{$exp->workplace}}</th>
                         <td>{{$exp->position}}</td>
                         <td>{{$exp->from}} - {{$exp->to}}</td>
-                        <td> <div class="row">
-                            <div class="col-lg-2">
-                                <button class="btn btn-md" style="background-color:#7791c9; color:white">Edit</button>
-                            </div>
-                            <div class="col-lg-2">
-                                <button class="btn btn-md" style="background-color:#ed7777; color:white">Remove</button>
-                            </div>
-                        </div></td> 
+                    <form action="/remove/work" method="post" enctype="multipart/form-data">
+                            {{ csrf_field() }}
+                            <td> <div class="row">
+                                <div class="col-lg-2">
+                                    <input type="text" name="exp_id" value="{{$exp->id}}" hidden>
+                                    <button type="button" class="btn btn-md" style="background-color:#7791c9; color:white">Edit</button>
+                                </div>
+                                <div class="col-lg-2">
+                                    <button type="submit" class="btn btn-md" style="background-color:#ed7777; color:white">Remove</button>
+                                </div>
+                            </div></td> 
+                        </form>
+                        
                        
                        
                       
                     </tr>
+                    @endif
                     @endforeach
                     @else
                     <tr>
@@ -333,7 +343,11 @@
                                 <tr>
                                    
                                 <th>{{$skill->desc}}</th>
+                                <form action="/remove/skill" method="post" enctype="multipart/form-data">
+                                {{ csrf_field() }}
+                                <input type="text" name="skill_id" value="{{$exp->id}}" hidden>
                                 <td><button class="btn btn-md" style="background-color:#ed7777; color:white">Remove</button></td> 
+                                </form>
                                    
                                    
                                
