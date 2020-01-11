@@ -25,18 +25,15 @@
                                 <td>{{$exp->level}}</td>
                                 <td>{{$exp->from}} - {{$exp->to}}</td>
                                 <td>{{$exp->attainment}}</td>
-                                <td>
+                                
                                     <form action="/remove/school" method="post" enctype="multipart/form-data">
                                         {{ csrf_field() }}
-                                        <td> <div class="row">
-                                            <div class="col-lg-2">
+                                        <td> 
                                             <input type="text" name="edu_id" value="{{$exp->id}}" hidden>
-                                                <button type="button" class="btn btn-md" style="background-color:#7791c9; color:white">Edit</button>
-                                            </div>
-                                            <div class="col-lg-2">
+                                            <button type="button" class="btn btn-md" style="background-color:#7791c9; color:white" data-toggle="modal" data-target="#educationmodaledit{{$exp->id}}">Edit</button>
+    
                                                 <button type="submit" class="btn btn-md" style="background-color:#ed7777; color:white">Remove</button>
-                                            </div>
-                                        </div></td> 
+                                            </td> 
                                     </form>
                                   
                         </tr>
@@ -134,36 +131,60 @@
                                     </button>
                                 </div>
                                     <div class="modal-body">
-                                        <form action="/profile/education/update" method="POST" enctype="multipart/form-data">
-                                                {{ csrf_field() }}
-                                            <input type="text" id="edu_id" name="id" value="{{$edu->id}}" hidden>
-                                        <div class="form-group row">
-                                            <label for="schoolid">School</label>
-                                            <input type="text" name="school" class="form-control" id="schoolid" placeholder="School Graduated" value="{{$edu->school}}"  required>
-                                            <div class="col-md-4 mb-3">
-                                                    <label for="fyear">From</label>
-                                                    <input type="text" name="from-year" class="form-control" id="year" placeholder="FROM(YEAR)" value="{{$edu->from}}"  required>
-                                                    </div>
-                                                    <div class="col-md-4 mb-3">
-                                                        <label for="tyear">To</label>
-                                                        <input type="text" name="to-year" class="form-control" id="year" placeholder="TO(YEAR)" value="{{$edu->to}}"  required>
-                                                        </div>
+                                  
+                                    <div class="row">
+                                        <div class="col">
+                                                <form action="/profile/education/update" method="POST" enctype="multipart/form-data">
+                                                    {{ csrf_field() }}
+                                            <label for="school">Name of your School</label>  
+                                                <input type="text" name="school" class="form-control" placeholder="School" value="{{$edu->school}}">  
+                                        </div>    
                                     </div>
-                                    <div class="form-group row">
+                                    <div class="row">
                                             <div class="col">
-                                                    <label for="degid">Degree</label>
-                                                    <input type="text" name="attainment" class="form-control" id="degid" placeholder="Degree Attained" value="{{$edu->attainment}}" required>
-                                                    </div>
-                                    </div>
+                                                    <label for="level">School Level</label>
+                                                    <select class="custom-select mr-sm-2" id="level" name="level" placeholder="Choose" required>
+                                                        <option value="{{$edu->level}}">{{$edu->level}}</option>
+                                                            <option   disabled >Choose</option>
+                                                                <option value="primary">Primary</option>
+                                                                <option value="secondary">Secondary</option>
+                                                                <option value="tertiary">Tertiary</option>             
+                                                              </select>
+                                            </div>
+                                            
+                                        </div>  
+                                    <div class="row">
+                                        <div class="col">
+                                                <label for="school">From</label>  
+                                            <input type="text" name="from-year" class="form-control" placeholder="Year Started" value="{{$edu->from}}" required>   
+                                        </div>
+                                        <div class="col">
+                                                <label for="school">To</label>  
+                                                <input type="text" name="to-year" class="form-control" placeholder="Year Ended" value="{{$edu->to}}" required>  
+                                        </div>    
+                                    </div> 
+                                    <div class="row">
+                                        <div class="col">
+                                                <label for="attainment">Highest Attainment</label>    
+                                                <input type="text" name="attainment" class="form-control" placeholder="Note:if tertiary, indicate your course" value="{{$edu->attainment}}" required>   
+                                        </div>
+                                      
+                                    </div>  
+                                   
+                                           
+                               
+                             
+                                </div>
+                                <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                     <button type="submit" class="btn btn-primary">Save changes</button>
                                     </form>
                                     </div>
-                <div class="modal-footer">
+               
                 
                 </div>
                 </div>
-            </div>
+            
             </div>
             @endif
             @endforeach
@@ -192,12 +213,12 @@
                         <th scope="row">{{$exp->workplace}}</th>
                         <td>{{$exp->position}}</td>
                         <td>{{$exp->from}} - {{$exp->to}}</td>
-                    <form action="/remove/work" method="post" enctype="multipart/form-data">
+                    <form action="/remove/exp" method="post" enctype="multipart/form-data">
                             {{ csrf_field() }}
                             <td> <div class="row">
                                 <div class="col-lg-2">
                                     <input type="text" name="exp_id" value="{{$exp->id}}" hidden>
-                                    <button type="button" class="btn btn-md" style="background-color:#7791c9; color:white">Edit</button>
+                                    <button type="button" class="btn btn-md" style="background-color:#7791c9; color:white" data-toggle="modal" data-target="#workmodaledit{{$exp->id}}">Edit</button>
                                 </div>
                                 <div class="col-lg-2">
                                     <button type="submit" class="btn btn-md" style="background-color:#ed7777; color:white">Remove</button>
@@ -308,7 +329,7 @@
                                     <label for="">Position</label>
                                     <input type="text" name="pos" class="form-control" id="schoolid" placeholder="Work Description" value={{$exp->position}}   required>
                                     <label for="">Work Descriptions</label>
-                                    <input type="text" name="workdesc" class="form-control" id="schoolid" placeholder="Work Description" value={{$exp->desc_1}}   required>
+                                    <input type="text" name="workdesc" class="form-control" id="schoolid" placeholder="Work Description" value="{{$exp->desc_1}}"   required>
                            
                             <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

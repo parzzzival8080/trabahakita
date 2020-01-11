@@ -31,7 +31,7 @@ class EducationController extends Controller
 
         $education = Education::all();
         $skills = Skills::all();
-        return redirect()->to('/employee/profile')->with(['profile' => $profiles, 'education' => $education, 'skills' => $skills, 'success' => 'Successfully Added']);
+        return redirect()->to('/employee/education')->with(['profile' => $profiles, 'education' => $education, 'skills' => $skills, 'success' => 'Successfully Added']);
     }
 
     public function updateme(Request $request)

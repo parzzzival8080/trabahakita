@@ -182,4 +182,12 @@ class NotificationController extends Controller
     {
         //
     }
+
+    public function del()
+    {
+        $notif = Notification::find(request('notif_id'));
+        $notif->delete();
+
+        return redirect()->to('/Notification');
+    }
 }

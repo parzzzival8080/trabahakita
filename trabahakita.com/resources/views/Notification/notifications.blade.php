@@ -114,7 +114,12 @@
                                                 {{$notif->message}}
                                             </div>
                                             <div class="card-footer">
-                                                    <button class="btn btn-danger">Delete</button> 
+                                                <form action="/delete/notification" method="post" enctype="multipart/form-data">
+                                                  {{ csrf_field() }}
+                                                <input type="text" name="notif_id" value="{{$notif->id}}">
+                                                  <button class="btn btn-danger">Delete</button> 
+                                                  </form>
+                                                    
                                             </div>
                                         </div>
                                         </div>
@@ -235,7 +240,11 @@
                                                     {{$notif->message}}
                                                 </div>
                                                 <div class="card-footer">
+                                                  <form action="/delete/notification" method="post" enctype="multipart/form-data">
+                                                    {{ csrf_field() }}
+                                                  <input type="text" name="notif_id" value="{{$notif->id}}">
                                                         <button class="btn btn-danger">Delete</button> 
+                                                  </form>
                                                 </div>
                                             </div>
                                             </div>

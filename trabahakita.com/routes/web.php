@@ -73,9 +73,9 @@ Route::resource('/company/profile', 'CompanyController');
 Route::post('/post/comment', 'CommentsController@store');
 
 // profile remove
-Route::post('/education/remove', 'EducationController@del');
-Route::post('/skill/remove', 'SkillsController@del');
-Route::post('/work/remove', 'ExperienceController@del');
+Route::post('/remove/school', 'EducationController@del');
+Route::post('/remove/skill', 'SkillsController@del');
+Route::post('/remove/exp', 'ExperienceController@del');
 
 // Educational Attainment and Skills and experience
 Route::post('/profile/education', 'EducationController@store');

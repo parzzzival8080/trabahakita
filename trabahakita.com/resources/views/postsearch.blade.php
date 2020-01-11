@@ -31,6 +31,7 @@
         @if(count($details) > 0)
         <div class="row">
         @foreach($details as $posts)
+        @if($posts->post_status == '0')
         @if($filter == 'Field')
         <div class="col-md-6 mt-5">
                <div class="card">
@@ -179,7 +180,8 @@
                    </div>
                    <!-- Card Dark -->
                  </div>
-             @endif                           
+             @endif    
+             @endif                       
         @endforeach
 </div>
         @else
