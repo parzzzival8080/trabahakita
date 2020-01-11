@@ -136,6 +136,7 @@
                                         <div class="col">
                                                 <form action="/profile/education/update" method="POST" enctype="multipart/form-data">
                                                     {{ csrf_field() }}
+                                                <input type="text" value="{{$edu->id}}" name="id" hidden>
                                             <label for="school">Name of your School</label>  
                                                 <input type="text" name="school" class="form-control" placeholder="School" value="{{$edu->school}}" required>  
                                         </div>    
