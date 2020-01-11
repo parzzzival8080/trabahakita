@@ -240,9 +240,9 @@
                                                     {{$notif->message}}
                                                 </div>
                                                 <div class="card-footer">
-                                                  <form action="/delete/notification" method="post" enctype="multipart/form-data">
+                                                  <form action="/remove/notification" method="post" enctype="multipart/form-data">
                                                     {{ csrf_field() }}
-                                                  <input type="text" name="notif_id" value="{{$notif->id}}">
+                                                  <input type="text" name="notif_id" value="{{$notif->id}}" hidden>
                                                         <button class="btn btn-danger">Delete</button> 
                                                   </form>
                                                 </div>

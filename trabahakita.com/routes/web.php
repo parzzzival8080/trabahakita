@@ -76,6 +76,7 @@ Route::post('/post/comment', 'CommentsController@store');
 Route::post('/remove/school', 'EducationController@del');
 Route::post('/remove/skill', 'SkillsController@del');
 Route::post('/remove/exp', 'ExperienceController@del');
+Route::post('/remove/notification', 'NotificationController@del');
 
 // Educational Attainment and Skills and experience
 Route::post('/profile/education', 'EducationController@store');
