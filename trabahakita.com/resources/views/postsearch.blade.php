@@ -33,6 +33,7 @@
         @foreach($details as $posts)
         @if($posts->post_status == '0')
         @if($filter == 'Field')
+        @if($profiles->area == $posts->job_field)
         <div class="col-md-6 mt-5">
                <div class="card">
                    <!-- Card image -->
@@ -81,6 +82,7 @@
                  </div>
                  <!-- Card Dark -->
                </div>
+               @endif
                @elseif($filter == 'Salary')
                <div class="col-md-6 mt-5">
                 <div class="card">
