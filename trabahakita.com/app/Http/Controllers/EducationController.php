@@ -42,7 +42,7 @@ class EducationController extends Controller
         $education->user_id = auth()->user()->id;
         $education->school = request('school');
         $education->from = request('from-year');
-        $education->school = request('level');
+        $education->level = request('level');
         $education->to = request('to-year');
         $education->attainment = request('attainment');
         $education->save();
