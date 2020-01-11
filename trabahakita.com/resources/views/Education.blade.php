@@ -69,7 +69,7 @@
                                                 <form action="/profile/education" method="POST" enctype="multipart/form-data">
                                                     {{ csrf_field() }}
                                             <label for="school">Name of your School</label>  
-                                            <input type="text" name="school" class="form-control" placeholder="School">  
+                                            <input type="text" name="school" class="form-control" placeholder="School" required>  
                                         </div>    
                                     </div>
                                     <div class="row">
@@ -137,7 +137,7 @@
                                                 <form action="/profile/education/update" method="POST" enctype="multipart/form-data">
                                                     {{ csrf_field() }}
                                             <label for="school">Name of your School</label>  
-                                                <input type="text" name="school" class="form-control" placeholder="School" value="{{$edu->school}}">  
+                                                <input type="text" name="school" class="form-control" placeholder="School" value="{{$edu->school}}" required>  
                                         </div>    
                                     </div>
                                     <div class="row">
@@ -307,7 +307,7 @@
                         </div>
                        
                             <div class="modal-body">
-                                    <form action="/profile/experience" method="post" enctype="multipart/form-data" >
+                                    <form action="/profile/experience/update" method="post" enctype="multipart/form-data" >
                                         {{ csrf_field() }}
                                     <div class="form-group row">
                                         <div class="container">

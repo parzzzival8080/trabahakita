@@ -4,6 +4,8 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAwG2FvuLOl_rGjp4LHR6XSeLIG_ZjjJ0M&libraries=places" type="text/javascript"></script>
     <h4><strong>Personal Information</strong></h4>
 </div>
+
+
     @if(auth()->user()->type == 'employee')
         <div class="container my-5">
                 <form method="post" action="/employee/profile/update" enctype="multipart/form-data">
@@ -43,8 +45,9 @@
                                  <div class="row ">
                                          <div class="col">
                                                  <label for="firstname">First Name*</label>
-                                                  <input type="text" name="first_name" class="form-control" placeholder="First name" value="{{$profile->first_name}}" required>
+                                                  <input type="text" name="first_name" class="form-control"  placeholder="First name" value="{{$profile->first_name}}" required>
                                              </div>
+
                                              <div class="col">
                                                   <label for="middlename">Middle Name*</label>
                                                   <input type="text" name="middle_name" class="form-control" placeholder="Middle Name" value="{{$profile->middle_name}}" required>
@@ -223,7 +226,14 @@
                         </form>  
                 </div>
             
+                
     @endif
+
+    <script>
+   
+    </script>
+
+   
 
 
    

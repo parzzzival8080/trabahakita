@@ -36,15 +36,7 @@ class EducationController extends Controller
 
     public function updateme(Request $request)
     {
-        $this->validate(
-            request(),
-            [
-                'school' => 'required',
-                'degree' => 'required',
-                'from-year' => 'required',
-                'to-year' => 'required',
-            ]
-        );
+
 
         $education = Education::find(request('id'));
         $education->user_id = auth()->user()->id;

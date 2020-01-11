@@ -86,7 +86,7 @@ Route::post('/profile/skill', 'SkillsController@store');
 Route::post('/profile/skill/update', 'SkillsController@update');
 
 Route::post('/profile/experience', 'ExperienceController@store');
-Route::post('/profile/experience/update', 'ExperienceController@store');
+Route::post('/profile/experience/update', 'ExperienceController@update');
 
 //appointment
 Route::Post('/setAppointment', 'AppointmentController@store');
