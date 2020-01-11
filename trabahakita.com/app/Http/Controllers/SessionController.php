@@ -52,7 +52,7 @@ class SessionController extends Controller
             return redirect()->to('/admin/home');
         } elseif (Auth::user()->type == 'employee') {
             if ($profile->status_update == '1') {
-                return redirect()->to('/seeker/map');
+                return redirect()->to('/seeker/maps');
             } elseif ($profile->status_update == '0' || $profile->status_update == '') {
                 return redirect()->to('/employee/profile');
             }
