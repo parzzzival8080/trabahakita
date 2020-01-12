@@ -5,7 +5,7 @@
 
 </div>
 
-<img class="card-img-top" src="{{ Storage::url($profile->image)  }}" alt="Card image cap" >
+<img class="card-img-top" style="height:300px" src="{{$profile->image}}" alt="Card image cap" >
 <div class="container my-3">
       
                 <H6 class="text-muted"> Address:{{$profile->adress}}</H6>
