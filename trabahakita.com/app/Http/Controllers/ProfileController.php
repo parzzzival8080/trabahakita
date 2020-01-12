@@ -61,43 +61,47 @@ class ProfileController extends Controller
 
     public function store(Request $request)
     {
-        $profile = Profile::all();
-        if (auth()->user()->id == $profile->id) {
-            return 'di na pwede';
+        if (auth()->check()) {
+            $profile = Profile::all();
+            if (auth()->user()->id == $profile->id) {
+                return 'di na pwede';
+            } else {
+                $this->validate(
+                    request(),
+                    [
+                        'last_name' => 'required',
+                        'first_name' => 'required',
+
+                        'address' => 'required',
+                        'title' => 'required',
+                        'address' => 'required',
+                        'field' => 'required',
+                        'desc' => 'required',
+                    ]
+                );
+
+
+                $profile = new Profile;
+                $profile->id = auth()->user()->id;
+                $profile->last_name = request('last_name');
+                $profile->first_name = request('first_name');
+                $profile->middle_name = request('middle_name');
+                $profile->ext_name = request('ext_name');
+                $profile->title = request('title');
+                $profile->adress = request('adress');
+                $profile->lat = request('lat');
+                $profile->lng = request('lng');
+                $profile->field = request('field');
+                $profile->description = request('desc');
+                $profile->company_rep = request('representative');
+                $profile->number = request('number');
+                $profile->number = request('email');
+                $profile->status_update = '1';
+                $profile->save();
+                return redirect()->to('/employee/dashboard');
+            }
         } else {
-            $this->validate(
-                request(),
-                [
-                    'last_name' => 'required',
-                    'first_name' => 'required',
-
-                    'address' => 'required',
-                    'title' => 'required',
-                    'address' => 'required',
-                    'field' => 'required',
-                    'desc' => 'required',
-                ]
-            );
-
-
-            $profile = new Profile;
-            $profile->id = auth()->user()->id;
-            $profile->last_name = request('last_name');
-            $profile->first_name = request('first_name');
-            $profile->middle_name = request('middle_name');
-            $profile->ext_name = request('ext_name');
-            $profile->title = request('title');
-            $profile->adress = request('adress');
-            $profile->lat = request('lat');
-            $profile->lng = request('lng');
-            $profile->field = request('field');
-            $profile->description = request('desc');
-            $profile->company_rep = request('representative');
-            $profile->number = request('number');
-            $profile->number = request('email');
-            $profile->status_update = '1';
-            $profile->save();
-            return redirect()->to('/employee/dashboard');
+            return redirect()->to('/login');
         }
     }
 
@@ -105,146 +109,154 @@ class ProfileController extends Controller
     public function showme()
     {
 
-        $profile = Profile::find(auth()->user()->id);
-        $education = Education::all();
-        $skills = Skills::all();
-        $experience = Experience::all();
+        if (auth()->check()) {
+            $profile = Profile::find(auth()->user()->id);
+            $education = Education::all();
+            $skills = Skills::all();
+            $experience = Experience::all();
 
-        if (auth()->user()->type == 'employee') {
-            $notifcount = Notification::where(['user_id' => auth()->user()->id, 'type' => 'employee', 'message_status' => '0']);
-            return view('profile')->with(['profile' => $profile, 'education' => $education, 'skills' => $skills, 'experience' => $experience, 'notifcount' => $notifcount]);
-        } elseif (auth()->user()->type == 'company') {
-            $notifcount = Notification::where(['company_id' => auth()->user()->id, 'type' => 'company', 'message_status' => '0']);
-            return view('profile')->with(['profile' => $profile, 'education' => $education, 'skills' => $skills, 'experience' => $experience, 'notifcount' => $notifcount]);
+            if (auth()->user()->type == 'employee') {
+                $notifcount = Notification::where(['user_id' => auth()->user()->id, 'type' => 'employee', 'message_status' => '0']);
+                return view('profile')->with(['profile' => $profile, 'education' => $education, 'skills' => $skills, 'experience' => $experience, 'notifcount' => $notifcount]);
+            } elseif (auth()->user()->type == 'company') {
+                $notifcount = Notification::where(['company_id' => auth()->user()->id, 'type' => 'company', 'message_status' => '0']);
+                return view('profile')->with(['profile' => $profile, 'education' => $education, 'skills' => $skills, 'experience' => $experience, 'notifcount' => $notifcount]);
+            }
+        } else {
+            return redirect()->to('/login');
         }
     }
 
     public function update(Request $request)
     {
-        if (auth()->user()->type == 'employee') {
+        if (auth()->check()) {
+            if (auth()->user()->type == 'employee') {
 
-            $this->validate($request, [
-                'image_name' => 'mimes:jpeg,bmp,jpg,png|between:1, 6000',
-            ]);
-
-
-
+                $this->validate($request, [
+                    'image_name' => 'mimes:jpeg,bmp,jpg,png|between:1, 6000',
+                ]);
 
 
-            if (request('image_name') == '') {
-                // $image = $request->file(auth()->user()->image);
-                // $name = $request->file(auth()->user()->image)->getClientOriginalName();
-                // $image_name = $request->file(auth()->user()->image)->getRealPath();;
-                // Cloudder::upload($image_name, null);
-                $image_url = auth()->user()->image;
-            } else {
+
+
+
+                if (request('image_name') == '') {
+                    // $image = $request->file(auth()->user()->image);
+                    // $name = $request->file(auth()->user()->image)->getClientOriginalName();
+                    // $image_name = $request->file(auth()->user()->image)->getRealPath();;
+                    // Cloudder::upload($image_name, null);
+                    $image_url = auth()->user()->image;
+                } else {
+                    $image = $request->file('image_name');
+                    $name = $request->file('image_name')->getClientOriginalName();
+                    $image_name = $request->file('image_name')->getRealPath();;
+                    Cloudder::upload($image_name, null);
+                    list($width, $height) = getimagesize($image_name);
+
+                    $image_url = Cloudder::getResult()['secure_url'];
+                    $this->saveImages($request, $image_url);
+                }
+
+                //Save images
+
+
+                $profile = Profile::find(auth()->user()->id);
+                $profile->id = auth()->user()->id;
+                $profile->last_name = request('last_name');
+                $profile->first_name = request('first_name');
+                $profile->middle_name = request('middle_name');
+                $profile->adress = request('address');
+                $profile->lat = request('lat');
+                $profile->lng = request('lng');
+
+                $profile->number = request('number');
+                $profile->email = request('email');
+                $profile->area = request('field');
+                $profile->image = $image_url;
+                $profile->description = request('desc');
+                $profile->expected_salary = request('salary');
+                $profile->years_exp = request('exp');
+                $profile->status_update = '1';
+                $profile->save();
+                $profiles = Profile::find(auth()->user()->id);
+
+                $profiles = Profile::find(auth()->user()->id);
+                $user = User::find(auth()->user()->id);
+                $user->name = $profiles->first_name . ' ' . $profiles->last_name;
+                $user->image = $image_url;
+                $user->save();
+
+                $comment = Comments::all();
+                foreach ($comment as $com) {
+                    if ($com->user_id == auth()->user()->id) {
+                        $com = Comments::where('user_id', auth()->user()->id)->update(['name' => request('first_name')]);
+                    }
+                }
+                if ($profiles->status_edu == '0') {
+                    return redirect()->to('/employee/education')->with('profile', $profiles);
+                } elseif ($profiles->status_edu == '1' && $profiles->status_skills == '0') {
+                    return redirect()->to('/employee/education')->with('profile', $profiles);
+                } else
+                //    if($profiles->status_edu == '1' && $profiles->status_skills == '1')
+                {
+                    return redirect()->to('/employee/profile')->with(['profile' => $profiles, 'success' => 'Profile Updated']);
+                }
+            } elseif (auth()->user()->type == 'company') {
+
+                $this->validate($request, [
+                    'image_name' => 'mimes:jpeg,bmp,jpg,png|between:1, 6000',
+                ]);
+
                 $image = $request->file('image_name');
+
                 $name = $request->file('image_name')->getClientOriginalName();
+
                 $image_name = $request->file('image_name')->getRealPath();;
+
                 Cloudder::upload($image_name, null);
+
                 list($width, $height) = getimagesize($image_name);
 
                 $image_url = Cloudder::getResult()['secure_url'];
+
+
+
+                //Save images
                 $this->saveImages($request, $image_url);
-            }
 
-            //Save images
+                $profile = Profile::find(auth()->user()->id);
+                $profile->id = auth()->user()->id;
+                $profile->adress = request('address');
+                $profile->company_rep = request('representative');
+                $profile->company_name = request('company_name');
+                $profile->number = request('number');
+                $profile->email = request('email');
+                $profile->image = $image_url;
+                $profile->description = request('desc');
+                $profile->lat = request('lat');
+                $profile->lng = request('lng');
+                $profile->status_update = '1';
 
+                $profile->save();
 
-            $profile = Profile::find(auth()->user()->id);
-            $profile->id = auth()->user()->id;
-            $profile->last_name = request('last_name');
-            $profile->first_name = request('first_name');
-            $profile->middle_name = request('middle_name');
-            $profile->adress = request('address');
-            $profile->lat = request('lat');
-            $profile->lng = request('lng');
+                $profiles = Profile::find(auth()->user()->id);
+                $user = User::find(auth()->user()->id);
+                $user->name = $profiles->company_name;
+                $user->image = $image_url;
+                $user->save();
 
-            $profile->number = request('number');
-            $profile->email = request('email');
-            $profile->area = request('field');
-            $profile->image = $image_url;
-            $profile->description = request('desc');
-            $profile->expected_salary = request('salary');
-            $profile->years_exp = request('exp');
-            $profile->status_update = '1';
-            $profile->save();
-            $profiles = Profile::find(auth()->user()->id);
-
-            $profiles = Profile::find(auth()->user()->id);
-            $user = User::find(auth()->user()->id);
-            $user->name = $profiles->first_name . ' ' . $profiles->last_name;
-            $user->image = $image_url;
-            $user->save();
-
-            $comment = Comments::all();
-            foreach ($comment as $com) {
-                if ($com->user_id == auth()->user()->id) {
-                    $com = Comments::where('user_id', auth()->user()->id)->update(['name' => request('first_name')]);
+                // $posts = Post::where('company_id', auth()->user()->id)->get();
+                $post = Post::all();
+                foreach ($post as $posts) {
+                    if ($posts->company_id == auth()->user()->id) {
+                        $posts = Post::where('company_id', auth()->user()->id)->update(['company_name' => request('company_name')]);
+                    }
                 }
-            }
-            if ($profiles->status_edu == '0') {
-                return redirect()->to('/employee/education')->with('profile', $profiles);
-            } elseif ($profiles->status_edu == '1' && $profiles->status_skills == '0') {
-                return redirect()->to('/employee/education')->with('profile', $profiles);
-            } else
-            //    if($profiles->status_edu == '1' && $profiles->status_skills == '1')
-            {
+                //
                 return redirect()->to('/employee/profile')->with(['profile' => $profiles, 'success' => 'Profile Updated']);
             }
-        } elseif (auth()->user()->type == 'company') {
-
-            $this->validate($request, [
-                'image_name' => 'mimes:jpeg,bmp,jpg,png|between:1, 6000',
-            ]);
-
-            $image = $request->file('image_name');
-
-            $name = $request->file('image_name')->getClientOriginalName();
-
-            $image_name = $request->file('image_name')->getRealPath();;
-
-            Cloudder::upload($image_name, null);
-
-            list($width, $height) = getimagesize($image_name);
-
-            $image_url = Cloudder::getResult()['secure_url'];
-
-
-
-            //Save images
-            $this->saveImages($request, $image_url);
-
-            $profile = Profile::find(auth()->user()->id);
-            $profile->id = auth()->user()->id;
-            $profile->adress = request('address');
-            $profile->company_rep = request('representative');
-            $profile->company_name = request('company_name');
-            $profile->number = request('number');
-            $profile->email = request('email');
-            $profile->image = $image_url;
-            $profile->description = request('desc');
-            $profile->lat = request('lat');
-            $profile->lng = request('lng');
-            $profile->status_update = '1';
-
-            $profile->save();
-
-            $profiles = Profile::find(auth()->user()->id);
-            $user = User::find(auth()->user()->id);
-            $user->name = $profiles->company_name;
-            $user->image = $image_url;
-            $user->save();
-
-            // $posts = Post::where('company_id', auth()->user()->id)->get();
-            $post = Post::all();
-            foreach ($post as $posts) {
-                if ($posts->company_id == auth()->user()->id) {
-                    $posts = Post::where('company_id', auth()->user()->id)->update(['company_name' => request('company_name')]);
-                }
-            }
-            //
-            return redirect()->to('/employee/profile')->with(['profile' => $profiles, 'success' => 'Profile Updated']);
+        } else {
+            return redirect()->to('/login');
         }
     }
 
@@ -261,15 +273,19 @@ class ProfileController extends Controller
 
     public function show($id)
     {
-        if (auth()->user()->type == 'employee') {
+        if (auth()->check()) {
+            if (auth()->user()->type == 'employee') {
 
-            return redirect()->to('/employee/profile');
+                return redirect()->to('/employee/profile');
+            } else {
+                $profile = Profile::find($id);
+                $skills = skills::all();
+                $education = education::all();
+                $notifcount = Notification::where(['user_id' => auth()->user()->id, 'type' => 'employee']);
+                return view('employee')->with(['profile' => $profile, 'notifcount' => $notifcount, 'skills' => $skills, 'education' => $education]);
+            }
         } else {
-            $profile = Profile::find($id);
-            $skills = skills::all();
-            $education = education::all();
-            $notifcount = Notification::where(['user_id' => auth()->user()->id, 'type' => 'employee']);
-            return view('employee')->with(['profile' => $profile, 'notifcount' => $notifcount, 'skills' => $skills, 'education' => $education]);
+            return redirect()->to('/login');
         }
     }
     // public function download()

@@ -14,48 +14,59 @@ class EducationController extends Controller
     public function store(Request $request)
     {
 
+        if (auth()->check()) {
+            $education = new Education;
+            $education->user_id = auth()->user()->id;
+            $education->school = request('school');
+            $education->from = request('from-year');
+            $education->level = request('level');
+            $education->to = request('to-year');
+            $education->attainment = request('attainment');
+            $education->save();
 
-        $education = new Education;
-        $education->user_id = auth()->user()->id;
-        $education->school = request('school');
-        $education->from = request('from-year');
-        $education->level = request('level');
-        $education->to = request('to-year');
-        $education->attainment = request('attainment');
-        $education->save();
-
-        $profiles = Profile::find(auth()->user()->id);
-        $profiles->status_edu = '1';
-        $profiles->save();
+            $profiles = Profile::find(auth()->user()->id);
+            $profiles->status_edu = '1';
+            $profiles->save();
 
 
-        $education = Education::all();
-        $skills = Skills::all();
-        return redirect()->to('/employee/education')->with(['profile' => $profiles, 'education' => $education, 'skills' => $skills, 'success' => 'Successfully Added']);
+            $education = Education::all();
+            $skills = Skills::all();
+            return redirect()->to('/employee/education')->with(['profile' => $profiles, 'education' => $education, 'skills' => $skills, 'success' => 'Successfully Added']);
+        } else {
+            return redirect()->to('/login');
+        }
     }
 
     public function updateme(Request $request)
     {
-        $education = Education::find(request('id'));
-        $education->user_id = auth()->user()->id;
-        $education->school = request('school');
-        $education->from = request('from-year');
-        $education->level = request('level');
-        $education->to = request('to-year');
-        $education->attainment = request('attainment');
-        $education->save();
+        if (auth()->check()) {
+            $education = Education::find(request('id'));
+            $education->user_id = auth()->user()->id;
+            $education->school = request('school');
+            $education->from = request('from-year');
+            $education->level = request('level');
+            $education->to = request('to-year');
+            $education->attainment = request('attainment');
+            $education->save();
 
-        $profiles = Profile::find(auth()->user()->id);
-        $education = Education::all();
-        $skills = Skills::all();
-        $category = Category::all();
-        return redirect()->to('/employee/education')->with(['profile' => $profiles, 'education' => $education, 'skills' => $skills, 'category' => $category, 'success' => 'Successfully Updated']);
+            $profiles = Profile::find(auth()->user()->id);
+            $education = Education::all();
+            $skills = Skills::all();
+            $category = Category::all();
+            return redirect()->to('/employee/education')->with(['profile' => $profiles, 'education' => $education, 'skills' => $skills, 'category' => $category, 'success' => 'Successfully Updated']);
+        } else {
+            return redirect()->to('/login');
+        }
     }
 
     public function del()
     {
-        $education = Education::find(request('edu_id'));
-        $education->delete();
-        return redirect()->to('/employee/education')->with('success', 'successfully removed');
+        if (auth()->check()) {
+            $education = Education::find(request('edu_id'));
+            $education->delete();
+            return redirect()->to('/employee/education')->with('success', 'successfully removed');
+        } else {
+            return redirect()->to('/login');
+        }
     }
 }

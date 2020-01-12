@@ -36,16 +36,20 @@ class ExperienceController extends Controller
     public function store(Request $request)
     {
         //
-        $experience = new Experience;
-        $experience->user_id = auth()->user()->id;
-        $experience->workplace = request('office');
-        $experience->from = request('from-year');
-        $experience->to = request('to-year');
-        $experience->position = request('position');
-        $experience->desc_1 = request('desc');
-        $experience->save();
+        if (auth()->check()) {
+            $experience = new Experience;
+            $experience->user_id = auth()->user()->id;
+            $experience->workplace = request('office');
+            $experience->from = request('from-year');
+            $experience->to = request('to-year');
+            $experience->position = request('position');
+            $experience->desc_1 = request('desc');
+            $experience->save();
 
-        return redirect()->to('/employee/education')->with('message', 'Successfully Saved!');
+            return redirect()->to('/employee/education')->with('message', 'Successfully Saved!');
+        } else {
+            return redirect()->to('/login');
+        }
     }
 
     /**
@@ -80,17 +84,20 @@ class ExperienceController extends Controller
     public function update(Request $request, Experience $experience)
     {
         //
+        if (auth()->check()) {
+            $experience = Experience::find(request('id'));
+            $experience->user_id = auth()->user()->id;
+            $experience->workplace = request('office');
 
-        $experience = Experience::find(request('id'));
-        $experience->user_id = auth()->user()->id;
-        $experience->workplace = request('office');
+            $experience->from = request('from');
+            $experience->to = request('to');
+            $experience->desc_1 = request('desc');
+            $experience->save();
 
-        $experience->from = request('from');
-        $experience->to = request('to');
-        $experience->desc_1 = request('desc');
-        $experience->save();
-
-        return redirect()->to('/employee/education')->with('message', 'Successfully Updated!');
+            return redirect()->to('/employee/education')->with('message', 'Successfully Updated!');
+        } else {
+            return redirect()->to('/login');
+        }
     }
 
     /**
@@ -106,9 +113,13 @@ class ExperienceController extends Controller
 
     public function del()
     {
-        $exp = Experience::find(request('exp_id'));
-        $exp->delete();
+        if (auth()->check()) {
+            $exp = Experience::find(request('exp_id'));
+            $exp->delete();
 
-        return redirect()->to('/employee/education')->with('message', 'Successfully Removed!');
+            return redirect()->to('/employee/education')->with('message', 'Successfully Removed!');
+        } else {
+            return redirect()->to('/login');
+        }
     }
 }

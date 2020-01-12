@@ -37,40 +37,41 @@ class CommentsController extends Controller
      */
     public function store(Request $request)
     {
-        
-        $comment = new Comments;
-        $comment->post_id = request('post_id');
-        $comment->company_id = request('company_id');
-        $comment->user_id = auth()->user()->id;
-        $comment->name = auth()->user()->name;
-        $comment->message = request('message');
-        $comment->contact_fb = request('fb');
-        $comment->contact_twitter = request('viber');
-        $comment->contact_email = request('email');
-        $comment->save();
 
-        $notification = New Notification;
-        $notification->company_id = $comment->company_id;
-        $notification->app_id = $comment->post_id;
-        $notification->user_id = auth()->user()->id;
-        $notification->name = auth()->user()->name;
-        $notification->subject = auth()->user()->name.' sent you an application';
-        $notification->message_type = '2';
-        $notification->type = 'company';
-        $notification->message = $comment->message;
-        $notification->from =  'employee';
-        $notification->to = request('company_name');
-        $notification->save();
+        if (auth()->check()) {
+            $comment = new Comments;
+            $comment->post_id = request('post_id');
+            $comment->company_id = request('company_id');
+            $comment->user_id = auth()->user()->id;
+            $comment->name = auth()->user()->name;
+            $comment->message = request('message');
+            $comment->contact_fb = request('fb');
+            $comment->contact_twitter = request('viber');
+            $comment->contact_email = request('email');
+            $comment->save();
 
-        $post = Post::find(request('post_id'));
+            $notification = new Notification;
+            $notification->company_id = $comment->company_id;
+            $notification->app_id = $comment->post_id;
+            $notification->user_id = auth()->user()->id;
+            $notification->name = auth()->user()->name;
+            $notification->subject = auth()->user()->name . ' sent you an application';
+            $notification->message_type = '2';
+            $notification->type = 'company';
+            $notification->message = $comment->message;
+            $notification->from =  'employee';
+            $notification->to = request('company_name');
+            $notification->save();
 
-        $comments = Comments::where(['user_id' => auth()->user()->id, 'post_id' => request('post_id')])->get();
-       
-        $notification = Notification::where(['company_id' => auth()->user()->id, 'type' => 'company', 'message_status' => '0'])->get();
-        return view('posts.show')->with(['post' => $post, 'comments' => $comments, 'notifcount' => $notification]);
+            $post = Post::find(request('post_id'));
 
-        
-        
+            $comments = Comments::where(['user_id' => auth()->user()->id, 'post_id' => request('post_id')])->get();
+
+            $notification = Notification::where(['company_id' => auth()->user()->id, 'type' => 'company', 'message_status' => '0'])->get();
+            return view('posts.show')->with(['post' => $post, 'comments' => $comments, 'notifcount' => $notification]);
+        } else {
+            return redirect()->to('/login');
+        }
     }
 
     /**

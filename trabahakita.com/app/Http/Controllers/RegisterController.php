@@ -54,9 +54,14 @@ class RegisterController extends Controller
                 'lng' => 'nullable'
             ]
         );
-
-
-
+        $check = User::all();
+        foreach ($check as $email) {
+            if ($request['email'] == $email->email) {
+                return back()->withErrors([
+                    'error' => 'Email already taken'
+                ]);
+            }
+        }
         $user = User::create(request(['email', 'password', 'type', 'skill', '']));
 
 

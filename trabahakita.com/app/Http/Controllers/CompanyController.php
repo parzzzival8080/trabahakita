@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Post;
 use App\Profile;
 use App\Notification;
+
 class CompanyController extends Controller
 {
     /**
@@ -16,9 +17,8 @@ class CompanyController extends Controller
     public function index()
     {
         //
-        if (auth()->check())
-        {
-          return redirect()->to('/post');
+        if (auth()->check()) {
+            return redirect()->to('/post');
         }
     }
 
@@ -52,14 +52,17 @@ class CompanyController extends Controller
     public function show($id)
     {
         //
-        $profile = Profile::find($id);
-        $profiles = Profile::find(auth()->user()->id);
-        
-        $post = Post::all();
-        // return view('company')->with('post', $post);
-        $notifcount = Notification::where(['user_id' => auth()->user()->id, 'type' => 'employee', 'message_status' => '0']);
-      return view('company')->with(['profile' => $profile, 'post' => $post, 'notifcount' => $notifcount, 'profiles' => $profiles]);
-   
+        if (auth()->check()) {
+            $profile = Profile::find($id);
+            $profiles = Profile::find(auth()->user()->id);
+
+            $post = Post::all();
+            // return view('company')->with('post', $post);
+            $notifcount = Notification::where(['user_id' => auth()->user()->id, 'type' => 'employee', 'message_status' => '0']);
+            return view('company')->with(['profile' => $profile, 'post' => $post, 'notifcount' => $notifcount, 'profiles' => $profiles]);
+        } else {
+            return redirect()->to('/login');
+        }
     }
 
     /**
@@ -95,6 +98,4 @@ class CompanyController extends Controller
     {
         //
     }
-
-   
 }
