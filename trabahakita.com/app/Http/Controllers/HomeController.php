@@ -23,7 +23,7 @@ class HomeController extends Controller
                 if (auth()->user()->type == 'employee') {
                     $notifcount = Notification::where(['user_id' => auth()->user()->id, 'type' => 'employee', 'message_status' => '0']);
                     $post = Post::all();
-                    $post_field_1 = Post::where(['job_field' => ' Accounting & Consulting'])->get();
+                    $post_field_1 = Post::where(['job_field' => 'Accounting & Consulting'])->get();
                     $post_field_2 = Post::where(['job_field' => 'Admin Support'])->get();
                     $post_field_3 = Post::where(['job_field' => 'Data Science & Analytics'])->get();
                     $post_field_4 = Post::where(['job_field' => 'Design & Creative'])->get();
@@ -56,7 +56,7 @@ class HomeController extends Controller
             }
         } else {
 
-            $post_field_1 = Post::where(['job_field' => ' Accounting & Consulting'])->get();
+            $post_field_1 = Post::where(['job_field' => 'Accounting & Consulting'])->get();
             $post_field_2 = Post::where(['job_field' => 'Admin Support'])->get();
             $post_field_3 = Post::where(['job_field' => 'Data Science & Analytics'])->get();
             $post_field_4 = Post::where(['job_field' => 'Design & Creative'])->get();

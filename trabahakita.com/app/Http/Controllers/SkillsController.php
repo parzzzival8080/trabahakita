@@ -51,12 +51,12 @@ class SkillsController extends Controller
         $profiles = Profile::find(auth()->user()->id);
         $education = Education::all();
         $skills = Skills::all();
-        return redirect()->to('/employee/profile')->with(['profile' => $profiles, 'education' => $education, 'skills' => $skills]);
+        return redirect()->to('/employee/education')->with(['profile' => $profiles, 'education' => $education, 'skills' => $skills]);
     }
 
     public function del()
     {
-        $education = Skills::find(request('exp_id'));
+        $education = Skills::find(request('skill_id'));
         $education->delete();
         return redirect()->to('/employee/education')->with('success', 'successfully removed');
     }

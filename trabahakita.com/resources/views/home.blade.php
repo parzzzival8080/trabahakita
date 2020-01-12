@@ -242,9 +242,6 @@
             
                
 @elseif(auth()->user()->type == 'company')
-    
-
-
     <div class="row mt-5" style="margin-top:10px">
             <div class="col-3">
               <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
@@ -582,7 +579,7 @@
 @else 
 
 
-<div class="container" style="margin-top:30px">
+<div class="container my-5" style="margin-top:30px">
                 <div class="container">
                         <h1 style="margin-top:30px">Bulletin Board</h1>
                         <div class="row" style="margin-top:10px;">

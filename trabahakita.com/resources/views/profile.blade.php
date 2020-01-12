@@ -81,11 +81,11 @@
                                      </div>
                                      <div class="col">
                                         <label for="extname">Expected Salary*</label>
-                                         <input type="text" class="salary" class="form-control" placeholder="Ex: 20,000" >
+                                     <input type="text" name="salary" class="form-control" placeholder="Ex: 20,000" value="{{$profile->expected_salary}}">
                                      </div>
                                      <div class="col">
                                         <label for="extname">Year's of Experience*</label>
-                                         <input type="text" class="exp" class="form-control" placeholder="Number of years" >
+                                         <input type="text" name="exp" class="form-control" placeholder="Number of years" value="{{$profile->years_exp}}">
                                      </div>
                                  </div>
                                  <div class="row my-3">
