@@ -367,7 +367,7 @@
                                 <th>{{$skill->desc}}</th>
                                 <form action="/remove/skill" method="post" enctype="multipart/form-data">
                                 {{ csrf_field() }}
-                                <input type="text" name="skill_id" value="{{$exp->id}}" hidden>
+                                <input type="text" name="skill_id" value="{{$skill->id}}" hidden>
                                 <td><button class="btn btn-md" style="background-color:#ed7777; color:white">Remove</button></td> 
                                 </form>
                                    

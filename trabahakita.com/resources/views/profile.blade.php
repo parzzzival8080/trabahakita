@@ -66,7 +66,8 @@
                                      <div class="col">
                                              <label for="extname">Field of Work*</label>
                                              <select class="custom-select mr-sm-2" id="field" name="field" placeholder="Choose" required>
-                                                    <option   disabled >Choose</option>
+                                                  
+                                             <option value="{{$profile->area}}">{{$profile->area}}</option>
                                                         <option value="Accounting & Consulting">Accounting & Consulting</option>
                                                         <option value="Admin Support">Admin Support</option>
                                                         <option value="Customer Service">Customer Service</option>
