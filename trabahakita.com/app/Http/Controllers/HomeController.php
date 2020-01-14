@@ -83,6 +83,16 @@ class HomeController extends Controller
 
     public function tips()
     {
-        return view('tips');
+        if (auth()->check()) {
+            if (auth()->user()->type == 'company') {
+                $notifcount = Notification::where(['company_id' => auth()->user()->id, 'type' => 'company', 'message_status' => '0']);
+                return view('tips')->with('notifcount', $notifcount);
+            } else {
+                $notifcount = Notification::where(['user_id' => auth()->user()->id, 'type' => 'employee', 'message_status' => '0']);
+                return view('tips')->with('notifcount', $notifcount);
+            }
+        } else {
+            return view('tips');
+        }
     }
 }

@@ -35,7 +35,7 @@
 <body>
  
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-4">
-        <a class="navbar-brand" href="#"> <span style="color:#e8505b">TRABAHA</span><span data-aos="fade-right" data-aos-delay="500">KITA</span></a>
+        <a class="navbar-brand" href="/"> <span style="color:#e8505b">TRABAHA</span><span data-aos="fade-right" data-aos-delay="500">KITA</span></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -197,10 +197,7 @@
 
         <ul class="list-unstyled">
           <li>
-            <a href="#!">Your First Job Interview!</a>
-          </li>
-          <li>
-            <a href="#!">Playlist of a nervous applicant</a>
+            <a href="/tips">Your First Job Interview!</a>
           </li>
           <li>
             {{-- <a href="#!">Thing</a>
@@ -288,7 +285,7 @@
         <a href="#!">Translation</a>
       </li>
       <li>
-        <a href="#!">Web, Mobile & Software Development</a>
+        <a href="/tips">Web, Mobile & Software Development</a>
       </li>
     </ul>
   </div>
@@ -307,7 +304,7 @@
 
         <ul class="list-unstyled">
           <li>
-            <a href="#!">Your First Job Interview!</a>
+            <a href="/tips">Your First Job Interview!</a>
           </li>
           <li>
             <a href="#!">Playlist of a nervous applicant</a>
@@ -331,7 +328,7 @@
 
   <!-- Copyright -->
   <div class="footer-copyright text-center py-3">© 2019 Copyright:
-    <a href="https://mdbootstrap.com/education/bootstrap/"> Trabahakita.com</a>
+    <a href="/home"> Trabahakita.com</a>
   </div>
   <!-- Copyright -->
 
